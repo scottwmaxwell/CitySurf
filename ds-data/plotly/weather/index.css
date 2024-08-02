@@ -1,0 +1,7 @@
+#myDiv{
+    border-radius:15px;
+    overflow: hidden;   /* Ensure the content stays within rounded corners */
+    position: relative; /* Ensure proper positioning */
+    max-width: 800;         /* Must match width specified in plot.js */
+    max-height: 300;        /* Must match height specified in plot.js */
+}
