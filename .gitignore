@@ -1,3 +1,14 @@
+# Environment files
 *.env
+
+# macOS system files
 *.DS_Store
-/node_modules
+
+# Node.js dependencies
+*/node_modules/
+
+# Data directories
+*/data/
+
+# python virtual environments
+*/myenv/

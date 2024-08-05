@@ -1,0 +1,86 @@
+{
+    "_id": "ObjectId",
+    "name": "String",
+    "state": "String",
+    "description": "String",
+    "weather": {
+        "avg_temps": [
+            "int32", "int32", "int32", "int32", "int32", "int32",
+            "int32", "int32", "int32", "int32", "int32", "int32"
+        ],
+        "low_temps": [
+            "int32", "int32", "int32", "int32", "int32", "int32",
+            "int32", "int32", "int32", "int32", "int32", "int32"
+        ],
+        "high_temps": [
+            "int32", "int32", "int32", "int32", "int32", "int32",
+            "int32", "int32", "int32", "int32", "int32", "int32"
+        ]
+    },
+    "population": "int64",
+    "walkscore": "int32",
+    "job_industry": {
+        "agriculture_mining": "int32",
+        "entertainment": "int32",
+        "construction": "int32",
+        "education/Health Care": "int32",
+        "finance_realestate": "int32",
+        "information": "int32",
+        "manufacturing": "int32",
+        "Non-governmental_services": "int32",
+        "science": "int32",
+        "public_administration": "Int32",
+        "retail_trade": "int32",
+        "transportation": "int32",
+        "wholesale_trade": "int32"
+    },
+    "avg_salary": {
+        "less_10k": "Int32",
+        "10k-25k": "Int32",
+        "25k-40k": "Int32",
+        "40k-55k": "Int32",
+        "55k-70k": "Int32",
+        "70k-85k": "Int32",
+        "85k-100k": "Int32",
+        "100k-150k": "Int32",
+        "more_150k": "Int32"
+    },
+    "diversity": {
+        "White": "Int32",
+        "Hispanic or Latino": "Int32",
+        "African American": "Int32",
+        "Asian": "Int32",
+        "American Indian": "Int32",
+        "Other": "Int32"
+    },
+    "community_metrics": {
+        "Cleanliness": {
+            "1": "Int64",
+            "2": "Int64",
+            "3": "Int64",
+            "4": "Int64",
+            "5": "Int64"
+        },
+        "safety": {
+            "1": "Int64",
+            "2": "Int64",
+            "3": "Int64",
+            "4": "Int64",
+            "5": "Int64"
+        },
+        "Landmarks": {
+            "1": 123123,
+            "2": 1231231,
+            "3": 123123,
+            "4": "Int64",
+            "5": "Int64"
+        },
+        "Education": {
+            "1": "Int64",
+            "2": "Int64",
+            "3": "Int64",
+            "4": "Int64",
+            "5": "Int64"
+        }
+    }
+}
