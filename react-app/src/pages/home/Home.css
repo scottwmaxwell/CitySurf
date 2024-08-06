@@ -27,9 +27,11 @@
 }
 
 .go-btn{
-    max-height: 40px;
-    margin-top:7px;
+    max-height: 35px;
+    margin-top:9px;
     /* min-width:60px; */
+    margin-left:none !important;
+    padding:none !important;
 }
 
 .add-btn{
@@ -45,7 +47,7 @@
 }
 
 .add-btn:hover .add-city-icon{
-    color:white;
+    color:rgb(202, 202, 202) !important;
 }
 
 .add-btn-container{
@@ -53,6 +55,27 @@
     align-items:end;
     gap: 8px; /* Adjust the gap between button and text as needed */
 }
+
+.input-container{
+    display: flex;
+    align-items:end;
+    gap: 8px; /* Adjust the gap between button and text as needed */
+}
+
+.remove-btn{
+    margin:none;
+    margin-left:none !important;
+    padding: none !important;
+    padding-left:none !important;
+    color:#E2B714 !important;
+    background: none;
+    border:none;
+}
+
+/* .remove-btn:hover{
+    border:none;
+    color:rgb(202, 202, 202);
+} */
 
 .art{
     max-width:60vh;
