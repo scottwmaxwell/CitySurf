@@ -3,7 +3,12 @@ import "./Nav.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCompass } from '@fortawesome/free-solid-svg-icons'
 
-function Nav(){
+function Nav({openModal, setModalOpen}: any){
+
+    const handleLogin = ()=> {
+        setModalOpen(true);
+    }
+
     return(
         <nav className="navbar bg-dark">
             <a className="navbar-brand" href="#">
@@ -15,7 +20,7 @@ function Nav(){
                         <FontAwesomeIcon className="discover-icon" icon={faCompass} color="#E2B714"/>
                     <span>Discover</span>
                 </a>
-                <a className='btn btn-dark btn-outline-custom'>Login</a>
+                <a className='btn btn-dark btn-outline-custom' onClick={handleLogin}>Login</a>
             </div>
         </nav>
     )

@@ -1,4 +1,15 @@
+/* Define the fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Start fully transparent */
+    }
+    100% {
+        opacity: 1; /* End fully opaque */
+    }
+}
+
 .header{
+    animation: fadeIn 3s ease-in-out;
     font-size:xx-large;
     font-size:5vmax;
 }
@@ -77,6 +88,14 @@
     color:rgb(202, 202, 202);
 } */
 
-.art{
-    max-width:60vh;
+@media (min-width: 600px) {
+    .art{
+        max-width:60vh;
+    } 
+}
+
+@media (max-width: 450px) {
+    .art{
+        max-width:40vh;
+    } 
 }
