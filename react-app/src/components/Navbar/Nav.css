@@ -23,20 +23,20 @@
     margin-right:10px;
 }
 
-.btn-outline-custom {
-    color: #E2B714 !important; /* Custom text color */
-    border-color: #E2B714 !important;/* Custom border color */
+/* .btn-outline-custom {
+    color: #E2B714 !important; 
+    border-color: #E2B714 !important;
 }
 
 .btn-outline-custom:hover {
-  color: white !important; /* Custom text color on hover */
-  background-color: #E2B714 !important; /* Custom background color on hover */
-  border-color: #E2B714 !important; /* Custom border color on hover */
+  color: white !important;
+  background-color: #E2B714 !important;
+  border-color: #E2B714 !important;
 }
 
 .btn-outline-custom:hover .discover-icon{
     color:white !important;
-}
+} */
 
 .discover-icon{
     margin-right:5px;

@@ -1,0 +1,59 @@
+.header{
+    font-size:xx-large;
+    font-size:5vmax;
+}
+
+.fontAwesome {
+    font-family: 'Helvetica', FontAwesome, sans-serif;
+}
+
+.search-field{
+    margin-top:10px;
+    color:rgb(202, 202, 202) !important;
+    background-color:rgb(60, 60, 60) !important;
+    border:none !important;
+    text-decoration: none;
+}
+
+.search-field::placeholder{
+    color:#a2a095 !important;
+}
+
+.search-field:focus, input:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    border:none;
+}
+
+.go-btn{
+    max-height: 40px;
+    margin-top:7px;
+    /* min-width:60px; */
+}
+
+.add-btn{
+    margin-left: -1px !important;
+    text-align: left !important;
+    display: flex !important;
+    margin-top:10px;
+    min-width: 10px;
+    min-height:10px;
+    font-size: 16px !important; /* Adjust the values as needed */
+    margin-inline: none;
+    padding: 5px !important; /* Remove any padding */
+}
+
+.add-btn:hover .add-city-icon{
+    color:white;
+}
+
+.add-btn-container{
+    display: flex;
+    align-items:end;
+    gap: 8px; /* Adjust the gap between button and text as needed */
+}
+
+.art{
+    max-width:60vh;
+}
