@@ -1,0 +1,47 @@
+@media (prefers-color-scheme: dark) {
+    .brand-text{
+        color:rgb(202, 202, 202) !important;
+    }
+}
+
+@media (max-width: 450px) {
+   .brand-text{
+        display:none;
+   }
+}
+
+
+.brand-text{
+    margin-left:10px;
+}
+
+.navbar-brand{
+    margin-left:20px;
+}
+
+.nav-items{
+    margin-right:10px;
+}
+
+.btn-outline-custom {
+    color: #E2B714 !important; /* Custom text color */
+    border-color: #E2B714 !important;/* Custom border color */
+}
+
+.btn-outline-custom:hover {
+  color: white !important; /* Custom text color on hover */
+  background-color: #E2B714 !important; /* Custom background color on hover */
+  border-color: #E2B714 !important; /* Custom border color on hover */
+}
+
+.btn-outline-custom:hover .discover-icon{
+    color:white !important;
+}
+
+.discover-icon{
+    margin-right:5px;
+}
+
+.btn{
+    margin-left: 10px;
+}
