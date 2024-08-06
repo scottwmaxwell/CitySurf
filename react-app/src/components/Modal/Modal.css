@@ -1,12 +1,7 @@
 .modal-content{
-    background-color: rgb(48, 48, 48) !important;
+    background-color: rgb(33 37 41) !important;
 }
 
 .modal-header{
     border-bottom: none !important;
-}
-
-.btn-close{
-    color:white;
-    filter: none !important;
 }

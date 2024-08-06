@@ -22,7 +22,7 @@ function App() {
       {modalOpen && <Modal setModalOpen={setModalOpen} />}
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={ <Home />}/>
+          <Route path='/' element={ <Home modalOpen={modalOpen} />}/>
           <Route path='/discover' element={<Discover />} />
           <Route path='/city/' element={<CityView />} />
         </Routes>      

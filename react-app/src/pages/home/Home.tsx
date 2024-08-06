@@ -6,7 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import art from "../../assets/citysurfart.png"
 
-function Home(){
+function Home({modalOpen}:any){
 
     const [cityInputs, setCityInputs] = useState(["city1"]);
     const [showAddButton, setShowAddButton] = useState(true);
@@ -45,7 +45,7 @@ function Home(){
     const addCityIcon =  <FontAwesomeIcon className="add-city-icon" icon={faPlus} color="#E2B714"/> 
 
     return(
-        <div className="container">
+        <div className={"container main-content " + modalOpen }>
                 <div className="row">
                     <div className="col">
                         <img src={art} className="art"></img>

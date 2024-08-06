@@ -8,7 +8,7 @@ function modal({setModalOpen}: any){
 
     return(
         <div className="modal-container">
-            <div className="modal modal-lg show d-block" tabIndex={-1}>
+            <div className="modal modal-open modal-lg show d-block" tabIndex={-1}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
