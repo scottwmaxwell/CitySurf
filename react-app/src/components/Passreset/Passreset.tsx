@@ -1,6 +1,6 @@
-import "./Login.css"
+import "../Login/Login.css"
 
-function Login({setPassReset, setLogin, setSignup}: any){
+function Passreset({setPassReset, setLogin, setSignup}: any){
 
     const handleSignUp = ()=>{
         setSignup(true);
@@ -14,7 +14,6 @@ function Login({setPassReset, setLogin, setSignup}: any){
 
     const handleLogin = (e: any)=>{
         e.preventDefault();
-
     }
 
     //d-flex justify-content-center
@@ -24,7 +23,7 @@ function Login({setPassReset, setLogin, setSignup}: any){
             <div className="input-box">
 
                 <div className="d-flex justify-content-left">
-                    <h1 className="main-header">View Your<br />Cities.</h1>
+                    <h1 className="main-header">Reset Your<br />Password.</h1>
                 </div>
                 <div className="form-group d-flex justify-content-center">
                     <input required className="form-control" type="email" id="email" placeholder="Email"></input>
@@ -35,18 +34,15 @@ function Login({setPassReset, setLogin, setSignup}: any){
                 </div>
 
                 <div className="form-group d-flex justify-content-end">
-                    <button type="submit" className="btn btn-outline-custom login-btn">Login</button>
+                    <button type="submit" className="btn btn-outline-custom login-btn">Reset Password</button>
                 </div>
             </div>
 
             <div className="form-group d-flex justify-content-left">
-                <a className="sign-up" href="#" onClick={handleSignUp}>Sign Up</a>
-            </div>
-            <div className="form-group d-flex justify-content-left">
-                <a className="sign-up" href="#" onClick={handlePassReset}>Forgot Password?</a>
+                <a className="sign-up" href="#" onClick={handleLogin}>Login</a>
             </div>
         </form>
     </div>)
 }
 
-export default Login;
+export default Passreset;

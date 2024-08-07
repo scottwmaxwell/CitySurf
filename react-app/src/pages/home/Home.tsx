@@ -11,6 +11,11 @@ function Home({modalOpen}:any){
     const [cityInputs, setCityInputs] = useState(["city1"]);
     const [showAddButton, setShowAddButton] = useState(true);
 
+    const handleGo = (e: any)=>{
+        e.preventDefault();
+        console.log("Go Pressed");
+    }
+
     const handleChange = (event: any) => {
         // setSelectedCity(event.target.value);
         // console.log('Selected City:', selectedCity);
@@ -53,7 +58,7 @@ function Home({modalOpen}:any){
                     <div className="col">
                         <h1 className="header">Find Your <br/>City.</h1>
 
-                        <form className="d-flex">
+                        <form onSubmit={handleGo} className="d-flex">
                             <div className="form-group me-3">
 
                                 {cityInputs.map((id: any) => (
@@ -69,7 +74,7 @@ function Home({modalOpen}:any){
                                         />
                                         {id!=="city1"?
                                         <button id={id} onClick={handleRemove} className="remove-btn">X</button>
-                                        :<p></p>}
+                                        :<button className="btn-outline-custom go-btn btn" type="submit">Go</button>}
                                     </div>
                                 ))}
                                 {showAddButton ?
@@ -86,9 +91,6 @@ function Home({modalOpen}:any){
                                     <option value="Globe, AZ"></option>
                                 </datalist>
                             </div>
-
-                            <button className="btn-outline-custom go-btn btn" type="submit">Go</button>
-
                         </form>
                     </div>
                 </div>

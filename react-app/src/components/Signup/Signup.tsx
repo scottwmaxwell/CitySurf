@@ -40,7 +40,7 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
 
     //d-flex justify-content-center
     return(<div>
-        <form className="form">
+        <form onSubmit={handleSignup} className="form">
 
             <div className="input-box">
 
@@ -61,7 +61,7 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
                 </div>
 
                 <div className="form-group d-flex justify-content-end">
-                    <button onClick={handleSignup} type="submit" className="btn btn-outline-custom login-btn">Sign up</button>
+                    <button type="submit" className="btn btn-outline-custom login-btn">Sign up</button>
                 </div>
             </div>
 

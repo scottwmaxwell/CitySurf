@@ -40,6 +40,7 @@ input:focus, input:focus{
 
 
 .main-header{
+    margin-bottom:20px;
     animation: fadeInAnimation ease 3s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
