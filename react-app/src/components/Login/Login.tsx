@@ -8,25 +8,24 @@ function Login({setPassReset, setLogin, setSignup}: any){
     }
 
     const handlePassReset = ()=>{
-        
+
     }
 
     //d-flex justify-content-center
-    return(<div>
-        
-        <div className="d-flex justify-content-center">
-            <h1 className="">View Your<br />Cities.</h1>
-        </div>
-       
+    return(<div>   
         <form className="form">
 
             <div className="input-box">
+
+                <div className="d-flex justify-content-left">
+                    <h1 className="main-header">View Your<br />Cities.</h1>
+                </div>
                 <div className="form-group d-flex justify-content-center">
-                    <input className="form-control" type="email" id="email" placeholder="Email"></input>
+                    <input required className="form-control" type="email" id="email" placeholder="Email"></input>
                 </div>
 
                 <div className="form-group d-flex justify-content-center">
-                    <input className="form-control input-form" type="password" id="password" placeholder="Password"></input>
+                    <input required className="form-control input-form" type="password" id="password" placeholder="Password"></input>
                 </div>
 
                 <div className="form-group d-flex justify-content-end">
