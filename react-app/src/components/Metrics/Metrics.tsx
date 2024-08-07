@@ -2,7 +2,7 @@
 
 function Metrics(){
     return (<div>
-        oh shizlle
+        Metrics..
     </div>)
 }
 
