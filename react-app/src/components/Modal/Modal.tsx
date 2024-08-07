@@ -1,6 +1,12 @@
 import "./Modal.css"
+import { useState } from 'react';
+import Login from '../Login/Login';
 
-function modal({setModalOpen}: any){
+function Modal({setModalOpen}: any){
+
+    const [login, setLogin] = useState(true);
+    const [passReset, setPassReset] = useState(false);
+    // const [comMetrics, setComMetrics] = useState(false);
 
     const handleClose = ()=>{
         setModalOpen(false);
@@ -8,15 +14,15 @@ function modal({setModalOpen}: any){
 
     return(
         <div className="modal-container">
-            <div className="modal modal-open modal-lg show d-block" tabIndex={-1}>
+            <div className="modal modal-open show d-block" tabIndex={-1}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <button type="button" className="btn-close" onClick={handleClose}>
+                            <button type="button" className="btn-close btn-close-white" onClick={handleClose}>
                             </button>
                         </div>
                         <div className="modal-body">
-                            <p>Modal body content</p>
+                           {login && <Login setPassReset={setPassReset} setLogin={setLogin}/>}
                         </div>
                     </div>
                 </div>
@@ -25,4 +31,4 @@ function modal({setModalOpen}: any){
     )
 }
 
-export default modal;
+export default Modal;
