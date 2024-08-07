@@ -1,11 +1,13 @@
 import "./Modal.css"
 import { useState } from 'react';
 import Login from '../Login/Login';
+import Signup from '../Signup/Signup';
 
 function Modal({setModalOpen}: any){
 
     const [login, setLogin] = useState(true);
     const [passReset, setPassReset] = useState(false);
+    const [signup, setSignup] = useState(false);
     // const [comMetrics, setComMetrics] = useState(false);
 
     const handleClose = ()=>{
@@ -22,7 +24,8 @@ function Modal({setModalOpen}: any){
                             </button>
                         </div>
                         <div className="modal-body">
-                           {login && <Login setPassReset={setPassReset} setLogin={setLogin}/>}
+                           {login && <Login setPassReset={setPassReset} setLogin={setLogin} setSignup={setSignup} />}
+                           {signup && <Signup setPassReset={setPassReset} setLogin={setLogin} setSignup={setSignup} />}
                         </div>
                     </div>
                 </div>
