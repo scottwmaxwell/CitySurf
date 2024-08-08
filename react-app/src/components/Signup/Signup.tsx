@@ -27,7 +27,7 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
     const handleSignup = (e: any)=>{
         e.preventDefault();
 
-        if(passwordOne == passwordTwo){
+        if(passwordOne === passwordTwo){
             console.log("password match")
         }else{
             console.log("passwords don't match")

@@ -4,6 +4,7 @@ import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import Metrics from '../Metrics/Metrics';
 import Passreset from '../Passreset/Passreset';
+import { CookiesProvider } from "react-cookie";
 
 function Modal({setModalOpen}: any){
 
@@ -27,7 +28,7 @@ function Modal({setModalOpen}: any){
                         </div>
                         <div className="modal-body">
                            {login && <Login setPassReset={setPassReset} setLogin={setLogin} setSignup={setSignup} />}
-                           {passReset && <Passreset />}
+                           {passReset && <Passreset setPassReset={setPassReset} setModalOpen={setModalOpen} setLogin={setLogin} />}
                            {signup && <Signup setPassReset={setPassReset} setLogin={setLogin} setSignup={setSignup} setMetrics={setMetrics} />}
                            {metrics && <Metrics />}
                         </div>
