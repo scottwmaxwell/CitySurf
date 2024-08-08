@@ -5,14 +5,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-function Search(){
+function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOne, setCityTwo, setCityThree}: any){
 
     const [cityInputs, setCityInputs] = useState(["city1"]);
     const [showAddButton, setShowAddButton] = useState(true);
 
+    const updateSelected = (cityname: String)=>{
+        if(cityOne == ""){
+          setCityOne(cityname);
+        }else if(cityTwo == ""){
+          setCityTwo(cityname);
+        }else if(cityThree == ""){
+          setCityThree(cityname);
+        }
+    }
+
     const handleChange = (event: any) => {
         // setSelectedCity(event.target.value);
         // console.log('Selected City:', selectedCity);
+        if(event.target.id == "city1"){
+            setCityOne(event.target.value);
+        }else if(event.target.id == "city2"){
+            setCityTwo(event.target.value);
+        }else if(event.target.id == "city3"){
+            setCityThree(event.target.value);
+        }
     };
 
 
@@ -26,7 +43,7 @@ function Search(){
         if(cityInputs.length < 3){
             const newId = "city" + (cityInputs.length + 1).toString();
             setCityInputs([...cityInputs, newId]);
-
+            setCityCount(cityInputs.length + 1);
             if(cityInputs.length >= 2) setShowAddButton(false);
         }
     };
@@ -34,6 +51,15 @@ function Search(){
     const handleRemove = (event: any) => {
         event.preventDefault();
         const idToRemove = event.target.id;
+
+        // Update city state props
+        if(idToRemove == "city1"){
+            setCityOne("");
+        }else if(idToRemove == "city2"){
+            setCityTwo("");
+        }else if(idToRemove == "city3"){
+            setCityThree("");
+        }
         
         // Use the function form of setCityInputs to work with the latest state
         setCityInputs(prevCityInputs => {
@@ -44,6 +70,7 @@ function Search(){
             
             return newCityInputs;
         });
+        setCityCount(cityInputs.length - 1);
     };
 
     // const locationIcon = <FontAwesomeIcon className="discover-icon" icon={faMapLocationDot} color="#E2B714"/> 
@@ -59,6 +86,7 @@ function Search(){
                 <input
                     key={id}
                     id={id}
+                    value={id === 'city1' ? cityOne : id === 'city2' ? cityTwo : cityThree}
                     className="form-control fontAwesome search-field"
                     onChange={handleChange}
                     list="list-timezone"

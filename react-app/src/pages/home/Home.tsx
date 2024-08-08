@@ -9,6 +9,10 @@ import Search from '../../components/Search/Search';
 
 function Home({modalOpen, session}:any){
 
+    const [cityOne, setCityOne] = useState("");
+    const [cityTwo, setCityTwo] = useState("");
+    const [cityThree, setCityThree] = useState("");
+
     // const [cityInputs, setCityInputs] = useState(["city1"]);
     // const [showAddButton, setShowAddButton] = useState(true);
 
@@ -58,7 +62,7 @@ function Home({modalOpen, session}:any){
                     </div>
                     <div className="col">
                         <h1 className="header">Find Your <br/>City.</h1>
-                        <Search />
+                        <Search cityOne={cityOne} cityTwo={cityTwo} cityThree={cityThree} setCityOne={setCityOne} setCityTwo={setCityTwo} setCityThree={setCityThree} />
                     </div>
                 </div>
         </div>
