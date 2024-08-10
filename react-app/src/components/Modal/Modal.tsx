@@ -8,12 +8,13 @@ import { CookiesProvider } from "react-cookie";
 
 function Modal({setModalOpen}: any){
 
-    const [login, setLogin] = useState(false);
+    const [login, setLogin] = useState(true);
     const [passReset, setPassReset] = useState(false);
     const [signup, setSignup] = useState(false);
-    const [metrics, setMetrics] = useState(true);
+    const [metrics, setMetrics] = useState(false);
 
-    const handleClose = ()=>{
+    const handleClose = (e: any)=>{
+        e.preventDefault();
         setModalOpen(false);
     }
 

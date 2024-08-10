@@ -12,7 +12,6 @@ function Metrics({setModalOpen}: any){
     const [locationPermission, setLocationPermission] = useState(0); // 0 = not set, 1 = permission denied, 2 = success
     const [location, setLocation] = useState();
 
-
     const locationIcon = <FontAwesomeIcon className="discover-icon" icon={faMapLocationDot} color="#E2B714"/> 
 
     useEffect(()=>{
@@ -21,12 +20,10 @@ function Metrics({setModalOpen}: any){
 
 
     const locationResult = (result: any)=>{
-        console.log(result);
         setLocationPermission(2);
     }
 
     const locationError = (error: any)=>{
-        console.log(error);
         setLocationPermission(1);
     }
 
@@ -41,32 +38,24 @@ function Metrics({setModalOpen}: any){
     const handleStarClick = (e: any)=>{
 
         let className = e.currentTarget.className
-        console.log(className)
         let selectedStars = [...starsSelected];
-        console.log("Before Copy:" + starsSelected);
-        console.log("After copy: " + selectedStars);
         let id = Number(e.currentTarget.id);
 
         if(className.includes("metric-1")){
-            console.log("clicked metric-1 for " + id + "stars.")
             selectedStars[0] = id;
         }
 
         if(className.includes("metric-2")){
-            console.log("clicked metric-2 for " + id + "stars.")
             selectedStars[1] = id;
         }
         if(className.includes("metric-3")){
-            console.log("clicked metric-3 for " + id + "stars.")
             selectedStars[2] = id;
         }
         if(className.includes("metric-4")){
-            console.log("clicked metric-4 for " + id + "stars.");
             selectedStars[3] = id;
         }
 
         setStarsSelected(selectedStars);
-        console.log(selectedStars);
     }
 
     return (<div>
@@ -78,8 +67,8 @@ function Metrics({setModalOpen}: any){
                         <h1 className="main-header">Rate Your<br />City.</h1>
                     </div>
 
-                    <div className="form-group d-flex justify-content-center">
-                        <p className="metric-label">Metric1 </p>
+                    <div className="d-flex justify-content-between">
+                        <p className="metric-label">Cleanliness</p>
                         <div className="stars d-flex">
                         {stars.map((id: any) => (
                             <div key={"metric-1" + id} className={starsSelected[0] >= id? "star-icon metric-1 selected":"star-icon metric-1"} onClick={handleStarClick} id={id}>
@@ -89,11 +78,9 @@ function Metrics({setModalOpen}: any){
                         </div>
                     </div>
 
-
-
-                    <div className="form-group d-flex justify-content-center">
-                        <p className="metric-label">Metric2 </p>
-                        <div className="stars d-flex">
+                    <div className="d-flex justify-content-between">
+                        <p className="metric-label">Safety</p>
+                        <div className="stars d-flex ml-auto">
                         {stars.map((id: any) => (
                             <div key={"metric-2" + id} className={starsSelected[1] >= id? "star-icon metric-2 selected":"star-icon metric-2"} onClick={handleStarClick} id={id}>
                                 <FontAwesomeIcon className="add-city-icon" icon={faStar} /> 
@@ -102,8 +89,8 @@ function Metrics({setModalOpen}: any){
                         </div>
                     </div>
 
-                    <div className="form-group d-flex justify-content-center">
-                        <p className="metric-label">Metric3 </p>
+                    <div className="d-flex justify-content-between ">
+                        <p className="metric-label">Landmarks</p>
                         <div className="stars d-flex">
                         {stars.map((id: any) => (
                             <div key={"metric-3" + id} className={starsSelected[2] >= id? "star-icon metric-3 selected":"star-icon metric-3"} onClick={handleStarClick} id={id}>
@@ -113,8 +100,8 @@ function Metrics({setModalOpen}: any){
                         </div>
                     </div>
 
-                    <div className="form-group d-flex justify-content-center">
-                        <p className="metric-label">Metric4 </p>
+                    <div className="d-flex justify-content-between">
+                        <p className="metric-label">Education</p>
                         <div className="stars d-flex">
                         {stars.map((id: any) => (
                             <div key={"metric-4" + id} className={starsSelected[3] >= id? "star-icon metric-4 selected":"star-icon metric-4"} onClick={handleStarClick} id={id}>

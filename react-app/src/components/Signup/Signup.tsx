@@ -1,15 +1,22 @@
 import "../Login/Login.css"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
 
     const [passwordOne, passwordOneSet] = useState("");
     const [passwordTwo, passwordTwoSet] = useState("");
+    const [passwordsMatch, setPasswordsMatch] = useState(false);
     const [email, emailSet] = useState("");
+
+    useEffect(()=>{
+        setPasswordsMatch(passwordOne === passwordTwo);
+    }, [passwordOne, passwordTwo])
 
     const updateEmail = (e: any) =>{
         emailSet(e.target.value);
     }
+
+
 
     const updatePasswordOne = (e: any) =>{
         passwordOneSet(e.target.value);
@@ -29,13 +36,11 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
 
         if(passwordOne === passwordTwo){
             console.log("password match")
+            setMetrics(true);
+            setSignup(false);
         }else{
             console.log("passwords don't match")
         }
-
-        //TODO pass credentials up to parent
-        setSignup(false);
-        setMetrics(true);
     }
 
     //d-flex justify-content-center
@@ -61,11 +66,11 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
                 </div>
 
                 <div className="form-group d-flex justify-content-end">
-                    <button type="submit" className="btn btn-outline-custom login-btn">Sign up</button>
+                    <button type="submit" className={passwordsMatch? "btn btn-outline-custom login-btn": "btn btn-outline-custom login-btn grayed" }>Sign up</button>
                 </div>
             </div>
 
-            <div className="form-group d-flex justify-content-left">
+            <div className="form-group d-flex justify-content-left ">
                 <a className="sign-up" href="#" onClick={handleLogin}>Log in</a>
             </div>
         </form>

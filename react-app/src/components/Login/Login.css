@@ -22,6 +22,15 @@ input:focus, input:focus{
     margin-top:20px;
 }
 
+.login-btn.grayed{
+    color:#a2a095 !important;
+    border-color: #a2a095 !important;
+}
+
+.login-btn.grayed:hover{
+    background-color: #ffffff00 !important;
+}
+
 .sign-up{
     color:rgb(130, 128, 128) !important;
 }
