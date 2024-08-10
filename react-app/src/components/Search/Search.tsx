@@ -56,7 +56,15 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
         if(idToRemove == "city1"){
             setCityOne("");
         }else if(idToRemove == "city2"){
-            setCityTwo("");
+            
+            if(cityThree !== ""){
+                console.log(cityThree)
+                setCityTwo(cityThree);
+                setCityThree("");
+            }else{
+                setCityTwo("");
+            }
+
         }else if(idToRemove == "city3"){
             setCityThree("");
         }
