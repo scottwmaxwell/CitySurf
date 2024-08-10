@@ -44,9 +44,9 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
 
             <div className="input-box">
 
-            <div className="d-flex justify-content-left">
-            <h1 className="main-header">Save Your<br />Cities.</h1>
-        </div>
+                <div className="d-flex justify-content-left">
+                    <h1 className="main-header">Save Your<br />Cities.</h1>
+                </div>
 
                 <div className="form-group d-flex justify-content-center">
                     <input required className="form-control" type="email" id="email" value={email} onChange={updateEmail} placeholder="Email"></input>

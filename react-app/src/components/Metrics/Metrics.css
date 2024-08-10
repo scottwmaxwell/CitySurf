@@ -1,0 +1,17 @@
+.metric-label{
+    padding-right: 20px !important;
+    font-size:x-large;
+}
+
+.star-icon.selected{
+    color:#E2B714;
+}
+
+.stars{
+    margin-top:0px !important;
+    font-size:x-large;
+}
+
+.star-icon:hover{
+    cursor:pointer !important;
+}

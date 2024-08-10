@@ -12,44 +12,7 @@ function Home({modalOpen, session}:any){
     const [cityOne, setCityOne] = useState("");
     const [cityTwo, setCityTwo] = useState("");
     const [cityThree, setCityThree] = useState("");
-
-    // const [cityInputs, setCityInputs] = useState(["city1"]);
-    // const [showAddButton, setShowAddButton] = useState(true);
-
-    // const handleGo = (e: any)=>{
-    //     e.preventDefault();
-    //     console.log("Go Pressed");
-    // }
-
-    // const handleChange = (event: any) => {
-    //     // setSelectedCity(event.target.value);
-    //     // console.log('Selected City:', selectedCity);
-    // };
-
-    // const handleAdd = (event: any) => {
-    //     event.preventDefault();
-    //     if(cityInputs.length < 3){
-    //         const newId = "city" + (cityInputs.length + 1).toString();
-    //         setCityInputs([...cityInputs, newId]);
-
-    //         if(cityInputs.length >= 2) setShowAddButton(false);
-    //     }
-    // };
-
-    // const handleRemove = (event: any) => {
-    //     event.preventDefault();
-    //     const idToRemove = event.target.id;
-        
-    //     // Use the function form of setCityInputs to work with the latest state
-    //     setCityInputs(prevCityInputs => {
-    //         const newCityInputs = prevCityInputs.filter(id => id !== idToRemove);
-            
-    //         // Update the button visibility based on the new length
-    //         setShowAddButton(true);
-            
-    //         return newCityInputs;
-    //     });
-    // };
+    const [cityCount, setCityCount] = useState(1);
 
     // const locationIcon = <FontAwesomeIcon className="discover-icon" icon={faMapLocationDot} color="#E2B714"/> 
     const addCityIcon =  <FontAwesomeIcon className="add-city-icon" icon={faPlus} color="#E2B714"/> 
@@ -62,7 +25,7 @@ function Home({modalOpen, session}:any){
                     </div>
                     <div className="col">
                         <h1 className="header">Find Your <br/>City.</h1>
-                        <Search cityOne={cityOne} cityTwo={cityTwo} cityThree={cityThree} setCityOne={setCityOne} setCityTwo={setCityTwo} setCityThree={setCityThree} />
+                        <Search setCityCount={setCityCount} cityOne={cityOne} cityTwo={cityTwo} cityThree={cityThree} setCityOne={setCityOne} setCityTwo={setCityTwo} setCityThree={setCityThree} />
                     </div>
                 </div>
         </div>

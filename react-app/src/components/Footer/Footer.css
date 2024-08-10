@@ -1,0 +1,15 @@
+footer{
+    min-width:100%;
+    background-color:black !important;
+    margin-top:auto;
+}
+
+.footer-link{
+    padding-inline: 10px;
+    color:#E2B714;
+    text-decoration: none;
+}
+
+.footer-link:hover{
+    color:rgb(202, 202, 202) !important;
+}

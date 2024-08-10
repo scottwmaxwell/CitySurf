@@ -11,11 +11,11 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
     const [showAddButton, setShowAddButton] = useState(true);
 
     const updateSelected = (cityname: String)=>{
-        if(cityOne == ""){
+        if(cityOne === ""){
           setCityOne(cityname);
-        }else if(cityTwo == ""){
+        }else if(cityTwo === ""){
           setCityTwo(cityname);
-        }else if(cityThree == ""){
+        }else if(cityThree === ""){
           setCityThree(cityname);
         }
     }
@@ -82,9 +82,8 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
 
         {cityInputs.map((id: any) => (
         
-            <div className="input-container">
+            <div key={"input-container-" + id} className="input-container">
                 <input
-                    key={id}
                     id={id}
                     value={id === 'city1' ? cityOne : id === 'city2' ? cityTwo : cityThree}
                     className="form-control fontAwesome search-field"
@@ -93,8 +92,8 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
                     placeholder="&#xf002; Search"
                 />
                 {id!=="city1"?
-                <button id={id} onClick={handleRemove} className="remove-btn">X</button>
-                :<button className="btn-outline-custom go-btn btn" type="submit">Go</button>}
+                <button id={id} key={"remove-btn-" + id} onClick={handleRemove} className="remove-btn">X</button>
+                :<button key={"go-btn" + id} className="btn-outline-custom go-btn btn" type="submit">Go</button>}
             </div>
         ))}
         {showAddButton ?

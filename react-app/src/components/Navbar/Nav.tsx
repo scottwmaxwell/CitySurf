@@ -2,6 +2,7 @@ import image from "../../assets/CitySurfLogo.png"
 import "./Nav.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCompass } from '@fortawesome/free-solid-svg-icons'
+import { faCity } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
 
 
@@ -22,13 +23,16 @@ function Nav({openModal, setModalOpen, session}: any){
                 <span className="brand-text">CitySurf</span>
             </Link>
             <div className="nav-items">
+                <Link to="/"  className='btn btn-dark btn-outline-custom'>
+                        <FontAwesomeIcon className="discover-icon" icon={faCity} color="#E2B714"/>
+                    <span>Your Cities</span>
+                </Link>
                 <Link to="/discover"  className='btn btn-dark btn-outline-custom'>
                         <FontAwesomeIcon className="discover-icon" icon={faCompass} color="#E2B714"/>
                     <span>Discover</span>
                 </Link>
-                {session? <Link to="/" className='btn btn-dark btn-outline-custom' onClick={handleSavedCities}>Saved Cities</Link> : 
+                {session? <Link to="/" className='btn btn-dark btn-outline-custom' onClick={handleSavedCities}>Logout</Link> : 
                 <a className='btn btn-dark btn-outline-custom' onClick={handleLogin}>Login</a>}
-                
             </div>
         </nav>
     )
