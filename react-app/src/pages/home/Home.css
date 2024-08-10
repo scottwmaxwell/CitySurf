@@ -86,31 +86,33 @@
     color:rgb(202, 202, 202) !important;
 }
 
-.image-container {
-    /* width: 100%;
-    height: auto;
-    position: relative;
-    max-width: 60vh;
-    overflow:scroll; */
-}
-
 .unveil-image {
-    opacity: 0; /* Start with the image hidden */
+    opacity: 0;                   /* Start with the image hidden */
     transform: translateX(-20px); /* Start with the image slightly below its final position */
     transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out; /* Transition for both opacity and position */
 }
 
 .unveil-image.show {
-    opacity: 1; /* Make the image visible */
+    opacity: 1;               /* Make the image visible */
     transform: translateX(0); /* Move the image to its final position */
 }
 
+/* Adds a fade to the right side of the image */
+.art{
+    -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+    mask-image: linear-gradient(to right, black 70%, transparent 100%);
+}
+
+
+/* When screen is desktop or larger */
 @media (min-width: 600px) {
     .art{
         max-width:60vh;
     } 
 }
 
+
+/* When screen is mobile or smaller */
 @media (max-width: 450px) {
     .art{
         max-width:40vh;

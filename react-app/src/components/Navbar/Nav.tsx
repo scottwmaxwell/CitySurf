@@ -4,16 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCompass } from '@fortawesome/free-solid-svg-icons'
 import { faCity } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
+import Cookies from "js-cookie";
+import { useState } from "react";
 
+function Nav({openModal, setModalOpen, loggedIn, setLoggedIn}: any){
 
-function Nav({openModal, setModalOpen, session}: any){
+    // Check if logged in
+    setLoggedIn(!!Cookies.get('token'));
 
+    // Prompt use to login
     const handleLogin = ()=> {
         setModalOpen(true);
     }
 
-    const handleSavedCities = ()=>{
-
+    const handleLogout = () =>{
+        Cookies.remove('token');
+        setLoggedIn(!!Cookies.get('token'));
     }
     
     return(
@@ -23,15 +29,19 @@ function Nav({openModal, setModalOpen, session}: any){
                 <span className="brand-text">CitySurf</span>
             </Link>
             <div className="nav-items">
+
+                {loggedIn &&
                 <Link to="/"  className='btn btn-dark btn-outline-custom'>
                         <FontAwesomeIcon className="discover-icon" icon={faCity} color="#E2B714"/>
                     <span>Your Cities</span>
                 </Link>
+                }
+
                 <Link to="/discover"  className='btn btn-dark btn-outline-custom'>
                         <FontAwesomeIcon className="discover-icon" icon={faCompass} color="#E2B714"/>
                     <span>Discover</span>
                 </Link>
-                {session? <Link to="/" className='btn btn-dark btn-outline-custom' onClick={handleSavedCities}>Logout</Link> : 
+                {loggedIn? <Link to="/" className='btn btn-dark btn-outline-custom' onClick={handleLogout}>Logout</Link> : 
                 <a className='btn btn-dark btn-outline-custom' onClick={handleLogin}>Login</a>}
             </div>
         </nav>

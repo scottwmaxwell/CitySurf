@@ -5,10 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+/**
+ * This component contains the UX logic for searching and adding more fields.
+ */
 function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOne, setCityTwo, setCityThree}: any){
 
     const [cityInputs, setCityInputs] = useState(["city1"]);
     const [showAddButton, setShowAddButton] = useState(true);
+    const [searchSuggestions, setSearchSuggestions] = useState(["Florence, AZ"]);
 
     const updateSelected = (cityname: String)=>{
         if(cityOne === ""){
@@ -21,8 +25,6 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
     }
 
     const handleChange = (event: any) => {
-        // setSelectedCity(event.target.value);
-        // console.log('Selected City:', selectedCity);
         if(event.target.id == "city1"){
             setCityOne(event.target.value);
         }else if(event.target.id == "city2"){
@@ -30,6 +32,9 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
         }else if(event.target.id == "city3"){
             setCityThree(event.target.value);
         }
+
+        // TODO: get searchSuggestions based on input
+
     };
 
 
@@ -109,14 +114,15 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
             <button onClick={handleAdd} className="btn add-btn btn-outline-custom">{addCityIcon}</button> Add a city
         </div>
         : <div className="add-btn-container"></div>}
+
+
         <datalist id="list-timezone">
-            <option value="Florence, AZ"></option>
-            <option value="Gilbert, AZ"></option>
-            <option value="Phoenix, AZ"></option>
-            <option value="Prescott, AZ"></option>
-            <option value="Flagstaff, AZ"></option>
-            <option value="Globe, AZ"></option>
+            {searchSuggestions.map((id)=>(
+                <option value={id}></option>
+            ))}
         </datalist>
+
+
     </div>
 </form>
 )
