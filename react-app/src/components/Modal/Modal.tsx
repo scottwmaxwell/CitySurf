@@ -30,7 +30,7 @@ function Modal({setModalOpen}: any){
                            {login && <Login setPassReset={setPassReset} setLogin={setLogin} setSignup={setSignup} />}
                            {passReset && <Passreset setPassReset={setPassReset} setModalOpen={setModalOpen} setLogin={setLogin} />}
                            {signup && <Signup setPassReset={setPassReset} setLogin={setLogin} setSignup={setSignup} setMetrics={setMetrics} />}
-                           {metrics && <Metrics />}
+                           {metrics && <Metrics setModalOpen={setModalOpen} />}
                         </div>
                     </div>
                 </div>
