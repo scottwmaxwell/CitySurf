@@ -33,6 +33,7 @@ const executeMongoDBOperation = async (collectionName:string, operation:string, 
                 return await collection.find(data).toArray();
               }
             case 'findone':
+              console.log(data)
               return await collection.findOne(data);
             case 'insert':
               await collection.insertOne(data);
