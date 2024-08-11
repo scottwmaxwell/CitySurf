@@ -1,14 +1,7 @@
 import "./SavedCity.css";
 import image from '../../assets/citycard.png';
 
-function SavedCity({city}: any){
-
-    const handleRemove = (e: any)=>{
-        let result = window.confirm("Are you sure you want to remove this city?");
-        if(result){
-            //TODO call API to remove this city and update UI to remove the city
-        }
-    }
+function SavedCity({city, id, handleRemove}: any){
 
     const handleView = (e: any)=>{
 
@@ -26,8 +19,8 @@ function SavedCity({city}: any){
                             <h5 className="card-title">{city.name} {city.state}</h5>
                             <p className="card-text">{city.description}</p>
                             <div className="d-flex justify-content-end">
-                                <button className="btn btn-outline-custom" onClick={handleView}>View</button>
-                                <button className="btn btn-outline-custom" onClick={handleRemove}>Remove</button>
+                                <button className="btn btn-outline-custom" id={id} onClick={handleView}>View</button>
+                                <button className="btn btn-outline-custom" id={id} onClick={handleRemove}>Remove</button>
                             </div>
                         </div>
                     </div>

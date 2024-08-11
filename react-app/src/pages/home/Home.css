@@ -107,7 +107,7 @@
 /* When screen is desktop or larger */
 @media (min-width: 600px) {
     .art{
-        max-width:60vh;
+        max-width:80vh;
     } 
 }
 
@@ -115,7 +115,7 @@
 /* When screen is mobile or smaller */
 @media (max-width: 450px) {
     .art{
-        max-width:40vh;
+        max-width:60vh;
     } 
 
     .header{

@@ -47,9 +47,34 @@ function SavedCities({modalOpen}: any){
         if(savedCities){
             return savedCities.map((city:any, index:number) => {
                 return (
-                    <SavedCity key={index} id={city._id} city={city} />
+                    <SavedCity key={index} handleRemove={handleRemove} id={city._id} city={city} />
                 );
             });
+        }
+    }
+
+    const handleRemove = async (e: any)=>{
+        let result = window.confirm("Are you sure you want to remove this city?");
+        let id = e.currentTarget.id;
+        if(result){
+            try{
+                console.log(e.currentTarget.id);
+                let deleted = await dataSource.delete('/deleteCity?id=' + id ,{
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('token')}`
+                    }
+                });
+                if(deleted.data == "City Removed"){
+                    console.log(savedCities);
+                    console.log(id);
+                    const newCities = savedCities.filter((city)=> city._id != id );
+                    setSavedCities(newCities);
+                }
+
+            }catch(e){
+                console.log(e);
+            }
+            
         }
     }
 
