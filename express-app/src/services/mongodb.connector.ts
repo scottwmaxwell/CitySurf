@@ -38,7 +38,7 @@ const executeMongoDBOperation = async (collectionName:string, operation:string, 
               await collection.insertOne(data);
               return 'Insert successful';
             case 'update':
-              await collection.updateOne(data, data);
+              await collection.updateOne({_id: id}, data);
               return 'Update successful';
             case 'delete':
               await collection.deleteOne(data);
@@ -47,8 +47,8 @@ const executeMongoDBOperation = async (collectionName:string, operation:string, 
               console.log(operation)
               throw new Error('Invalid operation specified');
           }
-    }finally{
-        // await client.close()
+    }catch(e){
+        console.log(e);
     }
 }
 

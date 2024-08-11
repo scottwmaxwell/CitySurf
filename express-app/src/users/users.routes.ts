@@ -20,7 +20,10 @@ router
     .route('/user/:id')
     .delete(authMiddleware, UsersController.deleteUser);
 router
-    .route('/savedCities/:id')
+    .route('/deleteCity')
     .delete(authMiddleware, UsersController.deleteCity);
+router
+    .route('/saveCity')
+    .put(authMiddleware, UsersController.saveCity);
 
 export default router;

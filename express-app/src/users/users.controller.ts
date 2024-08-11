@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import { generateToken, verifyToken } from '../services/auth'; // Adjust the path as necessary
 import { CustomJwtPayload } from '../types/expresss';
+import User from '../models/models.user';
 
 
 // Protected: requires valid session
@@ -88,13 +89,30 @@ export const deleteUser: RequestHandler = async(req: Request, res: Response)=>{
 }
 
 export const deleteCity: RequestHandler = async(req: Request, res: Response)=>{
-        let userId = getUserIdFromRequest(req);
-        if(userId){
+    let userId = getUserIdFromRequest(req);
+    let cityId = String(req.query.id);
+    const cityIdToRemove = new ObjectId(cityId);
 
-        }else{
+    if(userId){
+        try{
+            let result = await executeMongoDBOperation('users', 'update', { $pull: { cities: cityIdToRemove } }, new ObjectId(userId));
+            console.log(result);
+            res.status(200).send("City Removed");
+        }catch(e){
+            console.log(e);
             res.status(500).send("Server Error");
         }
+    }else{
+        res.status(500).send("Server Error");
+    }
+}
 
+export const saveCity: RequestHandler = async(req: Request, res: Response)=>{
+    let userId = getUserIdFromRequest(req);
+    if(userId){
+    }else{
+        res.status(500).send("Server Error");
+    }
 }
 
 const getUserIdFromRequest = (req: Request) => {
@@ -102,7 +120,6 @@ const getUserIdFromRequest = (req: Request) => {
     let user:any = req.user;
     let userId;
     if(user){
-        console.log(user.userId);
         userId = user.userId;
         return userId;
     }else{
