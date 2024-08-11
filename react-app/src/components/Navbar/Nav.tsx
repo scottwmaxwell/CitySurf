@@ -31,7 +31,7 @@ function Nav({openModal, setModalOpen, loggedIn, setLoggedIn}: any){
             <div className="nav-items">
 
                 {loggedIn &&
-                <Link to="/"  className='btn btn-dark btn-outline-custom'>
+                <Link to="/savedcities"  className='btn btn-dark btn-outline-custom your-cities'>
                         <FontAwesomeIcon className="discover-icon" icon={faCity} color="#E2B714"/>
                     <span>Your Cities</span>
                 </Link>

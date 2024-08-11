@@ -3,7 +3,7 @@ import './Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import art from "../../assets/citysurfart.png"
+import art from "../../assets/citysurfart.gif"
 import Search from '../../components/Search/Search';
 
 function Home({modalOpen, session}:any){
