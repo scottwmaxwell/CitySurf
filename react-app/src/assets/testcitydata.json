@@ -1,0 +1,19 @@
+{
+    "type":"FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Morgandale, Ohio",
+                "icon": "marker"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -112.038659, 
+                    33.4484
+                ]
+            }
+        }
+    ]
+}

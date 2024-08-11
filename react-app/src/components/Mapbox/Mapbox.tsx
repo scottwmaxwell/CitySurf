@@ -3,6 +3,24 @@ import mapboxgl from 'mapbox-gl';
 import {Popup, MapMouseEvent} from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import "./Mapbox.css";
+import cityData from "../../assets/citydata.json";
+
+interface GeoJsonFeature {
+  type: "Feature";
+  properties: {
+      name: string;
+      icon: string;
+  };
+  geometry: {
+      type: "Point";
+      coordinates: [number, number];  // [longitude, latitude]
+  };
+}
+
+interface GeoJsonFeatureCollection {
+  type: "FeatureCollection";
+  features: GeoJsonFeature[];
+}
 
 const Mapbox = ({cityCount, setCityOne, setCityTwo, setCityThree}: any) => {
   const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -11,7 +29,6 @@ const Mapbox = ({cityCount, setCityOne, setCityTwo, setCityThree}: any) => {
   const lat = 40; // Example latitude
 
   const cityCountRef = useRef(cityCount);
-
   const updateSelected = (cityname: String)=>{
     let cityCountCurrent = cityCountRef.current;
     if(cityCountCurrent == 1){
@@ -39,41 +56,12 @@ const Mapbox = ({cityCount, setCityOne, setCityTwo, setCityThree}: any) => {
       zoom: 3 // starting zoom
     });
 
+    console.log(cityData);
+
     mapRef.current.on("load", () => {
       mapRef.current?.addSource("places", {
         type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              properties: {
-                name:"Phoenix, AZ",
-                description:
-                  '<strong>Phoenix, AZ</strong><p>',
-                icon: "marker"
-              },
-              geometry: {
-                type: "Point",
-                coordinates: [-112.038659, 33.4484]
-              }
-            },
-            {
-              type: "Feature",
-              properties: {
-                name:"TESTNAME2",
-                description:
-                  '<strong>Make it Mount Pleasant</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
-                icon: "marker"
-              },
-              geometry: {
-                type: "Point",
-                coordinates: [-76.038659, 38.931567]
-              }
-            },
-            // More features...
-          ]
-        }
+        data: cityData as GeoJsonFeatureCollection
       });
 
       mapRef.current?.addLayer({
@@ -91,17 +79,10 @@ const Mapbox = ({cityCount, setCityOne, setCityTwo, setCityThree}: any) => {
         const coordinates = (e.features![0].geometry as GeoJSON.Point).coordinates.slice();
         let cityname = e.features![0].properties!.name;
         updateSelected(cityname);
-        const description = e.features![0].properties!.description;
 
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        // new Popup()
-        //   .setLngLat(coordinates as [number, number])
-        //   .setHTML(description)
-        //   .addTo(mapRef.current!);
-          
+        } 
       });
 
       mapRef.current?.on("mouseenter", "places", () => {
@@ -112,8 +93,6 @@ const Mapbox = ({cityCount, setCityOne, setCityTwo, setCityThree}: any) => {
         mapRef.current!.getCanvas().style.cursor = "";
       });
     });
-    // return () => map.current?.remove();
-
   }, []);
 
   return (

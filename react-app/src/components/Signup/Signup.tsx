@@ -1,7 +1,9 @@
+import dataSource from "../../dataSource";
 import "../Login/Login.css"
 import { useState, useEffect } from 'react';
+import Cookies from "js-cookie";
 
-function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
+function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn}: any){
 
     const [passwordOne, passwordOneSet] = useState("");
     const [passwordTwo, passwordTwoSet] = useState("");
@@ -16,8 +18,6 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
         emailSet(e.target.value);
     }
 
-
-
     const updatePasswordOne = (e: any) =>{
         passwordOneSet(e.target.value);
     }
@@ -31,13 +31,39 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics}: any){
         setLogin(true);
     }
 
-    const handleSignup = (e: any)=>{
+    const handleSignup = async(e: any)=>{
         e.preventDefault();
 
         if(passwordOne === passwordTwo){
             console.log("password match")
-            setMetrics(true);
-            setSignup(false);
+
+            let payload = {"email": email, "password": passwordTwo}
+
+            let result;
+            // Create user
+            try{
+                result = await dataSource.post('/createUser', payload);
+            }catch(e){
+                console.log(e);
+            }
+
+            if(result){
+                // Login user
+                try{
+                    let result = await dataSource.post("/authenticateUser", payload)
+                    console.log(result.data);
+                    console.log(result.data.message)
+                    if(result.data.message == "Success"){
+                        Cookies.set("token", result.data.token, {expires: 7});
+                        console.log("Set cookie")
+                        setLoggedIn(true);
+                        setMetrics(true);
+                        setSignup(false);
+                    }
+                }catch{
+                    console.log("Cannot login: ", e);
+                }
+            }
         }else{
             console.log("passwords don't match")
         }
