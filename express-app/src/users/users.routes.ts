@@ -6,7 +6,7 @@ const router = Router();
 
 router
     .route('/savedCities')
-    .get(authMiddleware, UsersController.getSavedCities)
+    .get(authMiddleware, UsersController.getSavedCities);
 router
     .route('/createUser')
     .post(UsersController.createUser);

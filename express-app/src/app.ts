@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import usersRouter from './users/users.routes';
+import citiesRouter from './cities/cities.routes';
 
 const app: Application = express();
 
@@ -28,7 +29,7 @@ app.get('/', (req: Request, res: Response)=>{
 });
 
 // Routers
-app.use('/', [usersRouter]);
+app.use('/', [usersRouter, citiesRouter]);
 
 // Start the server
 app.listen(port, () => {

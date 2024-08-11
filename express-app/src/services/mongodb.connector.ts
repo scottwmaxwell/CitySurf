@@ -32,7 +32,6 @@ const executeMongoDBOperation = async (collectionName:string, operation:string, 
               }else{
                 return await collection.find(data).toArray();
               }
-
             case 'findone':
               return await collection.findOne(data);
             case 'insert':
@@ -49,7 +48,7 @@ const executeMongoDBOperation = async (collectionName:string, operation:string, 
               throw new Error('Invalid operation specified');
           }
     }finally{
-        await client.close()
+        // await client.close()
     }
 }
 
