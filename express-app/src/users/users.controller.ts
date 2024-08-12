@@ -109,7 +109,18 @@ export const deleteCity: RequestHandler = async(req: Request, res: Response)=>{
 
 export const saveCity: RequestHandler = async(req: Request, res: Response)=>{
     let userId = getUserIdFromRequest(req);
+    let cityId = String(req.query.id);
+    const cityIdToAdd = new ObjectId(cityId);
     if(userId){
+        try{
+            let result = await executeMongoDBOperation('users', 'update', { $push: { cities: cityIdToAdd } }, new ObjectId(userId));
+            if(result){
+                res.status(200).send("City Added");
+            }
+        }catch(e){
+            console.log(e);
+        }
+
     }else{
         res.status(500).send("Server Error");
     }

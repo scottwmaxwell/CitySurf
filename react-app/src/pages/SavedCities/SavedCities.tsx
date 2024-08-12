@@ -3,16 +3,12 @@ import dataSource from "../../dataSource";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import SavedCity from '../../components/SavedCity/SavedCity';
+import { useNavigate } from 'react-router-dom';
 
-function SavedCities({modalOpen}: any){
+function SavedCities({modalOpen, setCityOne, setCityTwo, setCityThree}: any){
 
+    const navigate = useNavigate();
     const [savedCities, setSavedCities] = useState<any[]>([]);
-
-    const city = {
-        name:"Florence",
-        state:"AZ",
-        description:"A small town in southern Arizona."
-    }
 
     useEffect(()=>{
         getSavedCities();
@@ -39,6 +35,8 @@ function SavedCities({modalOpen}: any){
                     return result.data;
                 })
             );
+
+            console.log(fetchedCities);
             setSavedCities(fetchedCities);
         }
     }
@@ -47,10 +45,29 @@ function SavedCities({modalOpen}: any){
         if(savedCities){
             return savedCities.map((city:any, index:number) => {
                 return (
-                    <SavedCity key={index} handleRemove={handleRemove} id={city._id} city={city} />
+                    <SavedCity key={index} handleViewClick={handleViewClick} handleRemove={handleRemove} id={city._id} city={city} />
                 );
             });
         }
+    }
+
+    const handleViewClick = async (e: any)=>{
+        let id = e.currentTarget.id;
+        let cityName;
+        console.log(savedCities)
+        for(let city of savedCities){
+            if(city._id == id){
+                cityName = `${city.name}, ${city.state}`;
+            }
+        }
+        // Get CityName and set that to cityOne and clear the others
+        setCityOne(cityName)
+        setCityTwo("");
+        setCityThree("");
+        
+        // Navigate to cityView page
+        navigate("/city");
+
     }
 
     const handleRemove = async (e: any)=>{
@@ -64,7 +81,7 @@ function SavedCities({modalOpen}: any){
                         Authorization: `Bearer ${Cookies.get('token')}`
                     }
                 });
-                if(deleted.data == "City Removed"){
+                if(deleted.data === "City Removed"){
                     console.log(savedCities);
                     console.log(id);
                     const newCities = savedCities.filter((city)=> city._id != id );

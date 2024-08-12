@@ -3,12 +3,7 @@ import "./Discover.css";
 import Search from '../../components/Search/Search';
 import { useState } from 'react';
 
-function Discover({modalOpen}: any){
-
-    const [cityOne, setCityOne] = useState("");
-    const [cityTwo, setCityTwo] = useState("");
-    const [cityThree, setCityThree] = useState("");
-    const [cityCount, setCityCount] = useState(1);
+function Discover({modalOpen, cityOne, setCityOne, cityTwo, setCityTwo, cityThree, setCityThree, cityCount, setCityCount}: any){
 
     return(
         <div className={"container main-content " + modalOpen}>

@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -18,10 +19,17 @@ import SavedCities from './pages/SavedCities/SavedCities';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { useState } from 'react';
 
+
+// Main component for displaying all other components
 function App() {
 
+  // State variables
   const [modalOpen, setModalOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(!!Cookies.get('token'));
+  const [cityOne, setCityOne] = useState("");
+  const [cityTwo, setCityTwo] = useState("");
+  const [cityThree, setCityThree] = useState("");
+  const [cityCount, setCityCount] = useState(1);
 
   return (
     <div className="App">
@@ -29,10 +37,10 @@ function App() {
       <BrowserRouter>
         <Nav modalOpen={modalOpen} loggedIn={loggedIn} setLoggedIn={setLoggedIn} setModalOpen={setModalOpen} />
         <Routes>
-          <Route path='/' element={ <Home modalOpen={modalOpen} />}/>
-          <Route path='/discover' element={<Discover modalOpen={modalOpen} />} />
-          <Route path='/city' element={<CityView modalOpen={modalOpen}/>} />
-          <Route path='/savedcities' element={<SavedCities modalOpen={modalOpen} />} />
+          <Route path='/' element={ <Home cityCount={cityCount} setCityCount={setCityCount} cityOne={cityOne} setCityOne={setCityOne} cityTwo={cityTwo} setCityTwo={setCityTwo} cityThree={cityThree} setCityThree={setCityThree} modalOpen={modalOpen} />}/>
+          <Route path='/discover' element={<Discover cityCount={cityCount} setCityCount={setCityCount} cityOne={cityOne} setCityOne={setCityOne} cityTwo={cityTwo} setCityTwo={setCityTwo} cityThree={cityThree} setCityThree={setCityThree} modalOpen={modalOpen} />} />
+          <Route path='/city' element={<CityView cityCount={cityCount} setCityCount={setCityCount} cityOne={cityOne} setCityOne={setCityOne} cityTwo={cityTwo} setCityTwo={setCityTwo} cityThree={cityThree} setCityThree={setCityThree} modalOpen={modalOpen}/>} />
+          <Route path='/savedcities' element={<SavedCities setCityOne={setCityOne} cityTwo={cityTwo} setCityTwo={setCityTwo} cityThree={cityThree} setCityThree={setCityThree} modalOpen={modalOpen} />} />
           <Route path="/about" element={<About modalOpen={modalOpen} />} />
           <Route path="/privacy" element={<Privacy modalOpen={modalOpen} />} />
         </Routes>     

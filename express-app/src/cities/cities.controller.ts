@@ -16,10 +16,11 @@ export const getCity: RequestHandler = async(req: Request, res: Response)=>{
             const results = await executeMongoDBOperation("cities", "find", {_id: new ObjectId(cityId)});
             if(results && results.length > 0 && Array.isArray(results)){
                 const cityResult = results[0];
+                console.log(cityResult);
                 if(cityResult && (typeof cityResult=== 'object') && ('_id' in cityResult)){
                     const city:City = {
                         _id: cityResult._id,
-                        name: cityResult.name,
+                        name: cityResult.city,
                         state: cityResult.state,
                         description: cityResult.description
                     }

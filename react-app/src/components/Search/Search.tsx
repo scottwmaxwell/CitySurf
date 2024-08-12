@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Link } from 'react-router-dom';
 
 /**
  * This component contains the UX logic for searching and adding more fields.
  */
 function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOne, setCityTwo, setCityThree}: any){
 
+
+
+    useEffect(()=>{
+        renderCityInputs();
+    }, [])
+
+    const renderCityInputs = ()=>{
+        console.log(cityCount);
+        // TODO: Refactor the way search inputs are mapped...
+        if(cityTwo !== ""){
+            setCityInputs([...cityInputs, "city2"]);
+            setCityCount(cityInputs.length + 1);
+        }
+
+        if(cityThree !== ""){
+            setCityInputs([...cityInputs, "city3"]);
+            setCityCount(cityInputs.length + 1);    
+        }
+    }
+
     const [cityInputs, setCityInputs] = useState(["city1"]);
     const [showAddButton, setShowAddButton] = useState(true);
-    const [searchSuggestions, setSearchSuggestions] = useState(["Florence, AZ"]);
+    const [searchSuggestions, setSearchSuggestions] = useState([""]); // TODO: Get new search suggestions each time cityInput changes
 
     const updateSelected = (cityname: String)=>{
         if(cityOne === ""){
@@ -25,11 +46,11 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
     }
 
     const handleChange = (event: any) => {
-        if(event.target.id == "city1"){
+        if(event.target.id === "city1"){
             setCityOne(event.target.value);
-        }else if(event.target.id == "city2"){
+        }else if(event.target.id === "city2"){
             setCityTwo(event.target.value);
-        }else if(event.target.id == "city3"){
+        }else if(event.target.id === "city3"){
             setCityThree(event.target.value);
         }
 
@@ -49,6 +70,7 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
             const newId = "city" + (cityInputs.length + 1).toString();
             setCityInputs([...cityInputs, newId]);
             setCityCount(cityInputs.length + 1);
+            console.log("cityCount Updated: " + cityCount);
             if(cityInputs.length >= 2) setShowAddButton(false);
         }
     };
@@ -58,9 +80,9 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
         const idToRemove = event.target.id;
 
         // Update city state props
-        if(idToRemove == "city1"){
+        if(idToRemove === "city1"){
             setCityOne("");
-        }else if(idToRemove == "city2"){
+        }else if(idToRemove === "city2"){
             
             if(cityThree !== ""){
                 console.log(cityThree)
@@ -70,7 +92,7 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
                 setCityTwo("");
             }
 
-        }else if(idToRemove == "city3"){
+        }else if(idToRemove === "city3"){
             setCityThree("");
         }
         
@@ -106,7 +128,7 @@ function Search({cityCount, setCityCount, cityOne, cityTwo, cityThree, setCityOn
                 />
                 {id!=="city1"?
                 <button id={id} key={"remove-btn-" + id} onClick={handleRemove} className="remove-btn">X</button>
-                :<button key={"go-btn" + id} className="btn-outline-custom go-btn btn" type="submit">Go</button>}
+                :<Link to='/city' key={"go-btn" + id} className="btn-outline-custom go-btn btn">Go</Link>}
             </div>
         ))}
         {showAddButton ?
