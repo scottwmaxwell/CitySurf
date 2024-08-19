@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import art from "../../assets/citysurfart.gif"
 import Search from '../../components/Search/Search';
 
-function Home({modalOpen, session, cityOne, setCityOne, cityTwo, setCityTwo, cityThree, setCityThree, citycount, setCitycount}:any){
+function Home({modalOpen, session, cities, setCities}:any){
     const [cityCount, setCityCount] = useState(1);
     const [isVisible, setIsVisible] = useState(false);
     const addCityIcon =  <FontAwesomeIcon className="add-city-icon" icon={faPlus} color="#E2B714"/> 
@@ -24,7 +24,7 @@ function Home({modalOpen, session, cityOne, setCityOne, cityTwo, setCityTwo, cit
                     </div>
                     <div className="col">
                         <h1 className="header">Find Your <br/>City.</h1>
-                        <Search setCityCount={setCityCount} cityCount={cityCount} cityOne={cityOne} cityTwo={cityTwo} cityThree={cityThree} setCityOne={setCityOne} setCityTwo={setCityTwo} setCityThree={setCityThree} />
+                        <Search cities={cities} setCities={setCities} />
                     </div>
                 </div>
         </div>

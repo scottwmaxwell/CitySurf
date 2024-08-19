@@ -3,7 +3,7 @@ import "./Discover.css";
 import Search from '../../components/Search/Search';
 import { useState } from 'react';
 
-function Discover({modalOpen, cityOne, setCityOne, cityTwo, setCityTwo, cityThree, setCityThree, cityCount, setCityCount}: any){
+function Discover({modalOpen, cities, setCities}: any){
 
     return(
         <div className={"container main-content " + modalOpen}>
@@ -12,9 +12,9 @@ function Discover({modalOpen, cityOne, setCityOne, cityTwo, setCityTwo, cityThre
                 <div className="col">
                     <h1>Select up to three cities.</h1>
                     <div className="" id="mapbox">
-                        <Mapbox cityCount={cityCount} setCityCount={setCityCount} cityOne={cityOne} cityTwo={cityTwo} cityThree={cityThree} setCityOne={setCityOne} setCityTwo={setCityTwo} setCityThree={setCityThree} />
+                        <Mapbox cities={cities} setCities={setCities} />
                     </div>
-                    <Search cityCount={cityCount} setCityCount={setCityCount} cityOne={cityOne} cityTwo={cityTwo} cityThree={cityThree} setCityOne={setCityOne} setCityTwo={setCityTwo} setCityThree={setCityThree} />
+                    <Search cities={cities} setCities={setCities} />
                 </div>
             </div>
  

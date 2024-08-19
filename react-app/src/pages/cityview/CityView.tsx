@@ -5,8 +5,7 @@ import Summary from "../../components/CityCards/Summary/Summary";
 import Weather from "../../components/CityCards/Weather/Weather";
 import './CityView.css';
 
-
-function CityView({modalOpen, cityOne, setCityOne, cityTwo, setCityTwo, cityThree, setCityThree, cityCount, setCityCount}:any){
+function CityView({modalOpen, cities, setCities}:any){
 
     const [cityData, setCityData] = useState<any[]>([]);
     const initialRender = useRef(true);
@@ -20,7 +19,7 @@ function CityView({modalOpen, cityOne, setCityOne, cityTwo, setCityTwo, cityThre
 
     const getSelectedCities = async()=>{
         try{
-            let selectedCities = [cityOne, cityTwo, cityThree];
+            let selectedCities = cities;
             for(let selectCity of selectedCities){
                 if(selectCity !== ''){
                     let [city, state] = selectCity.replace(' ', '').split(',')
@@ -49,7 +48,7 @@ function CityView({modalOpen, cityOne, setCityOne, cityTwo, setCityTwo, cityThre
         <div className={"container main-content " + modalOpen}>
             <div className="row">
                 <div className="col-3 side-panel">
-                    <Search cityCount={cityCount} setCityCount={setCityCount} cityOne={cityOne} cityTwo={cityTwo} cityThree={cityThree} setCityOne={setCityOne} setCityTwo={setCityTwo} setCityThree={setCityThree}  />
+                    <Search cities={cities} setCities={setCities}/>
                 </div>
                 <div className="col-lg">
                     {renderSummaries()}

@@ -22,27 +22,26 @@ interface GeoJsonFeatureCollection {
   features: GeoJsonFeature[];
 }
 
-const Mapbox = ({cityCount, setCityOne, setCityTwo, setCityThree}: any) => {
+const Mapbox = ({setCities, cities}: any) => {
+
+  const citiesRef = useRef<string[]>([]);
+
+  // Mapbox variables
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const lng = -95.5; // Example longitude
   const lat = 40; // Example latitude
 
-  const cityCountRef = useRef(cityCount);
-  const updateSelected = (cityname: String)=>{
-    let cityCountCurrent = cityCountRef.current;
-    if(cityCountCurrent == 1){
-      setCityOne(cityname);
-    }else if(cityCountCurrent == 2){
-      setCityTwo(cityname);
-    }else if(cityCountCurrent == 3){
-      setCityThree(cityname);
-    }
+  const updateSelected = (cityname: string)=>{
+    console.log(citiesRef);
+    let citiesTemp = [...citiesRef.current];
+    citiesTemp[citiesTemp.length-1] = cityname;
+    setCities(citiesTemp);
   }
 
   useEffect(() => {
-    cityCountRef.current = cityCount; // Update the ref value whenever cityCount changes
-  }, [cityCount]);
+    citiesRef.current = cities; // Update the ref value whenever cityCount changes
+  }, [cities]);
 
   useEffect(() => {
     if (mapRef.current) return; // initialize map only once
