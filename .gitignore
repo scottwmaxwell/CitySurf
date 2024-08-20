@@ -14,3 +14,5 @@
 */myenv/
 
 mongoDB Upload.ipynb
+
+*.ipynb_checkpoints
