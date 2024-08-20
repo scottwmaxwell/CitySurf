@@ -4,10 +4,45 @@ import { faUsersLine, faPersonWalking, faMapLocationDot} from '@fortawesome/free
 import Plot from 'react-plotly.js';
 import { useEffect, useState } from 'react';
 
+
 function Weather({cityData}: any){
 
-    // TODO: Update graph size for different screen size
-    const [graphSize, setGraphSize] = useState({ width: 700, height: 300 });
+    const calculatePlotSize = () =>{
+        console.log('calculatePlotSize')
+        console.log(window.innerWidth);
+
+        let width, height;
+
+        if(window.innerWidth > 1000){
+            console.log('greater than 1000')
+            width = 700;
+            height = 300;
+        } else if(window.innerWidth > 800){
+            console.log('greater than 800')
+            width = 400;
+            height = 260;
+        }else if(window.innerWidth > 600){
+            console.log('greater than 600')
+            width =400;
+            height=260;
+        }else{
+            console.log('really small')
+            width = 330;
+            height = 260;
+        }
+    
+        let dimensions = {width: width, height: height}
+    
+        return dimensions;
+    }
+
+    const [graphSize, setGraphSize] = useState(calculatePlotSize())
+
+    useEffect(()=>{
+        window.addEventListener('resize', ()=>{
+            setGraphSize(calculatePlotSize());
+        });
+    }, [])
 
     const data:any = []
     let count = 0;
@@ -38,15 +73,16 @@ function Weather({cityData}: any){
 
     return(
         <div className="card bg-dark">
+            <h1 className="card-header">Weather</h1>
             <div className="card-content">
                 <div className="plot-container">
                 <Plot
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}
             data={data}
             layout={{
-                autosize: true,
+                // autosize: true,
                 title: {
-                    text: 'Monthly Temperature Highs',
+                    text: '',
                     font: {
                         size: 24,
                         color: 'white'
@@ -73,7 +109,8 @@ function Weather({cityData}: any){
                     showgrid: false
                 },
                 width: graphSize.width,
-                height: graphSize.height
+                height: graphSize.height,
+                margin:{l:0, r:0}
             }}
             config={{
                 displayModeBar: false

@@ -20,7 +20,7 @@ function Home({modalOpen, session, cities, setCities}:any){
         <div className={"container main-content " + modalOpen }>
                 <div className="row">
                     <div className="col d-flex">
-                        <div className=""><img src={art} className={isVisible? "art unveil-image show": "art unveil-image"} ></img></div>
+                        <div className="art-container"><img src={art} className={isVisible? "art unveil-image show": "art unveil-image"} ></img></div>
                     </div>
                     <div className="col">
                         <h1 className="header">Find Your <br/>City.</h1>

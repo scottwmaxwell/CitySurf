@@ -97,10 +97,15 @@
     transform: translateX(0); /* Move the image to its final position */
 }
 
+.art-container{
+    overflow: hidden !important;
+}
+
 /* Adds a fade to the right side of the image */
 .art{
     -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
     mask-image: linear-gradient(to right, black 70%, transparent 100%);
+    margin-right:0px !important;
 }
 
 

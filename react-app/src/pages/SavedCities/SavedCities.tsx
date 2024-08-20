@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import SavedCity from '../../components/SavedCity/SavedCity';
 import { useNavigate } from 'react-router-dom';
 
-function SavedCities({modalOpen, setCityOne, setCityTwo, setCityThree}: any){
+function SavedCities({modalOpen}: any){
 
     const navigate = useNavigate();
     const [savedCities, setSavedCities] = useState<any[]>([]);
@@ -60,14 +60,9 @@ function SavedCities({modalOpen, setCityOne, setCityTwo, setCityThree}: any){
                 cityName = `${city.name}, ${city.state}`;
             }
         }
-        // Get CityName and set that to cityOne and clear the others
-        setCityOne(cityName)
-        setCityTwo("");
-        setCityThree("");
         
         // Navigate to cityView page
         navigate("/city");
-
     }
 
     const handleRemove = async (e: any)=>{
