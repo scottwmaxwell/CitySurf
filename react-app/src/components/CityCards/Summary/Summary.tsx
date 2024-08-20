@@ -40,8 +40,10 @@ function Summary({data}: any){
         <div className="card bg-dark">
             <div className="card-content">
                 <div className="row">
-
-                        <h1 className="card-header">{data.city}, {data.state} </h1>
+                        <div className="d-flex">
+                            <div className="save-icon">{saveIcon}</div>
+                            <h1 className="card-header">{data.city}, {data.state} </h1>
+                        </div>
                         <p>{data.description}</p>
                 </div>
 
@@ -54,9 +56,6 @@ function Summary({data}: any){
                     </div>
                     <div>
                         {locationIcon}{data.lat}, {data.lon}
-                    </div>
-                    <div className="save-icon">
-                                {saveIcon}
                     </div>
                 </div>
 

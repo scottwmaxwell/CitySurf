@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link } from 'react-router-dom';
+import './Search.css';
 
 /**
  * This component contains the UX logic for searching and adding more fields.
@@ -61,28 +62,29 @@ function Search({cities, setCities}: any){
     // const locationIcon = <FontAwesomeIcon className="discover-icon" icon={faMapLocationDot} color="#E2B714"/> 
     const addCityIcon =  <FontAwesomeIcon className="add-city-icon" icon={faPlus} color="#E2B714"/> 
 
-    return(                        
-    <form onSubmit={handleGo} className="d-flex">
-    <div className="form-group me-3">
+    return( 
+        <div className="search-container">                      
+            <form onSubmit={handleGo} className="d-flex">
+                <div className="form-group me-3">
 
-        {renderCityInputs()}
+                    {renderCityInputs()}
 
-        {cities.length < 3 ?
-        <div className="add-btn-container">
-            <button onClick={handleAdd} className="btn add-btn btn-outline-custom">{addCityIcon}</button> Add a city
-        </div>
-        : <div className="add-btn-container"></div>}
+                    {cities.length < 3 ?
+                    <div className="add-btn-container">
+                        <button onClick={handleAdd} className="btn add-btn btn-outline-custom">{addCityIcon}</button> Add a city
+                    </div>
+                    : <div className="add-btn-container"></div>}
 
-        {/* <datalist id="list-suggestions">
-            {searchSuggestions.map((id)=>(
-                <option value={id}></option>
-            ))}
-        </datalist> */}
+                    {/* <datalist id="list-suggestions">
+                        {searchSuggestions.map((id)=>(
+                            <option value={id}></option>
+                        ))}
+                    </datalist> */}
 
 
-    </div>
-</form>
-)
-}
+                </div>
+            </form>
+        </div> 
+    )}
 
 export default Search;

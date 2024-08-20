@@ -8,25 +8,18 @@ import { useEffect, useState } from 'react';
 function Weather({cityData}: any){
 
     const calculatePlotSize = () =>{
-        console.log('calculatePlotSize')
-        console.log(window.innerWidth);
-
         let width, height;
 
         if(window.innerWidth > 1000){
-            console.log('greater than 1000')
             width = 700;
             height = 300;
         } else if(window.innerWidth > 800){
-            console.log('greater than 800')
             width = 400;
             height = 260;
         }else if(window.innerWidth > 600){
-            console.log('greater than 600')
             width =400;
             height=260;
         }else{
-            console.log('really small')
             width = 330;
             height = 260;
         }

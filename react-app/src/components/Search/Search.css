@@ -1,3 +1,8 @@
+.search-container{
+    margin-bottom:50px !important;
+    /* display:none !important; */
+}
+
 .fontAwesome {
     font-family: 'Helvetica', FontAwesome, sans-serif;
 }
