@@ -1,13 +1,5 @@
-@media (prefers-color-scheme: dark) {
-    .brand-text{
-        color:rgb(202, 202, 202) !important;
-    }
-}
-
-@media (max-width: 450px) {
-   .brand-text{
-        display:none;
-   }
+.brand-text{
+    color:rgb(202, 202, 202) !important;
 }
 
 .brand-text{
@@ -21,21 +13,6 @@
 .nav-items{
     padding-right:10px;
 }
-
-/* .btn-outline-custom {
-    color: #E2B714 !important; 
-    border-color: #E2B714 !important;
-}
-
-.btn-outline-custom:hover {
-  color: white !important;
-  background-color: #E2B714 !important;
-  border-color: #E2B714 !important;
-}
-
-.btn-outline-custom:hover .discover-icon{
-    color:white !important;
-} */
 
 .discover-icon{
     margin-right:5px;

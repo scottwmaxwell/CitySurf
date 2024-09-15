@@ -3,14 +3,18 @@ import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import './Metrics.css';
+import dataSource from '../../dataSource';
+import Cookies from "js-cookie";
 
 
-function Metrics({setModalOpen}: any){
+function Metrics({setModalOpen, setToastMessage, setShowToast, setToastTitle}: any){
 
-    const [stars, setStars] = useState([1, 2, 3, 4, 5])
+    // const [stars, setStars] = useState([1, 2, 3, 4, 5])
+    const stars = [1, 2, 3, 4, 5];
     const [starsSelected, setStarsSelected]  = useState([0, 0, 0, 0]);
     const [locationPermission, setLocationPermission] = useState(0); // 0 = not set, 1 = permission denied, 2 = success
     const [location, setLocation] = useState();
+    const [cityId, setCityId] = useState("");
 
     const locationIcon = <FontAwesomeIcon className="discover-icon" icon={faMapLocationDot} color="#E2B714"/> 
 
@@ -19,20 +23,50 @@ function Metrics({setModalOpen}: any){
     }, []);
 
 
-    const locationResult = (result: any)=>{
+    const locationResult = async (location: any)=>{
         setLocationPermission(2);
+        console.log(location.coords);
+        let coords = location.coords
+        let request = `/citybygeo?lat=${coords.latitude}&lon=${coords.longitude}`;
+        let result = await dataSource.get(request);
+        console.log("City Name:" + result.data.city);
+        if(!result){
+            setToastMessage("Unable to find city from location")
+            setShowToast(true);
+            setToastTitle("Error");
+            setCityId("notfound");
+        }else{
+            setCityId(result.data._id);
+        }
     }
 
     const locationError = (error: any)=>{
         setLocationPermission(1);
     }
 
-    const getLocation = ()=>{
+    const getLocation = () =>{
         navigator.geolocation.getCurrentPosition(locationResult, locationError);
     }
 
-    const handleContinue = ()=>{
-        setModalOpen(false);
+    const handleContinue = async ()=>{
+        if(cityId){
+            console.log(starsSelected)
+            let payload = {
+                "cleanliness": starsSelected[0],
+                "safety": starsSelected[1],
+                "landmarks": starsSelected[2],
+                "education": starsSelected[3],
+                "cityId": cityId,
+            }
+            let result = await dataSource.put("/ratecity", payload, {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('token')}`
+                }
+            });
+            setModalOpen(false);
+        }else{
+            setModalOpen(false);
+        }
     }
 
     const handleStarClick = (e: any)=>{
@@ -59,8 +93,8 @@ function Metrics({setModalOpen}: any){
     }
 
     return (<div>
-        {locationPermission > 1?
-            <form className="form">
+        {locationPermission > 1 || cityId === "notfound"?
+            <div className="form">
                 <div className="input-box">
 
                     <div className="d-flex justify-content-left">
@@ -112,29 +146,29 @@ function Metrics({setModalOpen}: any){
                     </div>
 
                     <div className="form-group d-flex justify-content-end">
-                        <button type="submit" className="btn btn-outline-custom login-btn">Submit</button>
+                        <button onClick={handleContinue} type="submit" className="btn btn-outline-custom login-btn">Submit</button>
                     </div>
                 </div>
-                </form>
+            </div>
             : // ELSE
             
                 <div className="input-box">
 
                     <div className="d-flex justify-content-left">
-                        {locationPermission == 0?
+                        {locationPermission === 0?
                             <h4 className="main-header">{locationIcon} Please accept the location permission.</h4>
                         :
                             <h4 className="main-header">That's Okay!</h4>
                         }
                     </div>
 
-                    {locationPermission == 1 &&
+                    {locationPermission === 1 &&
                     <div className="d-flex justify-content-center">
                         <p>We see you don't want to share your location. Please select Continue.</p>
                     </div>
                     }
 
-                        {locationPermission == 1 &&
+                        {locationPermission === 1 &&
                         <div className="form-group d-flex justify-content-end">
                             <button onClick={handleContinue} className="btn btn-outline-custom login-btn">Continue</button>
                         </div>

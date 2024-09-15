@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -10,9 +11,11 @@ import './Search.css';
 /**
  * This component contains the UX logic for searching and adding more fields.
  */
-function Search({cities, setCities}: any){
+function Search({cities, setCities, getSelectedCities}: any){
 
     // const [searchSuggestions, setSearchSuggestions] = useState([""]); // TODO: Get new search suggestions each time cityInput changes
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleChange = (event: any) => {
         let citiesTemp = [...cities];
@@ -22,8 +25,12 @@ function Search({cities, setCities}: any){
     }
 
     const handleGo = (e: any)=>{
-        e.preventDefault();
         console.log("Go/Add Pressed");
+        if(location.pathname === "/city"){
+            getSelectedCities();
+        }else{
+            navigate("/city");
+        }
     }
 
     const handleAdd = (event: any) => {
@@ -54,7 +61,7 @@ function Search({cities, setCities}: any){
                 />
                 {index!==0?
                 <button id={index.toString()} key={"remove-btn-" + city} onClick={handleRemove} className="remove-btn">X</button>
-                :<Link to='/city' key={"go-btn" + city} className="btn-outline-custom go-btn btn">Go</Link>}
+                :<a onClick={handleGo} key={"go-btn" + city} className="btn-outline-custom go-btn btn">Go</a>}
             </div>
         ))      
     }
@@ -64,7 +71,7 @@ function Search({cities, setCities}: any){
 
     return( 
         <div className="search-container">                      
-            <form onSubmit={handleGo} className="d-flex">
+            <div className="d-flex">
                 <div className="form-group me-3">
 
                     {renderCityInputs()}
@@ -83,7 +90,7 @@ function Search({cities, setCities}: any){
 
 
                 </div>
-            </form>
+            </div>
         </div> 
     )}
 

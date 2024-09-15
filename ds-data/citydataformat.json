@@ -17,7 +17,7 @@
             "int32", "int32", "int32", "int32", "int32", "int32"
         ]
     },
-    "population": "int64",
+    "population": ["int64","int64","int64","int64","int64","int64","int64","int64","int64"],
     "house_prices":{
         "2012":"int64", "2013":"int64", "2014":"int64", "2015":"int64", "2016":"int64", "2017":"int64", "2018":"int64", 
         "2019":"int64", "2020":"int64", "2021":"int64", "2022":"int64", "2023":"int64", "2024":"int64"

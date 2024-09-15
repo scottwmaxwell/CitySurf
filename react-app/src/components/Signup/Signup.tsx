@@ -3,7 +3,7 @@ import "../Login/Login.css"
 import { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
 
-function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn}: any){
+function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn, setShowToast, setToastMessage, setToastTitle}: any){
 
     const [passwordOne, passwordOneSet] = useState("");
     const [passwordTwo, passwordTwoSet] = useState("");
@@ -43,8 +43,13 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn}: an
             // Create user
             try{
                 result = await dataSource.post('/createUser', payload);
+                setToastTitle("Message");
+                setToastMessage("Account has been registered");
+                setShowToast(true);
             }catch(e){
                 console.log(e);
+                setToastTitle("Failed to create User")
+                setShowToast(true);
             }
 
             if(result){
@@ -61,17 +66,23 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn}: an
                         setSignup(false);
                     }
                 }catch{
-                    console.log("Cannot login: ", e);
+                    console.log("Cannot Signup: ", e);
+                    setToastMessage("Email already in use");
+                    setToastTitle("Error")
+                    setShowToast(true);
                 }
             }
         }else{
             console.log("passwords don't match")
+            setToastMessage("Passwords don't match");
+            setToastTitle("Error")
+            setShowToast(true);
         }
     }
 
     //d-flex justify-content-center
     return(<div>
-        <form onSubmit={handleSignup} className="form">
+        <div className="form">
 
             <div className="input-box">
 
@@ -92,14 +103,14 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn}: an
                 </div>
 
                 <div className="form-group d-flex justify-content-end">
-                    <button type="submit" className={passwordsMatch? "btn btn-outline-custom login-btn": "btn btn-outline-custom login-btn grayed" }>Sign up</button>
+                    <button type="button" onClick={handleSignup} className={passwordsMatch? "btn btn-outline-custom login-btn": "btn btn-outline-custom login-btn grayed" }>Sign up</button>
                 </div>
             </div>
 
             <div className="form-group d-flex justify-content-left ">
                 <a className="sign-up" href="#" onClick={handleLogin}>Log in</a>
             </div>
-        </form>
+        </div>
     </div>)
 }
 

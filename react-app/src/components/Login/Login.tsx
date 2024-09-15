@@ -3,7 +3,7 @@ import "./Login.css"
 import Cookies from 'js-cookie';
 import dataSource from "../../dataSource";
 
-function Login({setPassReset, setLogin, setSignup, setModalOpen, setLoggedIn}: any){
+function Login({setPassReset, setLogin, setSignup, setModalOpen, setLoggedIn, setShowToast, setToastMessage, setToastTitle}: any){
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -32,10 +32,16 @@ function Login({setPassReset, setLogin, setSignup, setModalOpen, setLoggedIn}: a
                 Cookies.set("token", result.data.token, {expires: 7});
                 console.log("Set cookie")
                 setLoggedIn(true);
+                setShowToast(true);
+                setToastTitle("Message");
+                setToastMessage("You have been logged in");
                 setModalOpen(false);
             }
         }catch{
             console.log("Cannot login: ", e);
+            setShowToast(true);
+            setToastTitle("Error: Cannot Login");
+            setToastMessage("Email or Password incorrect.");
         }
         
     }

@@ -17,7 +17,7 @@ export const getCity: RequestHandler = async(req: Request, res: Response)=>{
             if(results && results.length > 0 && Array.isArray(results)){
                 const cityResult = results[0];
                 console.log(cityResult);
-                if(cityResult && (typeof cityResult=== 'object') && ('_id' in cityResult)){
+                if(cityResult && (typeof cityResult === 'object') && ('_id' in cityResult)){
                     const city:City = {
                         _id: cityResult._id,
                         name: cityResult.city,
@@ -44,10 +44,71 @@ export const getCity: RequestHandler = async(req: Request, res: Response)=>{
             );
         }
     }else{
-        console.log("Here")
         res.status(400).send("Invalid Request");
     }
 }
 
+export const getCityByGeoloc: RequestHandler = async(req: Request, res: Response)=>{
 
+    let cityLat:any = req.query.lat;
+    let cityLon: any = req.query.lon;
 
+    if(cityLat && cityLon){
+        try{
+
+            let query = {
+                boundingbox: {
+                    $geoIntersects: {
+                        $geometry: {
+                            type: "Point",
+                            coordinates: [parseFloat(cityLon), parseFloat(cityLat)]
+                        }
+                    }
+                }
+            }
+
+            console.log(query);
+            const result = await executeMongoDBOperation("cities", "findone", query);
+            console.log("getCityByGeoloc");
+            console.log(result);
+
+            res.status(200).json(
+                result
+            );
+
+        }catch(e){
+            console.log(e);
+        }
+
+    }else{
+        res.status(400).send("Invalid Request");
+    }
+}
+
+export const rateCity: RequestHandler = async(req: Request, res: Response)=>{
+
+    console.log("RateCity");
+
+    let cleanliness = req.body.cleanliness;
+    let safety = req.body.saftey;
+    let landmarks = req.body.landmarks;
+    let education = req.body.education;
+    let cityId = req.body.cityId;
+
+    console.log("cleanliness: " + cleanliness);
+
+    let metrics = {
+        [`community_metrics.cleanliness.${parseInt(cleanliness)}`]: 1,
+        [`community_metrics.safety.${parseInt(safety)}`]: 1,
+        [`community_metrics.landmarks.${parseInt(landmarks)}`]: 1,
+        [`community_metrics.education.${parseInt(education)}`]: 1
+    }
+
+    try{
+        await executeMongoDBOperation('cities', 'update', {$inc: metrics }, new ObjectId(cityId));
+        res.status(200).send("Success");
+    }catch(e){
+        console.log(e);
+        res.status(400).send("Invalid Request");
+    }
+}

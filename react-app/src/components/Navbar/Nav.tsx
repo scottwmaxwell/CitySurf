@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
-function Nav({openModal, setModalOpen, loggedIn, setLoggedIn}: any){
+function Nav({openModal, setModalOpen, loggedIn, setLoggedIn, setToastShow, setToastMessage, setToastTitle}: any){
 
     const detectSmallScreen = () =>{
         if(window.innerWidth < 800){
@@ -35,6 +35,9 @@ function Nav({openModal, setModalOpen, loggedIn, setLoggedIn}: any){
     const handleLogout = () =>{
         Cookies.remove('token');
         setLoggedIn(!!Cookies.get('token'));
+        setToastMessage("You have been logged out.");
+        setToastTitle("Message");
+        setToastShow(true);
     }
     
     return(
@@ -56,7 +59,7 @@ function Nav({openModal, setModalOpen, loggedIn, setLoggedIn}: any){
                     <FontAwesomeIcon className="discover-icon" icon={faCompass} color="#E2B714"/>
                     {!smallScreen && <span>Discover</span>}
                 </Link>
-                {loggedIn? <Link to="/" className='btn btn-dark btn-outline-custom' onClick={handleLogout}>Logout</Link> : 
+                {loggedIn? <a className='btn btn-dark btn-outline-custom' onClick={handleLogout}>Logout</a>: 
                 <a className='btn btn-dark btn-outline-custom' onClick={handleLogin}>Login</a>}
             </div>
         </nav>
