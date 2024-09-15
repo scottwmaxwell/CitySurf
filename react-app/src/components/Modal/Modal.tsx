@@ -11,7 +11,7 @@ function Modal({
   setLoggedIn,
   setToastMessage,
   setToastTitle,
-  setShowToast,
+  setToastShow,
 }: any) {
   const [login, setLogin] = useState(true);
   const [passReset, setPassReset] = useState(false);
@@ -43,7 +43,7 @@ function Modal({
                   setLogin={setLogin}
                   setLoggedIn={setLoggedIn}
                   setSignup={setSignup}
-                  setShowToast={setShowToast}
+                  setToastShow={setToastShow}
                   setToastMessage={setToastMessage}
                   setToastTitle={setToastTitle}
                 />
@@ -53,7 +53,7 @@ function Modal({
                   setPassReset={setPassReset}
                   setModalOpen={setModalOpen}
                   setLogin={setLogin}
-                  setShowToast={setShowToast}
+                  setToastShow={setToastShow}
                   setToastMessage={setToastMessage}
                   setToastTitle={setToastTitle}
                 />
@@ -66,7 +66,7 @@ function Modal({
                   setLogin={setLogin}
                   setSignup={setSignup}
                   setMetrics={setMetrics}
-                  setShowToast={setShowToast}
+                  setToastShow={setToastShow}
                   setToastMessage={setToastMessage}
                   setToastTitle={setToastTitle}
                 />
@@ -75,7 +75,7 @@ function Modal({
               {metrics && (
                 <Metrics
                   setModalOpen={setModalOpen}
-                  setShowToast={setShowToast}
+                  setToastShow={setToastShow}
                   setToastMessage={setToastMessage}
                   setToastTitle={setToastTitle}
                 />

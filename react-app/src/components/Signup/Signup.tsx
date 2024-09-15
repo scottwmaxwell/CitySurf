@@ -3,7 +3,7 @@ import "../Login/Login.css"
 import { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
 
-function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn, setShowToast, setToastMessage, setToastTitle}: any){
+function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn, setToastShow, setToastMessage, setToastTitle}: any){
 
     const [passwordOne, passwordOneSet] = useState("");
     const [passwordTwo, passwordTwoSet] = useState("");
@@ -33,29 +33,37 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn, set
 
     const handleSignup = async(e: any)=>{
         e.preventDefault();
-
+        console.log("handleSignup")
         if(passwordOne === passwordTwo){
+
             console.log("password match")
-
             let payload = {"email": email, "password": passwordTwo}
-
             let result;
+
             // Create user
             try{
                 result = await dataSource.post('/createUser', payload);
-                setToastTitle("Message");
-                setToastMessage("Account has been registered");
-                setShowToast(true);
+                if(result){
+                    setToastTitle("Message");
+                    setToastMessage("Account has been registered");
+                    setToastShow(true);
+                }else{
+                    console.log("Failed to create user");
+                }
             }catch(e){
                 console.log(e);
                 setToastTitle("Failed to create User")
-                setShowToast(true);
+                setToastShow(true);
             }
 
             if(result){
                 // Login user
+                console.log("Authenticate User");
                 try{
+                    // Delay to allow time for user to register
+                    await new Promise(resolve => setTimeout(resolve, 500)); 
                     let result = await dataSource.post("/authenticateUser", payload)
+                    console.log("Resulting data")
                     console.log(result.data);
                     console.log(result.data.message)
                     if(result.data.message == "Success"){
@@ -69,14 +77,16 @@ function Signup({setPassReset, setLogin, setSignup, setMetrics, setLoggedIn, set
                     console.log("Cannot Signup: ", e);
                     setToastMessage("Email already in use");
                     setToastTitle("Error")
-                    setShowToast(true);
+                    setToastShow(true);
                 }
+            }else{
+                console.log("No result after create user available");
             }
         }else{
             console.log("passwords don't match")
             setToastMessage("Passwords don't match");
             setToastTitle("Error")
-            setShowToast(true);
+            setToastShow(true);
         }
     }
 

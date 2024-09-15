@@ -51,6 +51,7 @@ function App() {
           setLoggedIn={setLoggedIn}
           setToastShow={setToastShow}
           setToastMessage={setToastMessage}
+          setToastTitle={setToastTitle}
         />
       )}
       <BrowserRouter>

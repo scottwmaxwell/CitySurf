@@ -90,7 +90,7 @@ export const rateCity: RequestHandler = async(req: Request, res: Response)=>{
     console.log("RateCity");
 
     let cleanliness = req.body.cleanliness;
-    let safety = req.body.saftey;
+    let safety = req.body.safety;
     let landmarks = req.body.landmarks;
     let education = req.body.education;
     let cityId = req.body.cityId;

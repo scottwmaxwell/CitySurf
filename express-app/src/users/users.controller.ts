@@ -33,19 +33,19 @@ export const getSavedCities: RequestHandler = async(req: Request, res: Response)
 }
 
 export const createUser: RequestHandler = async(req: Request, res: Response)=>{
+    console.log("/createUser");
     try{
-
         // Generates salt and creates password
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        console.log(hashedPassword);
-
         if(await executeMongoDBOperation('users', 'findone', {'email': req.body.email }) == null){
             executeMongoDBOperation('users', 'insert', {email: req.body.email, password:hashedPassword, cities: []})
         }else{
-            return res.status(400).send('User exists')
+            console.log("User already exists");
+            return res.status(400).send('User already exists')
         }
 
     }catch(e){
+        console.log("An error occurred:");
         console.log(e);
     }
 
@@ -59,6 +59,7 @@ export const authenticateUser: RequestHandler = async(req: Request, res: Respons
         const user:any = await executeMongoDBOperation('users', 'findone', {'email': req.body.email });
 
         if(!user){
+            console.log("Cannot find user");
             return res.status(400).send('Cannot find user')
         }
 
