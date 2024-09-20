@@ -1,4 +1,4 @@
-import "../Weather/Weather.css";
+import "./Jobs.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUsersLine,
@@ -8,32 +8,25 @@ import {
 import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
-export function Population({ cityData }: any) {
+export function Jobs({ cityData }: any) {
+
+//   return(<div></div>)
 
   const calculatePlotSize = () => {
     let width, height;
 
-    if(window.innerWidth > 1000){
-        width = 700;
-        height = 300;
-    } else if(window.innerWidth > 800){
-        width = 600;
-        height = 260;
-    }else if(window.innerWidth > 700){
-        width = 550;
-        height= 260;
-    }else if(window.innerWidth > 600){
-        width =400;
-        height=260;
-    }else if(window.innerWidth > 450){
-        width = 330;
-        height = 260;
-    }else if(window.innerWidth > 400){
-        width = 250;
-        height = 260;
-    }else{
-        width = 230;
-        height = 260;
+    if (window.innerWidth > 1000) {
+      width = 700;
+      height = 300;
+    } else if (window.innerWidth > 800) {
+      width = 400;
+      height = 260;
+    } else if (window.innerWidth > 600) {
+      width = 400;
+      height = 260;
+    } else {
+      width = 330;
+      height = 260;
     }
     let dimensions = { width: width, height: height };
     return dimensions;
@@ -59,11 +52,12 @@ export function Population({ cityData }: any) {
       color = "rgb(158, 110, 77)";
     }
     let trace = {
-      x: Object.keys(city.population),
-      y: Object.values(city.population),
-      type: "scatter",
+      x: Object.keys(city.job_industry),
+      y: Object.values(city.job_industry),
+      type: "bar",
       mode: "lines+markers",
       name: city.city,
+      orientation: 'v',
       marker: {
         color: color,
         size: 4,
@@ -75,7 +69,7 @@ export function Population({ cityData }: any) {
 
   return (
     <div className="card bg-dark">
-      <h1 className="card-header">Population</h1>
+      <h1 className="card-header">Job Industry</h1>
       <div className="card-content">
         <div className="plot-container">
           <Plot
@@ -107,7 +101,9 @@ export function Population({ cityData }: any) {
               xaxis: {
                 gridcolor: "gray",
                 zerolinecolor: "gray",
-                showgrid: false
+                showgrid: false,
+                // tickvals: data.x,
+                // ticktext: data.x
               },
               yaxis: {
                 // zerolinecolor: 'gray',
@@ -128,7 +124,7 @@ export function Population({ cityData }: any) {
               },
               width: graphSize.width,
               height: graphSize.height,
-              margin: { l: 30, r: 0, t: 10, b:50 },
+              margin: { l: 20, r: 0, t: 10, b: 100 },
             }}
             config={{
               displayModeBar: false,

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import dataSource from '../../../dataSource';
 import Cookies from 'js-cookie';
 
-function Summary({ data, setToastShow, setToastTitle, setToastMessage }: any) {
+function Summary({ data, setToastShow, setToastTitle, setToastMessage, loggedIn}: any) {
 
     console.log(Cookies.get('token'));
     console.log(data.population['2012'])
@@ -45,7 +45,7 @@ function Summary({ data, setToastShow, setToastTitle, setToastMessage }: any) {
             <div className="card-content">
                 <div className="row">
                     <div className="d-flex">
-                        <div className="save-icon">{saveIcon}</div>
+                        {loggedIn && <div className="save-icon">{saveIcon}</div>}
                         <h1 className="card-header">{data.city}, {data.state} </h1>
                     </div>
                     <p>{data.description}</p>

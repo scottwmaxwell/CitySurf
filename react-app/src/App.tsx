@@ -96,6 +96,7 @@ function App() {
                 setToastShow={setToastShow}
                 setToastTitle={setToastTitle}
                 setToastMessage={setToastMessage}
+                loggedIn={loggedIn}
               />
             }
           />

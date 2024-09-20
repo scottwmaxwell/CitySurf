@@ -8,7 +8,7 @@ import {
 import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
-export function Population({ cityData }: any) {
+export function Housing({ cityData }: any) {
 
   const calculatePlotSize = () => {
     let width, height;
@@ -59,8 +59,8 @@ export function Population({ cityData }: any) {
       color = "rgb(158, 110, 77)";
     }
     let trace = {
-      x: Object.keys(city.population),
-      y: Object.values(city.population),
+      x: Object.keys(city.housing),
+      y: Object.values(city.housing),
       type: "scatter",
       mode: "lines+markers",
       name: city.city,
@@ -75,7 +75,7 @@ export function Population({ cityData }: any) {
 
   return (
     <div className="card bg-dark">
-      <h1 className="card-header">Population</h1>
+      <h1 className="card-header">Housing Prices</h1>
       <div className="card-content">
         <div className="plot-container">
           <Plot
@@ -107,7 +107,19 @@ export function Population({ cityData }: any) {
               xaxis: {
                 gridcolor: "gray",
                 zerolinecolor: "gray",
-                showgrid: false
+                showgrid: false,
+                // tickvals: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+                // ticktext: [
+                //   "2012",
+                //   "2013",
+                //   "2014",
+                //   "2015",
+                //   "2016",
+                //   "2017",
+                //   "2018",
+                //   "2019",
+                //   "2020",
+                // ],
               },
               yaxis: {
                 // zerolinecolor: 'gray',
@@ -128,7 +140,7 @@ export function Population({ cityData }: any) {
               },
               width: graphSize.width,
               height: graphSize.height,
-              margin: { l: 30, r: 0, t: 10, b:50 },
+              margin: { l: 50, r: 0, t: 10, b: 30 },
             }}
             config={{
               displayModeBar: false,

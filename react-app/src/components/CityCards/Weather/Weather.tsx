@@ -14,13 +14,22 @@ function Weather({cityData}: any){
             width = 700;
             height = 300;
         } else if(window.innerWidth > 800){
-            width = 400;
+            width = 600;
             height = 260;
+        }else if(window.innerWidth > 700){
+            width = 550;
+            height= 260;
         }else if(window.innerWidth > 600){
             width =400;
             height=260;
-        }else{
+        }else if(window.innerWidth > 450){
             width = 330;
+            height = 260;
+        }else if(window.innerWidth > 400){
+            width = 250;
+            height = 260;
+        }else{
+            width = 230;
             height = 260;
         }
     
@@ -115,7 +124,7 @@ function Weather({cityData}: any){
                 },
                 width: graphSize.width,
                 height: graphSize.height,
-                margin:{l:0, r:0, t: 10, b: 30}
+                margin:{l:50, r:0, t: 10, b: 30}
             }}
             config={{
                 displayModeBar: false

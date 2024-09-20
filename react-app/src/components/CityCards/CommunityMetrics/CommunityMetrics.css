@@ -1,0 +1,26 @@
+.star-icon.colored{
+    color:#E2B714;
+}
+
+.stars{
+    margin-top:0px !important;
+    font-size:x-large;
+}
+
+.card.metric{
+    margin: 10px 10px 10px 10px !important;
+    max-width:300px !important;
+    color:white !important;
+}
+
+.card-content{
+    margin: 10px 10px 10px 10px !important;
+}
+
+.card-header{
+    font-size:large !important;
+}
+
+.plot-container{
+    /* overflow:hidden; */
+}
