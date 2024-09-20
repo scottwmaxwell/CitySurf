@@ -84,7 +84,7 @@ function CityView({
           {cityData.length > 0 && <Jobs cityData={cityData} />}
           {cityData.length > 0 && <AverageSalary cityData={cityData} />}
           {cityData.length > 0 && <Diversity cityData={cityData} />}
-          <div className="d-flex">
+          <div className="d-flex flex-wrap">
             {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Cleanliness" />}
             {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Education" />}
             {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Landmarks" />}
