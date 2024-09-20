@@ -77,12 +77,6 @@ function CityView({
         </div>
         <div className="col-lg">
           {renderSummaries()}
-          <div className="d-flex">
-            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Cleanliness" />}
-            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Education" />}
-            {/* {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Landmarks" />} */}
-            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Safety" />}
-          </div>
           {cityData.length < 1 && <h1>Search for a city!</h1>}
           {cityData.length > 0 && <Weather cityData={cityData} />}
           {cityData.length > 0 && <Housing cityData={cityData} />}
@@ -90,6 +84,12 @@ function CityView({
           {cityData.length > 0 && <Jobs cityData={cityData} />}
           {cityData.length > 0 && <AverageSalary cityData={cityData} />}
           {cityData.length > 0 && <Diversity cityData={cityData} />}
+          <div className="d-flex">
+            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Cleanliness" />}
+            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Education" />}
+            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Landmarks" />}
+            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Safety" />}
+          </div>
         </div>
       </div>
     </div>
