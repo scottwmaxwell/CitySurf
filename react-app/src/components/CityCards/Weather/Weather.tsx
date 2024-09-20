@@ -97,13 +97,25 @@ function Weather({cityData}: any){
                     ticktext: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
                 yaxis: {
-                    gridcolor: 'gray',
-                    zerolinecolor: 'gray',
-                    showgrid: false
+                    // zerolinecolor: 'gray',
+                    // showgrid: false
+                    gridcolor: 'gray', // Keep grid lines
+                    zerolinecolor: 'gray', // Zero line for reference
+                    showgrid: false, // Show grid lines
+                    // tickcolor: 'white', // Color of the y-axis ticks
+                    // tickmode: 'auto', // Automatically calculate tick marks
+                    // ticks: 'outside', // Display ticks outside the graph
+                    // tickwidth: 1, // Tick width
+                    // ticklen: 8, // Tick length
+                    // showline: true, // Display the y-axis line
+                    // linewidth: 1, // Thickness of the y-axis line
+                    // linecolor: 'white', // Color of the y-axis line
+                    // mirror: true, // Show line on both left and right sides
+                    // showticklabels:true
                 },
                 width: graphSize.width,
                 height: graphSize.height,
-                margin:{l:0, r:0}
+                margin:{l:0, r:0, t: 10, b: 30}
             }}
             config={{
                 displayModeBar: false

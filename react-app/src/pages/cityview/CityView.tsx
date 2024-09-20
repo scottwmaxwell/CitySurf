@@ -4,6 +4,7 @@ import Search from "../../components/Search/Search";
 import Summary from "../../components/CityCards/Summary/Summary";
 import Weather from "../../components/CityCards/Weather/Weather";
 import "./CityView.css";
+import { Population } from "../../components/CityCards/Population/Population";
 
 function CityView({
   modalOpen,
@@ -67,7 +68,9 @@ function CityView({
         </div>
         <div className="col-lg">
           {renderSummaries()}
-          <Weather cityData={cityData} />
+          {cityData.length < 1 && <h1>Search for a city!</h1>}
+          {cityData.length > 0 && <Weather cityData={cityData} />}
+          {cityData.length > 0 && <Population cityData={cityData} />}
         </div>
       </div>
     </div>

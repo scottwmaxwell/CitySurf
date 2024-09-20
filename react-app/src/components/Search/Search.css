@@ -7,6 +7,22 @@
     font-family: 'Helvetica', FontAwesome, sans-serif;
 }
 
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #434346;
+  -webkit-text-fill-color: #F1F1F1;
+  -webkit-box-shadow: 0 0 0px 1000px rgb(60, 60, 60) inset;
+  transition: background-color 5000s ease-in-out 0s;
+};
+
 .search-field{
     margin-top:10px;
     color:rgb(202, 202, 202) !important;
@@ -14,6 +30,12 @@
     border:none !important;
     text-decoration: none;
     max-width:200px;
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+        -webkit-box-shadow: 50 0 0 30px rgb(60, 60, 60) inset !important;
+    }
 }
 
 .search-field::placeholder{

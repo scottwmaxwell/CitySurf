@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 function Summary({ data, setToastShow, setToastTitle, setToastMessage }: any) {
 
     console.log(Cookies.get('token'));
+    console.log(data.population['2012'])
     const [saved, setSaved] = useState(false);
     const handleSave = async () => {
         if (saved == false) {
@@ -52,7 +53,7 @@ function Summary({ data, setToastShow, setToastTitle, setToastMessage }: any) {
 
                 <div className="d-flex gap-5">
                     <div>
-                        {populationIcon} Population: {data.population}
+                        {populationIcon} Population: {data.population['2020']}
                     </div>
                     <div>
                         {walkScoreIcon} Walk Score: {data.walkscore}
