@@ -4,6 +4,8 @@ import { authMiddleware } from '../middleware/valid.jwt';
 
 const router = Router();
 
+// Router for making 
+
 router
     .route('/savedCities')
     .get(authMiddleware, UsersController.getSavedCities);

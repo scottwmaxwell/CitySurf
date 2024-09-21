@@ -3,13 +3,14 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 
+// Routers
 import usersRouter from './users/users.routes';
 import citiesRouter from './cities/cities.routes';
 
 const app: Application = express();
 
-dotenv.config();
-const port = process.env.PORT;
+dotenv.config(); // config environment variables
+const port = process.env.PORT; // Setup port
 
 // Middleware
 app.use(express.json());                        // Parse JSON bodies

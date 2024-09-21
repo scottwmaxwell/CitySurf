@@ -3,7 +3,7 @@ import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import './Metrics.css';
-import dataSource from '../../dataSource';
+import dataSource from '../../services/dataSource';
 import Cookies from "js-cookie";
 
 

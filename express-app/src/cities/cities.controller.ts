@@ -3,6 +3,8 @@ import executeMongoDBOperation from '../services/mongodb.connector';
 import { ObjectId } from 'mongodb';
 import City from '../models/models.city';
 
+
+// Returns a single city by Id or by state and name
 export const getCity: RequestHandler = async(req: Request, res: Response)=>{
 
     let cityId:any = req.query.id;
@@ -16,7 +18,6 @@ export const getCity: RequestHandler = async(req: Request, res: Response)=>{
             const results = await executeMongoDBOperation("cities", "find", {_id: new ObjectId(cityId)});
             if(results && results.length > 0 && Array.isArray(results)){
                 const cityResult = results[0];
-                console.log(cityResult);
                 if(cityResult && (typeof cityResult === 'object') && ('_id' in cityResult)){
                     const city:City = {
                         _id: cityResult._id,
@@ -48,6 +49,8 @@ export const getCity: RequestHandler = async(req: Request, res: Response)=>{
     }
 }
 
+// Returns the city document correlated to 
+// the latidue and logitude values passed
 export const getCityByGeoloc: RequestHandler = async(req: Request, res: Response)=>{
 
     let cityLat:any = req.query.lat;
@@ -85,6 +88,8 @@ export const getCityByGeoloc: RequestHandler = async(req: Request, res: Response
     }
 }
 
+// Allows submission of ratings for a city
+// Requires user authentication
 export const rateCity: RequestHandler = async(req: Request, res: Response)=>{
 
     console.log("RateCity");

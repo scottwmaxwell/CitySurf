@@ -35,7 +35,6 @@ export function CommunityMetrics({ cityData, header }: any) {
               />
             );
           }
-
           return (
             <div key={city.city} className="d-flex">
               <p className="me-2">{city.city}</p>

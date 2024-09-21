@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { verifyToken } from '../services/auth'; // Adjust the path as necessary
+import { verifyToken } from '../services/auth';
 
+// Used for requests that require authentication
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
 
@@ -11,6 +12,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
   const token = authHeader.split(' ')[1];
   const decoded = verifyToken(token);
 
+  // reject authentication
   if (!decoded) {
     return res.status(401).json({ message: 'Invalid token' });
   }

@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+// Get connection string from environment file
 let uri: any;
 if(process.env.ENV == 'production'){
     uri = process.env.MONGODBCONNECTSTRING;
@@ -10,6 +11,7 @@ if(process.env.ENV == 'production'){
     uri = process.env.LOCALDB;
 }
 
+// Setup client
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -18,10 +20,16 @@ const client = new MongoClient(uri, {
   }
 });
 
+
 const executeMongoDBOperation = async (collectionName:string, operation:string, data:any, id?:any, filter?:any) =>{
 
+    // Open client connection
     await client.connect();
+
+    // set database
     const database = client.db('CitySurf');
+
+    // set collection
     const collection = database.collection(collectionName);
 
     try{

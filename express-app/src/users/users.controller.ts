@@ -6,6 +6,7 @@ import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import { generateToken, verifyToken } from '../services/auth'; // Adjust the path as necessary
 import { CustomJwtPayload } from '../types/expresss';
 import User from '../models/models.user';
+import { PasswordCheckService } from '../services/PasswordCheckService';
 
 
 // Protected: requires valid session
@@ -32,16 +33,28 @@ export const getSavedCities: RequestHandler = async(req: Request, res: Response)
     }   
 }
 
+// Used to create a user in mongoDb
 export const createUser: RequestHandler = async(req: Request, res: Response)=>{
     console.log("/createUser");
+
+    const passwordService = new PasswordCheckService();
+
+    const password = req.body.password;
+    const email = req.body.email;
+
+    // Check password strength
+    if(passwordService.checkPasswordStrength(password) < 3){
+        console.log("password too weak")
+        return res.status(400).send({message:'Password too weak'});
+    }
     try{
         // Generates salt and creates password
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        if(await executeMongoDBOperation('users', 'findone', {'email': req.body.email }) == null){
-            executeMongoDBOperation('users', 'insert', {email: req.body.email, password:hashedPassword, cities: []})
+        const hashedPassword = await bcrypt.hash(password, 10);
+        if(await executeMongoDBOperation('users', 'findone', {'email': email }) == null){
+            executeMongoDBOperation('users', 'insert', {email: email, password:hashedPassword, cities: []})
         }else{
             console.log("User already exists");
-            return res.status(400).send('User already exists')
+            return res.status(400).send({message:'User already exists'});
         }
 
     }catch(e){
@@ -49,9 +62,11 @@ export const createUser: RequestHandler = async(req: Request, res: Response)=>{
         console.log(e);
     }
 
-    res.status(201).send();
+    // User registered (success response)
+    return res.status(201).send({message:'Success'});
 }
 
+// Returns a session token for authentication
 export const authenticateUser: RequestHandler = async(req: Request, res: Response)=>{
     
     try{
@@ -80,20 +95,23 @@ export const authenticateUser: RequestHandler = async(req: Request, res: Respons
     res.status(201).send();
 }
 
+// Not Yet Required
 export const updateUser: RequestHandler = async(req: Request, res: Response)=>{
-        // Get user
         let userId = getUserIdFromRequest(req);
+        // TODO: ~ update user by Id
 }
 
+// Not Yet Required
 export const deleteUser: RequestHandler = async(req: Request, res: Response)=>{
         let userId = getUserIdFromRequest(req);
+        // TODO: ~ delete user by Id
 }
 
+// Deletes a city from a user's saved cities
 export const deleteCity: RequestHandler = async(req: Request, res: Response)=>{
     let userId = getUserIdFromRequest(req);
     let cityId = String(req.query.id);
     const cityIdToRemove = new ObjectId(cityId);
-
     if(userId){
         try{
             let result = await executeMongoDBOperation('users', 'update', { $pull: { cities: cityIdToRemove } }, new ObjectId(userId));
@@ -108,6 +126,7 @@ export const deleteCity: RequestHandler = async(req: Request, res: Response)=>{
     }
 }
 
+// Used to save a city to a user's saved cities array in mongoDB
 export const saveCity: RequestHandler = async(req: Request, res: Response)=>{
     let userId = getUserIdFromRequest(req);
     let cityId = String(req.query.id);
@@ -127,8 +146,9 @@ export const saveCity: RequestHandler = async(req: Request, res: Response)=>{
     }
 }
 
+// Helper function used to determine the userId based on the incoming request
 const getUserIdFromRequest = (req: Request) => {
-    // Get user
+    // Get user from request
     let user:any = req.user;
     let userId;
     if(user){

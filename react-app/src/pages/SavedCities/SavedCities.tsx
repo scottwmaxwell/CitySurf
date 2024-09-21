@@ -1,5 +1,4 @@
-import { assertReturnStatement } from "@babel/types";
-import dataSource from "../../dataSource";
+import dataSource from "../../services/dataSource";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import SavedCity from '../../components/SavedCity/SavedCity';

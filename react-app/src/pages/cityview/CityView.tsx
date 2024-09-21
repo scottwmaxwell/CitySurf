@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import dataSource from "../../dataSource";
+import dataSource from "../../services/dataSource";
 import Search from "../../components/Search/Search";
 import Summary from "../../components/CityCards/Summary/Summary";
 import Weather from "../../components/CityCards/Weather/Weather";

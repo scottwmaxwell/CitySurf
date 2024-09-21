@@ -1,15 +1,12 @@
 import { useState } from "react";
 import "./Login.css"
 import Cookies from 'js-cookie';
-import dataSource from "../../dataSource";
+import dataSource from "../../services/dataSource";
 
 function Login({setPassReset, setLogin, setSignup, setModalOpen, setLoggedIn, setToastShow, setToastMessage, setToastTitle}: any){
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-
-    // const cookieValue = Cookies.get('token');
-    // console.log(cookieValue);
 
     const handleSignUp = ()=>{
         setSignup(true);
