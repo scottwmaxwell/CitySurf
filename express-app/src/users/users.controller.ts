@@ -51,7 +51,7 @@ export const createUser: RequestHandler = async(req: Request, res: Response)=>{
         // Generates salt and creates password
         const hashedPassword = await bcrypt.hash(password, 10);
         if(await executeMongoDBOperation('users', 'findone', {'email': email }) == null){
-            executeMongoDBOperation('users', 'insert', {email: email, password:hashedPassword, cities: []})
+            await executeMongoDBOperation('users', 'insert', {email: email, password:hashedPassword, cities: []})
         }else{
             console.log("User already exists");
             return res.status(400).send({message:'User already exists'});
@@ -133,7 +133,7 @@ export const saveCity: RequestHandler = async(req: Request, res: Response)=>{
     const cityIdToAdd = new ObjectId(cityId);
     if(userId){
         try{
-            let result = await executeMongoDBOperation('users', 'update', { $push: { cities: cityIdToAdd } }, new ObjectId(userId));
+            let result = await executeMongoDBOperation('users', 'update', { $addToSet: { cities: cityIdToAdd } }, new ObjectId(userId));
             if(result){
                 res.status(200).send("City Added");
             }
