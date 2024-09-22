@@ -122,6 +122,7 @@ function Signup({
         <div className="input-box">
           <div className="d-flex justify-content-left">
             <h1 className="main-header">
+              Save your
               <br />
               Cities.
             </h1>
