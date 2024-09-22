@@ -1,16 +1,16 @@
 /* Define the fade-in animation */
 @keyframes fadeIn {
-    0% {
-        opacity: 0; /* Start fully transparent */
-    }
-    100% {
-        opacity: 1; /* End fully opaque */
-    }
+  0% {
+    opacity: 0; /* Start fully transparent */
+  }
+  100% {
+    opacity: 1; /* End fully opaque */
+  }
 }
 
-.header{
-    animation: fadeIn 3s ease-in-out;
-    font-size:xx-large;
-    font-size:5vmax;
-    /* font-weight: 00; */
+.header {
+  animation: fadeIn 3s ease-in-out;
+  font-size: xx-large;
+  font-size: 5vmax;
+  /* font-weight: 00; */
 }

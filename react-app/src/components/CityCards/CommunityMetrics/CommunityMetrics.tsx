@@ -10,10 +10,12 @@ import { useEffect, useState } from "react";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export function CommunityMetrics({ cityData, header }: any) {
-
   const calculateAverage = (ratings: number[]) => {
     const sum = ratings.reduce((acc, num) => acc + num, 0);
-    const weightedSum = ratings.reduce((acc, _, index) => acc + (index + 1) * ratings[index], 0);
+    const weightedSum = ratings.reduce(
+      (acc, _, index) => acc + (index + 1) * ratings[index],
+      0,
+    );
     return weightedSum / sum || 0; // Avoid division by zero
   };
 
@@ -22,9 +24,15 @@ export function CommunityMetrics({ cityData, header }: any) {
       <h1 className="card-header">{header}</h1>
       <div className="card-content">
         {cityData.map((city: any) => {
-
-          const ratings:number[] = Object.values(city.community_metrics[`${header.toLowerCase()}`]);
-          if(ratings.reduce((partialSum: number, a: number) => partialSum + a, 0) > 0){
+          const ratings: number[] = Object.values(
+            city.community_metrics[`${header.toLowerCase()}`],
+          );
+          if (
+            ratings.reduce(
+              (partialSum: number, a: number) => partialSum + a,
+              0,
+            ) > 0
+          ) {
             // Get average
             const avg = Math.round(calculateAverage(ratings));
             const stars = [];
@@ -36,7 +44,7 @@ export function CommunityMetrics({ cityData, header }: any) {
                   key={`${city.city}-star-${i}`}
                   className={`star-icon ${i < avg ? "selected" : ""}`}
                   icon={faStar}
-                />
+                />,
               );
             }
             return (
@@ -45,13 +53,13 @@ export function CommunityMetrics({ cityData, header }: any) {
                 {stars}
               </div>
             );
-          }else{
-            return(
-            <div key={city.city} className="d-flex">
-            <p className="me-2">{city.city}</p>
-              N/a
-            </div>
-            )
+          } else {
+            return (
+              <div key={city.city} className="d-flex">
+                <p className="me-2">{city.city}</p>
+                N/a
+              </div>
+            );
           }
         })}
       </div>

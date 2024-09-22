@@ -1,15 +1,15 @@
-footer{
-    min-width:100%;
-    background-color:black !important;
-    margin-top:auto;
+footer {
+  min-width: 100%;
+  background-color: black !important;
+  margin-top: auto;
 }
 
-.footer-link{
-    padding-inline: 10px;
-    color:rgb(202, 202, 202) !important;
-    text-decoration: none;
+.footer-link {
+  padding-inline: 10px;
+  color: rgb(202, 202, 202) !important;
+  text-decoration: none;
 }
 
-.footer-link:hover{
-    color:#E2B714 !important;
+.footer-link:hover {
+  color: #e2b714 !important;
 }

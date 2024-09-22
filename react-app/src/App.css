@@ -1,26 +1,25 @@
 .btn-outline-custom {
-  color: #E2B714 !important; 
-  border-color: #E2B714 !important;
+  color: #e2b714 !important;
+  border-color: #e2b714 !important;
 }
 
 .btn-outline-custom:hover {
-color: white !important;
-background-color: #E2B714 !important;
-border-color: #E2B714 !important;
+  color: white !important;
+  background-color: #e2b714 !important;
+  border-color: #e2b714 !important;
 }
 
-.btn-outline-custom:hover .discover-icon{
-  color:white !important;
+.btn-outline-custom:hover .discover-icon {
+  color: white !important;
 }
 
-.main-content{
-  margin-top:35px !important;
-  margin-bottom:35px !important;
+.main-content {
+  margin-top: 35px !important;
+  margin-bottom: 35px !important;
 }
-
 
 /* Adds blur when modalOpen is true */
-.main-content.true{
+.main-content.true {
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);
   -o-filter: blur(5px);
@@ -29,6 +28,6 @@ border-color: #E2B714 !important;
 }
 
 /* Adds transition for when modal is opened and closed  */
-.main-content{
+.main-content {
   transition: filter 0.5s ease; /* Adjust the duration and easing function as needed */
 }

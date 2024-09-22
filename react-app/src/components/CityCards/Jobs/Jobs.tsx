@@ -9,8 +9,7 @@ import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
 export function Jobs({ cityData }: any) {
-
-//   return(<div></div>)
+  //   return(<div></div>)
 
   const calculatePlotSize = () => {
     let width, height;
@@ -57,7 +56,7 @@ export function Jobs({ cityData }: any) {
       type: "bar",
       mode: "lines+markers",
       name: city.city,
-      orientation: 'v',
+      orientation: "v",
       marker: {
         color: color,
         size: 4,

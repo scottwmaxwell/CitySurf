@@ -22,7 +22,7 @@ function CityView({
   loggedIn,
 }: any) {
   const [cityData, setCityData] = useState<any[]>([]);
-  const [savedCities, setSavedCities ] = useState<any[]>([]);
+  const [savedCities, setSavedCities] = useState<any[]>([]);
   const initialRender = useRef(true);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function CityView({
   // Get cities from Database based on search fields
   const getSelectedCities = async () => {
     try {
-      if(loggedIn){
+      if (loggedIn) {
         await getSavedCities();
       }
       let selectedCities = cities;
@@ -45,7 +45,7 @@ function CityView({
           let [city, state] = selectCity.split(",");
           state = state.replace(" ", "");
           let result = await dataSource.get(
-            `/city?cityname=${city}&citystate=${state}`
+            `/city?cityname=${city}&citystate=${state}`,
           );
           setCityData((prevCityData) => [...prevCityData, result.data]);
           console.log("Retrieved data for: " + result.data.city);
@@ -60,21 +60,21 @@ function CityView({
   // Get saved cities to indicate if a city is saved already
   const getSavedCities = async () => {
     let cityIds;
-    try{
-        let result = await dataSource.get('/savedCities', {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('token')}`
-            }
-        });
-        cityIds = result.data[0].cities;
-        if(cityIds){
-          setSavedCities(cityIds);
-        } 
-    }catch(e){
-        console.log(e);
-        console.log('bad auth')
+    try {
+      let result = await dataSource.get("/savedCities", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+      cityIds = result.data[0].cities;
+      if (cityIds) {
+        setSavedCities(cityIds);
+      }
+    } catch (e) {
+      console.log(e);
+      console.log("bad auth");
     }
-  }
+  };
 
   // Map city data to summary components
   const renderSummaries = () => {
@@ -95,12 +95,15 @@ function CityView({
     }
   };
 
-
   return (
     <div className={"container main-content " + modalOpen}>
       <div className="row">
         <div className="col-3 side-panel">
-          <Search cities={cities} setCities={setCities} getSelectedCities={getSelectedCities} />
+          <Search
+            cities={cities}
+            setCities={setCities}
+            getSelectedCities={getSelectedCities}
+          />
         </div>
         <div className="col-lg">
           {renderSummaries()}
@@ -111,11 +114,20 @@ function CityView({
           {cityData.length > 0 && <Jobs cityData={cityData} />}
           {cityData.length > 0 && <AverageSalary cityData={cityData} />}
           {cityData.length > 0 && <Diversity cityData={cityData} />}
+          
           <div className="d-flex flex-wrap">
-            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Cleanliness" />}
-            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Education" />}
-            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Landmarks" />}
-            {cityData.length > 0 && <CommunityMetrics cityData={cityData} header="Safety" />}
+            {cityData.length > 0 && (
+              <CommunityMetrics cityData={cityData} header="Cleanliness" />
+            )}
+            {cityData.length > 0 && (
+              <CommunityMetrics cityData={cityData} header="Education" />
+            )}
+            {cityData.length > 0 && (
+              <CommunityMetrics cityData={cityData} header="Landmarks" />
+            )}
+            {cityData.length > 0 && (
+              <CommunityMetrics cityData={cityData} header="Safety" />
+            )}
           </div>
         </div>
       </div>

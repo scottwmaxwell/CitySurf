@@ -1,9 +1,9 @@
-.card{
-    max-width:740px !important;
-    color:white !important;
+.card {
+  max-width: 740px !important;
+  color: white !important;
 }
 
 .btn-outline-custom {
-    color: #E2B714 !important; 
-    border-color: #E2B714 !important;
+  color: #e2b714 !important;
+  border-color: #e2b714 !important;
 }

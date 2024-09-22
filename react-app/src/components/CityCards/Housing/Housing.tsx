@@ -9,31 +9,30 @@ import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
 export function Housing({ cityData }: any) {
-
   const calculatePlotSize = () => {
     let width, height;
 
-    if(window.innerWidth > 1000){
-        width = 700;
-        height = 300;
-    } else if(window.innerWidth > 800){
-        width = 600;
-        height = 260;
-    }else if(window.innerWidth > 700){
-        width = 550;
-        height= 260;
-    }else if(window.innerWidth > 600){
-        width =400;
-        height=260;
-    }else if(window.innerWidth > 450){
-        width = 330;
-        height = 260;
-    }else if(window.innerWidth > 400){
-        width = 250;
-        height = 260;
-    }else{
-        width = 230;
-        height = 260;
+    if (window.innerWidth > 1000) {
+      width = 700;
+      height = 300;
+    } else if (window.innerWidth > 800) {
+      width = 600;
+      height = 260;
+    } else if (window.innerWidth > 700) {
+      width = 550;
+      height = 260;
+    } else if (window.innerWidth > 600) {
+      width = 400;
+      height = 260;
+    } else if (window.innerWidth > 450) {
+      width = 330;
+      height = 260;
+    } else if (window.innerWidth > 400) {
+      width = 250;
+      height = 260;
+    } else {
+      width = 230;
+      height = 260;
     }
     let dimensions = { width: width, height: height };
     return dimensions;

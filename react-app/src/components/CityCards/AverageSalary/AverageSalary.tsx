@@ -8,9 +8,9 @@ import {
 import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
+// This component serves to dispaly statistics regarding the average salary
 export function AverageSalary({ cityData }: any) {
-
-//   return(<div></div>)
+  //   return(<div></div>)
 
   const calculatePlotSize = () => {
     let width, height;
@@ -57,7 +57,7 @@ export function AverageSalary({ cityData }: any) {
       type: "bar",
       mode: "lines+markers",
       name: city.city,
-      orientation: 'v',
+      orientation: "v",
       marker: {
         color: color,
         size: 4,

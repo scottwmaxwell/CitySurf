@@ -1,12 +1,10 @@
-
-  body {
-    color:rgb(202, 202, 202) !important;
-    background-color:#292829 !important;
-  }
-
+body {
+  color: rgb(202, 202, 202) !important;
+  background-color: #292829 !important;
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 

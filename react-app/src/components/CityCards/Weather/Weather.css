@@ -1,21 +1,21 @@
-.card{
-    margin: 10px 10px 10px 10px !important;
-    max-width:740px !important;
-    color:white !important;
+.card {
+  margin: 10px 10px 10px 10px !important;
+  max-width: 740px !important;
+  color: white !important;
 }
 
-.card-content{
-    margin: 10px 10px 10px 10px !important;
+.card-content {
+  margin: 10px 10px 10px 10px !important;
 }
 
-.card-header{
-    font-size:large !important;
+.card-header {
+  font-size: large !important;
 }
 
-.plot-container{
-    /* overflow:hidden; */
+.plot-container {
+  /* overflow:hidden; */
 }
 
-.save-icon:hover{
-    cursor: pointer !important;
+.save-icon:hover {
+  cursor: pointer !important;
 }

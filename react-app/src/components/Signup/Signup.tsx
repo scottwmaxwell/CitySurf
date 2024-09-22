@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { PasswordCheckService } from "../../services/passwordCheckService";
 
+// This component is used within the modal to register the user
 function Signup({
   setPassReset,
   setLogin,
@@ -28,22 +29,22 @@ function Signup({
     emailSet(e.target.value);
   };
 
-  const checkPass = (password: string) =>{
+  const checkPass = (password: string) => {
     const passwordStength = passwordCheck.checkPasswordStrength(password);
-    if(passwordStength === 0){
-        setPassValidMessage("Password too short");
-        return false;
-    }else if(passwordStength === 1){
-        setPassValidMessage("Password too common");
-        return false;
-    }else if(passwordStength === 2){
-        setPassValidMessage("Password too weak");
-        return false;
-    }else{
-        setPassValidMessage("");
-        return true;
+    if (passwordStength === 0) {
+      setPassValidMessage("Password too short");
+      return false;
+    } else if (passwordStength === 1) {
+      setPassValidMessage("Password too common");
+      return false;
+    } else if (passwordStength === 2) {
+      setPassValidMessage("Password too weak");
+      return false;
+    } else {
+      setPassValidMessage("");
+      return true;
     }
-  }
+  };
 
   const updatePasswordOne = (e: any) => {
     passwordOneSet(e.target.value);
@@ -51,15 +52,14 @@ function Signup({
   };
 
   const updatePasswordTwo = (e: any) => {
-    if(checkPass(passwordOne)){
-        passwordTwoSet(e.target.value);
-        if(passwordOne !== e.target.value && passwordOne !== ""){
-            setPassValidMessage("Passwords don't match");
-        }else{
-            setPassValidMessage("");
-        }
-    }else{
-        
+    if (checkPass(passwordOne)) {
+      passwordTwoSet(e.target.value);
+      if (passwordOne !== e.target.value && passwordOne !== "") {
+        setPassValidMessage("Passwords don't match");
+      } else {
+        setPassValidMessage("");
+      }
+    } else {
     }
   };
 
@@ -68,7 +68,7 @@ function Signup({
     setLogin(true);
   };
 
-  const passwordCheck = new PasswordCheckService;
+  const passwordCheck = new PasswordCheckService();
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
@@ -84,12 +84,15 @@ function Signup({
         result = await dataSource.post("/createUser", payload);
         console.log(result);
         if (result.data.message === "Success") {
-          console.log("here in success")
+          console.log("here in success");
           setToastTitle("Message");
           setToastMessage("Account has been registered");
           setToastShow(true);
           // Authenticate user after success
-          const authenticate = await dataSource.post("/authenticateUser", payload);
+          const authenticate = await dataSource.post(
+            "/authenticateUser",
+            payload
+          );
           if (authenticate.data.message == "Success") {
             Cookies.set("token", authenticate.data.token, { expires: 7 });
             console.log("Set cookie");
@@ -97,8 +100,7 @@ function Signup({
             setMetrics(true);
             setSignup(false);
           }
-        }else{
-
+        } else {
         }
       } catch (e) {
         console.log(e);

@@ -1,65 +1,65 @@
-input{
-    margin-top:10px;
-    color:rgb(202, 202, 202) !important;
-    background-color:rgb(60, 60, 60) !important;
-    border:none !important;
-    text-decoration: none;
-    max-width:300px;
+input {
+  margin-top: 10px;
+  color: rgb(202, 202, 202) !important;
+  background-color: rgb(60, 60, 60) !important;
+  border: none !important;
+  text-decoration: none;
+  max-width: 300px;
 }
 
-input::placeholder{
-    color:#a2a095 !important;
+input::placeholder {
+  color: #a2a095 !important;
 }
 
-input:focus, input:focus{
-    outline: none !important;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    border:none;
+input:focus,
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border: none;
 }
 
-.login-btn{
-    margin-top:20px;
+.login-btn {
+  margin-top: 20px;
 }
 
-.login-btn.grayed{
-    color:#a2a095 !important;
-    border-color: #a2a095 !important;
+.login-btn.grayed {
+  color: #a2a095 !important;
+  border-color: #a2a095 !important;
 }
 
-.login-btn.grayed:hover{
-    background-color: #ffffff00 !important;
+.login-btn.grayed:hover {
+  background-color: #ffffff00 !important;
 }
 
-.sign-up{
-    color:rgb(130, 128, 128) !important;
+.sign-up {
+  color: rgb(130, 128, 128) !important;
 }
 
-.input-form{
-    margin-top:20px;
+.input-form {
+  margin-top: 20px;
 }
 
-.input-box{
-    max-width: 300px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+.input-box {
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
-
-.main-header{
-    margin-bottom:20px;
-    animation: fadeInAnimation ease 3s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
+.main-header {
+  margin-bottom: 20px;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
