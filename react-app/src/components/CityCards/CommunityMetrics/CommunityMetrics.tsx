@@ -22,25 +22,37 @@ export function CommunityMetrics({ cityData, header }: any) {
       <h1 className="card-header">{header}</h1>
       <div className="card-content">
         {cityData.map((city: any) => {
-          const avg = Math.round(calculateAverage(Object.values(city.community_metrics[`${header.toLowerCase()}`])));
-          const stars = [];
 
-          // Generate stars based on average rating
-          for (let i = 0; i < 5; i++) {
-            stars.push(
-              <FontAwesomeIcon
-                key={`${city.city}-star-${i}`}
-                className={`star-icon ${i < avg ? "selected" : ""}`}
-                icon={faStar}
-              />
+          const ratings:number[] = Object.values(city.community_metrics[`${header.toLowerCase()}`]);
+          if(ratings.reduce((partialSum: number, a: number) => partialSum + a, 0) > 0){
+            // Get average
+            const avg = Math.round(calculateAverage(ratings));
+            const stars = [];
+
+            // Generate stars based on average rating
+            for (let i = 0; i < 5; i++) {
+              stars.push(
+                <FontAwesomeIcon
+                  key={`${city.city}-star-${i}`}
+                  className={`star-icon ${i < avg ? "selected" : ""}`}
+                  icon={faStar}
+                />
+              );
+            }
+            return (
+              <div key={city.city} className="d-flex">
+                <p className="me-2">{city.city}</p>
+                {stars}
+              </div>
             );
-          }
-          return (
+          }else{
+            return(
             <div key={city.city} className="d-flex">
-              <p className="me-2">{city.city}</p>
-              {stars}
+            <p className="me-2">{city.city}</p>
+              N/a
             </div>
-          );
+            )
+          }
         })}
       </div>
     </div>
