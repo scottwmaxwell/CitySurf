@@ -13,6 +13,7 @@ function SavedCities({modalOpen}: any){
         getSavedCities();
     }, []);
 
+    // Get saved cities from database
     const getSavedCities = async () =>{
         let cityIds;
         try{

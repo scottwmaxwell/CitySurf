@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import dataSource from "../../../services/dataSource";
 import Cookies from "js-cookie";
+import Toast from "../../Toast/Toast";
 
 function Summary({
   data,
@@ -17,8 +18,12 @@ function Summary({
   setToastTitle,
   setToastMessage,
   loggedIn,
+  savedCity
 }: any) {
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(savedCity);
+
+
+  // Used to handle when user clicks save/unsave button
   const handleSave = async () => {
     if (saved === false) {
       try {
@@ -39,9 +44,34 @@ function Summary({
         console.log(e);
       }
     } else {
-      setSaved(false);
+      handleRemove(data._id);
     }
   };
+
+  // Used to remove a city from the user's list in the database
+  const handleRemove = async (id: any)=>{
+    let result = window.confirm("Are you sure you want to remove this city?");
+    if(result){
+        try{
+            console.log("Removing city with id of:" + id);
+            let deleted = await dataSource.delete('/deleteCity?id=' + id ,{
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('token')}`
+                }
+            });
+            if(deleted.data === "City Removed"){
+              setSaved(false);
+              setToastShow(true);
+              setToastTitle("Message");
+              setToastMessage("Removed City");
+            }
+
+        }catch(e){
+            console.log(e);
+        }
+        
+    }
+}
 
   const populationIcon = (
     <FontAwesomeIcon

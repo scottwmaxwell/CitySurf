@@ -10,6 +10,7 @@ import { AverageSalary } from "../../components/CityCards/AverageSalary/AverageS
 import { Diversity } from "../../components/CityCards/Diversity/Diversity";
 import { Housing } from "../../components/CityCards/Housing/Housing";
 import { CommunityMetrics } from "../../components/CityCards/CommunityMetrics/CommunityMetrics";
+import Cookies from "js-cookie";
 
 function CityView({
   modalOpen,
@@ -21,6 +22,7 @@ function CityView({
   loggedIn,
 }: any) {
   const [cityData, setCityData] = useState<any[]>([]);
+  const [savedCities, setSavedCities ] = useState<any[]>([]);
   const initialRender = useRef(true);
 
   useEffect(() => {
@@ -30,8 +32,12 @@ function CityView({
     }
   }, []);
 
+  // Get cities from Database based on search fields
   const getSelectedCities = async () => {
     try {
+      if(loggedIn){
+        await getSavedCities();
+      }
       let selectedCities = cities;
       setCityData([]);
       for (let selectCity of selectedCities) {
@@ -51,6 +57,26 @@ function CityView({
     }
   };
 
+  // Get saved cities to indicate if a city is saved already
+  const getSavedCities = async () => {
+    let cityIds;
+    try{
+        let result = await dataSource.get('/savedCities', {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('token')}`
+            }
+        });
+        cityIds = result.data[0].cities;
+        if(cityIds){
+          setSavedCities(cityIds);
+        } 
+    }catch(e){
+        console.log(e);
+        console.log('bad auth')
+    }
+  }
+
+  // Map city data to summary components
   const renderSummaries = () => {
     if (cityData) {
       return cityData.map((data: any, index: number) => {
@@ -62,6 +88,7 @@ function CityView({
             setToastTitle={setToastTitle}
             setToastMessage={setToastMessage}
             loggedIn={loggedIn}
+            savedCity={savedCities.includes(data._id)}
           />
         );
       });
