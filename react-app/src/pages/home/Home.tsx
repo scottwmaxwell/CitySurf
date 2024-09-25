@@ -6,6 +6,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import art from "../../assets/citysurfart.gif";
 import Search from "../../components/Search/Search";
 
+// This component contains the home page that displays information about the site
+// as well as the search component
 function Home({ modalOpen, session, cities, setCities }: any) {
   const [cityCount, setCityCount] = useState(1);
   const [isVisible, setIsVisible] = useState(false);

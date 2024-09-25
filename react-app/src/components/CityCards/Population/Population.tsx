@@ -8,6 +8,7 @@ import {
 import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
+// This component displays population data using plotlyJs
 export function Population({ cityData }: any) {
   const calculatePlotSize = () => {
     let width, height;

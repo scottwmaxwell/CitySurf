@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 
 // This component serves to dispaly statistics regarding the average salary
 export function AverageSalary({ cityData }: any) {
-  //   return(<div></div>)
 
   const calculatePlotSize = () => {
     let width, height;

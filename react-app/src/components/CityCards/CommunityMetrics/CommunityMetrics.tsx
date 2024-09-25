@@ -9,6 +9,7 @@ import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
+// This component displays a community metrics card
 export function CommunityMetrics({ cityData, header }: any) {
   const calculateAverage = (ratings: number[]) => {
     const sum = ratings.reduce((acc, num) => acc + num, 0);

@@ -1,23 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Link } from "react-router-dom";
 import "./Search.css";
+import { CitySearchService } from "../../services/CitySearchService";
+import { debounce } from 'lodash';
 
 // This component contains the logic for searching and adding more fields.
 function Search({ cities, setCities, getSelectedCities }: any) {
-  // const [searchSuggestions, setSearchSuggestions] = useState([""]); // TODO: Get new search suggestions each time cityInput changes
+  const [searchSuggestions, setSearchSuggestions] = useState([""]);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const search = new CitySearchService();
 
   const handleChange = (event: any) => {
     let citiesTemp = [...cities];
     const index: number = Number(event.target.id);
     citiesTemp[index] = event.target.value;
     setCities(citiesTemp);
+    searchForCity(event.target.value);
   };
+
+  const searchForCity = useMemo(()=>
+        // Update suggestions
+        debounce((value: string)=>{
+          const results = search.findCity(value);
+          const newSearchSuggesetions = results.map((result)=> result.item.properties.name )
+          setSearchSuggestions(newSearchSuggesetions);
+        }, 300)
+  , [search]);
 
   const handleGo = (e: any) => {
     console.log("Go/Add Pressed");
@@ -99,11 +113,11 @@ function Search({ cities, setCities, getSelectedCities }: any) {
             <div className="add-btn-container"></div>
           )}
 
-          {/* <datalist id="list-suggestions">
+          <datalist id="list-suggestions">
                         {searchSuggestions.map((id)=>(
                             <option value={id}></option>
                         ))}
-                    </datalist> */}
+          </datalist>
         </div>
       </div>
     </div>

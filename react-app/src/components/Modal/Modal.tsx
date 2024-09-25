@@ -6,6 +6,8 @@ import Metrics from "../Metrics/Metrics";
 import Passreset from "../Passreset/Passreset";
 import Toast from "../Toast/Toast";
 
+// This component holds several other components (signup, login, metrics, password reset)
+// It will appear at the top of the page when accessing these different functionalities of the site
 function Modal({
   setModalOpen,
   setLoggedIn,

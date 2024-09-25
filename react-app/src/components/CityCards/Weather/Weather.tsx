@@ -8,6 +8,7 @@ import {
 import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
+// This component displays weather data using plotlyJs
 function Weather({ cityData }: any) {
   const calculatePlotSize = () => {
     let width, height;

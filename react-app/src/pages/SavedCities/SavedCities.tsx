@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import SavedCity from "../../components/SavedCity/SavedCity";
 import { useNavigate } from "react-router-dom";
 
+// This component displays all of the useres saved cities
 function SavedCities({ modalOpen }: any) {
   const navigate = useNavigate();
   const [savedCities, setSavedCities] = useState<any[]>([]);

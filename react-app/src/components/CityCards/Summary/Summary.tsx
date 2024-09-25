@@ -12,6 +12,7 @@ import dataSource from "../../../services/dataSource";
 import Cookies from "js-cookie";
 import Toast from "../../Toast/Toast";
 
+// This component displays basic information about each city
 function Summary({
   data,
   setToastShow,

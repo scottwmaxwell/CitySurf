@@ -3,6 +3,7 @@ import "./Login.css";
 import Cookies from "js-cookie";
 import dataSource from "../../services/dataSource";
 
+// This component displays the login form
 function Login({
   setPassReset,
   setLogin,

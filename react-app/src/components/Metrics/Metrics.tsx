@@ -6,13 +6,14 @@ import "./Metrics.css";
 import dataSource from "../../services/dataSource";
 import Cookies from "js-cookie";
 
+// This component is used to collect data from the user regarding 
+// their opinion of their own city stats
 function Metrics({
   setModalOpen,
   setToastMessage,
   setShowToast,
   setToastTitle,
 }: any) {
-  // const [stars, setStars] = useState([1, 2, 3, 4, 5])
   const stars = [1, 2, 3, 4, 5];
   const [starsSelected, setStarsSelected] = useState([0, 0, 0, 0]);
   const [locationPermission, setLocationPermission] = useState(0); // 0 = not set, 1 = permission denied, 2 = success
@@ -31,6 +32,7 @@ function Metrics({
     getLocation();
   }, []);
 
+  // Used to get the resulting location of the geoLocation of the user
   const locationResult = async (location: any) => {
     setLocationPermission(2);
     console.log(location.coords);
@@ -52,6 +54,7 @@ function Metrics({
     setLocationPermission(1);
   };
 
+  // Called when the user navigates to this component
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(locationResult, locationError);
   };

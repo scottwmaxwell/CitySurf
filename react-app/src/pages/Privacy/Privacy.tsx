@@ -1,4 +1,6 @@
 function Privacy({ modalOpen }: any) {
+
+  // This component is very basic with just privacy policy information
   return (
     <div
       className={"container justify-content-center main-content " + modalOpen}

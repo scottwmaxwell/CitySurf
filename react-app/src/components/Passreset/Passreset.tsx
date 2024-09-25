@@ -1,6 +1,7 @@
 import "../Login/Login.css";
 import { useState } from "react";
 
+// This component displays a reset form so the user can attempt to reset their password
 function Passreset({ setPassReset, setLogin, setModalOpen }: any) {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [codeSubmitted, setCodeSubmitted] = useState(false);

@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
+// This component displays at the top of every page so the user can navigate
+// to different parts of the site
 function Nav({
   openModal,
   setModalOpen,

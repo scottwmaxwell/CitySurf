@@ -8,6 +8,7 @@ import {
 import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
+// This component displays Housing data using PlotlyJs
 export function Housing({ cityData }: any) {
   const calculatePlotSize = () => {
     let width, height;

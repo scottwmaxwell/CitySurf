@@ -8,6 +8,7 @@ import {
 import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
+// This component displays jobs data using PlotlyJs
 export function Jobs({ cityData }: any) {
   //   return(<div></div>)
 

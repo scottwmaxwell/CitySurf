@@ -6,6 +6,8 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Link } from "react-router-dom";
 
+// This component holds some additional information links
+// and displays at the bottom of the page.
 function Footer() {
   return (
     <footer className="bg-dark">

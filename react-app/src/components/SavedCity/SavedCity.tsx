@@ -1,6 +1,7 @@
 import "./SavedCity.css";
 import image from "../../assets/citycard.png";
 
+// This component displays a card for a single city
 function SavedCity({ city, id, handleRemove, handleViewClick }: any) {
   return (
     <div>

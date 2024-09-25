@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import "./Toast.css";
 
+// this component displays in the bottom right (bootstrap component) to 
+// communicate actions performed
 const Toast = ({ message, title, show, setToastShow }: any) => {
   useEffect(() => {
     if (show) {

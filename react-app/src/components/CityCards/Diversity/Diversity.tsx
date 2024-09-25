@@ -8,8 +8,8 @@ import {
 import Plot from "react-plotly.js";
 import { useEffect, useState } from "react";
 
+// This component displays diversity data using PlotlyJs
 export function Diversity({ cityData }: any) {
-  //   return(<div></div>)
 
   const calculatePlotSize = () => {
     let width, height;
