@@ -19,6 +19,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@types/fuse": "^2.5.2",
     "@types/jsonwebtoken": "^9.0.6",
     "bcrypt": "^5.1.1",
     "cors": "file:../../../../../opt/homebrew/lib/node_modules/cors",
@@ -26,6 +27,7 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "fuse.js": "^7.0.0",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0"

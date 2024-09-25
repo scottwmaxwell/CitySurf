@@ -5,33 +5,46 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Link } from "react-router-dom";
 import "./Search.css";
-import { CitySearchService } from "../../services/CitySearchService";
 import { debounce } from 'lodash';
+import dataSource from "../../services/dataSource";
 
 // This component contains the logic for searching and adding more fields.
 function Search({ cities, setCities, getSelectedCities }: any) {
-  const [searchSuggestions, setSearchSuggestions] = useState([""]);
+  const [suggestions, setSuggestions] = useState([""]);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const search = new CitySearchService();
+  interface SearchResult {
+    item: {
+      type: string;
+      properties: {
+        name: string;
+        icon: string;
+      };
+      geometry: {
+        type: string;
+        coordinates: [number, number];
+      };
+    };
+    refIndex: number;
+  }
+  
 
   const handleChange = (event: any) => {
     let citiesTemp = [...cities];
     const index: number = Number(event.target.id);
     citiesTemp[index] = event.target.value;
     setCities(citiesTemp);
-    searchForCity(event.target.value);
+    getSuggestions(event.target.value);
   };
 
-  const searchForCity = useMemo(()=>
-        // Update suggestions
-        debounce((value: string)=>{
-          const results = search.findCity(value);
-          const newSearchSuggesetions = results.map((result)=> result.item.properties.name )
-          setSearchSuggestions(newSearchSuggesetions);
-        }, 300)
-  , [search]);
+  const getSuggestions = debounce(async (searchValue:string)=>{
+    if(searchValue != ""){
+      const results = await dataSource(`/citySuggestions?search=${searchValue}`);
+      const newSuggesetions = results.data.map((result: SearchResult)=> result.item.properties.name )
+      setSuggestions(newSuggesetions);
+    }
+  }, 500);
 
   const handleGo = (e: any) => {
     console.log("Go/Add Pressed");
@@ -114,7 +127,7 @@ function Search({ cities, setCities, getSelectedCities }: any) {
           )}
 
           <datalist id="list-suggestions">
-                        {searchSuggestions.map((id)=>(
+                        {suggestions.map((id)=>(
                             <option value={id}></option>
                         ))}
           </datalist>
