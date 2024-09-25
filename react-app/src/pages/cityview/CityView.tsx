@@ -1,16 +1,14 @@
 import { useEffect, useState, useRef } from "react";
+import "./CityView.css";
+import Cookies from "js-cookie";
+
+// Components
 import dataSource from "../../services/dataSource";
 import Search from "../../components/Search/Search";
+
 import Summary from "../../components/CityCards/Summary/Summary";
-import Weather from "../../components/CityCards/Weather/Weather";
-import "./CityView.css";
-import { Population } from "../../components/CityCards/Population/Population";
-import { Jobs } from "../../components/CityCards/Jobs/Jobs";
-import { AverageSalary } from "../../components/CityCards/AverageSalary/AverageSalary";
-import { Diversity } from "../../components/CityCards/Diversity/Diversity";
-import { Housing } from "../../components/CityCards/Housing/Housing";
+import { Chart } from "../../components/CityCards/Chart/Chart";
 import { CommunityMetrics } from "../../components/CityCards/CommunityMetrics/CommunityMetrics";
-import Cookies from "js-cookie";
 
 
 // Displays the many charts for different metrics and a summary for each selected city
@@ -47,7 +45,7 @@ function CityView({
           let [city, state] = selectCity.split(",");
           state = state.replace(" ", "");
           let result = await dataSource.get(
-            `/city?cityname=${city}&citystate=${state}`,
+            `/city?cityname=${city}&citystate=${state}`
           );
           setCityData((prevCityData) => [...prevCityData, result.data]);
           console.log("Retrieved data for: " + result.data.city);
@@ -109,13 +107,53 @@ function CityView({
         </div>
         <div className="col-lg">
           {renderSummaries()}
-          {cityData.length < 1 && <h1>Search for a city!</h1>}
-          {cityData.length > 0 && <Weather cityData={cityData} />}
-          {cityData.length > 0 && <Housing cityData={cityData} />}
-          {cityData.length > 0 && <Population cityData={cityData} />}
-          {cityData.length > 0 && <Jobs cityData={cityData} />}
-          {cityData.length > 0 && <AverageSalary cityData={cityData} />}
-          {cityData.length > 0 && <Diversity cityData={cityData} />}
+
+          {cityData.length > 0 && (
+            <>
+              <Chart
+                cityNames={cityData.map((city) => city.city)}
+                plotData={cityData.map((city) => city.weather.avg_temp)}
+                plotType="scatter"
+                plotName="Temperature Highs"
+              />
+              <Chart
+                cityNames={cityData.map((city) => city.city)}
+                plotData={cityData.map((city) => city.housing)}
+                plotType="scatter"
+                plotName="Average Mortgage Loan"
+              />
+              <Chart
+                cityNames={cityData.map((city) => city.city)}
+                plotData={cityData.map((city) => city.population)}
+                plotType="scatter"
+                plotName="Population"
+              />
+              <Chart
+                cityNames={cityData.map((city) => city.city)}
+                plotData={cityData.map((city) => city.job_industry)}
+                plotType="bar"
+                plotName="Population"
+              />
+              <Chart
+                cityNames={cityData.map((city) => city.city)}
+                plotData={cityData.map((city) => city.job_industry)}
+                plotType="bar"
+                plotName="Job Industry"
+              />
+              <Chart
+                cityNames={cityData.map((city) => city.city)}
+                plotData={cityData.map((city) => city.avg_salary)}
+                plotType="bar"
+                plotName="Average Salary"
+              />
+              <Chart
+                cityNames={cityData.map((city) => city.city)}
+                plotData={cityData.map((city) => city.diversity)}
+                plotType="bar"
+                plotName="Diversity"
+              />
+            </>
+          )}
 
           <div className="d-flex flex-wrap">
             {cityData.length > 0 && (

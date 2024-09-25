@@ -34,7 +34,7 @@ function Home({ modalOpen, session, cities, setCities }: any) {
           </div>
         </div>
         <div className="col">
-          <h1 className="header">
+          <h1>
             Find Your <br />
             City.
           </h1>

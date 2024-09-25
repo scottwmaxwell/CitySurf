@@ -1,0 +1,18 @@
+.card {
+    margin: 10px 10px 10px 10px !important;
+    max-width: 740px !important;
+    color: white !important;
+  }
+  
+.card-content {
+margin: 10px 10px 10px 10px !important;
+}
+
+.card-header {
+font-size: large !important;
+}
+
+.save-icon:hover {
+cursor: pointer !important;
+}
+  

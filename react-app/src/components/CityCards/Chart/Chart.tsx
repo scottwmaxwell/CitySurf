@@ -1,4 +1,4 @@
-import "./Jobs.css";
+import "./Chart.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUsersLine,
@@ -6,30 +6,20 @@ import {
   faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import Plot from "react-plotly.js";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-// This component displays jobs data using PlotlyJs
-export function Jobs({ cityData }: any) {
-  //   return(<div></div>)
-
+// This component displays weather data using plotlyJs
+export const Chart = ({ plotData, plotType, plotName, cityNames}: any) => {
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const baseMargin = plotType == "bar"?100:30
   const calculatePlotSize = () => {
-    let width, height;
-
-    if (window.innerWidth > 1000) {
-      width = 700;
-      height = 300;
-    } else if (window.innerWidth > 800) {
-      width = 400;
-      height = 260;
-    } else if (window.innerWidth > 600) {
-      width = 400;
-      height = 260;
-    } else {
-      width = 330;
-      height = 260;
+    if (cardRef.current) {
+      let width = cardRef.current.offsetWidth;
+      let height = 260;
+      let dimensions = { width: width, height: height };
+      return dimensions;
     }
-    let dimensions = { width: width, height: height };
-    return dimensions;
+    return {width: 0, height: 0}
   };
 
   const [graphSize, setGraphSize] = useState(calculatePlotSize());
@@ -38,11 +28,13 @@ export function Jobs({ cityData }: any) {
     window.addEventListener("resize", () => {
       setGraphSize(calculatePlotSize());
     });
-  }, []);
+    setGraphSize(calculatePlotSize());
+  }, [cardRef]);
 
   const data: any = [];
   let count = 0;
-  for (let city of cityData) {
+  for (let city of plotData) {
+    console.log(cityNames[count])
     let color;
     if (count === 0) {
       color = "rgb(189, 175, 47)";
@@ -52,12 +44,11 @@ export function Jobs({ cityData }: any) {
       color = "rgb(158, 110, 77)";
     }
     let trace = {
-      x: Object.keys(city.job_industry),
-      y: Object.values(city.job_industry),
-      type: "bar",
+      x: Object.keys(city),
+      y: Object.values(city),
+      type: plotType,
       mode: "lines+markers",
-      name: city.city,
-      orientation: "v",
+      name: cityNames[count],
       marker: {
         color: color,
         size: 4,
@@ -68,8 +59,8 @@ export function Jobs({ cityData }: any) {
   }
 
   return (
-    <div className="card bg-dark">
-      <h1 className="card-header">Job Industry</h1>
+    <div ref={cardRef} className="card bg-dark">
+      <h1 className="card-header">{plotName}</h1>
       <div className="card-content">
         <div className="plot-container">
           <Plot
@@ -82,7 +73,6 @@ export function Jobs({ cityData }: any) {
             }}
             data={data}
             layout={{
-              // autosize: true,
               title: {
                 text: "",
                 font: {
@@ -102,29 +92,15 @@ export function Jobs({ cityData }: any) {
                 gridcolor: "gray",
                 zerolinecolor: "gray",
                 showgrid: false,
-                // tickvals: data.x,
-                // ticktext: data.x
               },
               yaxis: {
-                // zerolinecolor: 'gray',
-                // showgrid: false
                 gridcolor: "gray", // Keep grid lines
                 zerolinecolor: "gray", // Zero line for reference
-                showgrid: false, // Show grid lines
-                // tickcolor: 'white', // Color of the y-axis ticks
-                // tickmode: 'auto', // Automatically calculate tick marks
-                // ticks: 'outside', // Display ticks outside the graph
-                // tickwidth: 1, // Tick width
-                // ticklen: 8, // Tick length
-                // showline: true, // Display the y-axis line
-                // linewidth: 1, // Thickness of the y-axis line
-                // linecolor: 'white', // Color of the y-axis line
-                // mirror: true, // Show line on both left and right sides
-                // showticklabels:true
+                showgrid: false // Show grid lines
               },
               width: graphSize.width,
               height: graphSize.height,
-              margin: { l: 20, r: 0, t: 10, b: 100 },
+              margin: { l: 50, r: 0, t: 10, b: baseMargin },
             }}
             config={{
               displayModeBar: false,
@@ -135,3 +111,4 @@ export function Jobs({ cityData }: any) {
     </div>
   );
 }
+
