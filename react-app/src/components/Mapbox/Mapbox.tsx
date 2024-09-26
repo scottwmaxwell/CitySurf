@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 import { Popup, MapMouseEvent } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./Mapbox.css";
-import cityData from "../../assets/citydata.json";
+import dataSource from "../../services/dataSource";
 
 interface GeoJsonFeature {
   type: "Feature";
@@ -38,6 +38,11 @@ const Mapbox = ({ setCities, cities }: any) => {
     setCities(citiesTemp);
   };
 
+  const getGeoJson = async () => {
+    const geoJson = await dataSource('/cityGeoJSON');
+    return geoJson.data;
+  }
+
   useEffect(() => {
     citiesRef.current = cities; // Update the ref value whenever cityCount changes
   }, [cities]);
@@ -54,12 +59,11 @@ const Mapbox = ({ setCities, cities }: any) => {
       zoom: 3, // starting zoom
     });
 
-    console.log(cityData);
-
-    mapRef.current.on("load", () => {
+    mapRef.current.on("load", async () => {
+      const geoJsonData = await getGeoJson();
       mapRef.current?.addSource("places", {
         type: "geojson",
-        data: cityData as GeoJsonFeatureCollection,
+        data: geoJsonData,
       });
 
       mapRef.current?.addLayer({

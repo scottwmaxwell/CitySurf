@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,7 @@ function Search({ cities, setCities, getSelectedCities }: any) {
   const [suggestions, setSuggestions] = useState([""]);
   const navigate = useNavigate();
   const location = useLocation();
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null); // Store timeout ID in a ref
 
   interface SearchResult {
     item: {
@@ -28,6 +29,10 @@ function Search({ cities, setCities, getSelectedCities }: any) {
     };
     refIndex: number;
   }
+
+  useEffect(()=>{
+    getSuggestions.cancel();
+  }, []);
   
 
   const handleChange = (event: any) => {

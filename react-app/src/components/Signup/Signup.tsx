@@ -1,8 +1,9 @@
 import dataSource from "../../services/dataSource";
 import "../Login/Login.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 import { PasswordCheckService } from "../../services/passwordCheckService";
+import 'altcha';
 
 // This component is used within the modal to register the user
 function Signup({
@@ -20,6 +21,8 @@ function Signup({
   const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [email, emailSet] = useState("");
   const [passValidMessage, setPassValidMessage] = useState("");
+
+  const altchaURL = process.env.REACT_APP_ALTCHA as string; // Challenge URL
 
   useEffect(() => {
     setPasswordsMatch(passwordOne === passwordTwo);
@@ -166,6 +169,7 @@ function Signup({
             ></input>
           </div>
           <p className="text-warning">{passValidMessage}</p>
+          <altcha-widget challengeurl={altchaURL}></altcha-widget>
           <div className="form-group d-flex justify-content-end">
             <button
               type="submit"
