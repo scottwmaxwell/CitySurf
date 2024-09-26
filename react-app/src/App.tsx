@@ -102,7 +102,7 @@ function App() {
           />
           <Route
             path="/savedcities"
-            element={<SavedCities modalOpen={modalOpen} />}
+            element={<SavedCities modalOpen={modalOpen} setCities={setCities} />}
           />
           <Route path="/about" element={<About modalOpen={modalOpen} />} />
           <Route path="/privacy" element={<Privacy modalOpen={modalOpen} />} />

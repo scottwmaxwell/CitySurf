@@ -91,16 +91,20 @@ export const authenticateUser: RequestHandler = async (
       email: req.body.email,
     });
 
+    console.log("authenticateUser");
+
     if (!user) {
       console.log("Cannot find user");
       return res.status(400).send("Cannot find user");
     }
 
     if (await bcrypt.compare(req.body.password, user.password)) {
+      console.log("Generate Session");
       // Generate session
       const token = generateToken({ userId: user._id, email: user.email });
       res.status(200).send({ message: "Success", token });
     } else {
+      console.log("Not allowed");
       res.status(401).send("Not Allowed");
     }
   } catch (e) {

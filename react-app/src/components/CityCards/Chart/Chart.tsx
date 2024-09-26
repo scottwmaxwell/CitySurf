@@ -34,7 +34,6 @@ export const Chart = ({ plotData, plotType, plotName, cityNames}: any) => {
   const data: any = [];
   let count = 0;
   for (let city of plotData) {
-    console.log(cityNames[count])
     let color;
     if (count === 0) {
       color = "rgb(189, 175, 47)";

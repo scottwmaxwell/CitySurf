@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./Login.css";
-import Cookies from "js-cookie";
 import dataSource from "../../services/dataSource";
 
 // This component displays the login form
@@ -35,8 +34,7 @@ function Login({
       console.log(result.data);
       console.log(result.data.message);
       if (result.data.message == "Success") {
-        Cookies.set("token", result.data.token, { expires: 7 });
-        console.log("Set cookie");
+        localStorage.setItem('token', result.data.token);
         setLoggedIn(true);
         setToastShow(true);
         setToastTitle("Message");

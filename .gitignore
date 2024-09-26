@@ -16,3 +16,6 @@
 mongoDB Upload.ipynb
 
 *.ipynb_checkpoints
+
+# Python environments
+*.venv

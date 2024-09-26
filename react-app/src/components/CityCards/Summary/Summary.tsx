@@ -9,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import dataSource from "../../../services/dataSource";
-import Cookies from "js-cookie";
 import Toast from "../../Toast/Toast";
 
 // This component displays basic information about each city
@@ -30,7 +29,7 @@ function Summary({
         console.log(data._id);
         let result = await dataSource.put(`/saveCity?id=${data._id}`, null, {
           headers: {
-            Authorization: `Bearer ${Cookies.get("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
@@ -56,7 +55,7 @@ function Summary({
         console.log("Removing city with id of:" + id);
         let deleted = await dataSource.delete("/deleteCity?id=" + id, {
           headers: {
-            Authorization: `Bearer ${Cookies.get("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         if (deleted.data === "City Removed") {

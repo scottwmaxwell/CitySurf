@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCompass } from "@fortawesome/free-solid-svg-icons";
 import { faCity } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
 // This component displays at the top of every page so the user can navigate
@@ -34,7 +33,7 @@ function Nav({
   }, []);
 
   // Check if logged in
-  setLoggedIn(!!Cookies.get("token"));
+  setLoggedIn(!!localStorage.getItem("token"));
 
   // Prompt use to login
   const handleLogin = () => {
@@ -42,8 +41,8 @@ function Nav({
   };
 
   const handleLogout = () => {
-    Cookies.remove("token");
-    setLoggedIn(!!Cookies.get("token"));
+    localStorage.removeItem("token");
+    setLoggedIn(!!localStorage.getItem("token"));
     setToastMessage("You have been logged out.");
     setToastTitle("Message");
     setToastShow(true);

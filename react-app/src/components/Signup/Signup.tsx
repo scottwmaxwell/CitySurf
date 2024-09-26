@@ -1,7 +1,6 @@
 import dataSource from "../../services/dataSource";
 import "../Login/Login.css";
 import { useState, useEffect, useRef } from "react";
-import Cookies from "js-cookie";
 import { PasswordCheckService } from "../../services/passwordCheckService";
 import 'altcha';
 
@@ -97,7 +96,7 @@ function Signup({
             payload
           );
           if (authenticate.data.message == "Success") {
-            Cookies.set("token", authenticate.data.token, { expires: 7 });
+            localStorage.setItem("token", authenticate.data.token);
             console.log("Set cookie");
             setLoggedIn(true);
             setMetrics(true);

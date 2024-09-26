@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import "./CityView.css";
-import Cookies from "js-cookie";
 
 // Components
 import dataSource from "../../services/dataSource";
@@ -63,7 +62,7 @@ function CityView({
     try {
       let result = await dataSource.get("/savedCities", {
         headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       cityIds = result.data[0].cities;
@@ -126,12 +125,6 @@ function CityView({
                 cityNames={cityData.map((city) => city.city)}
                 plotData={cityData.map((city) => city.population)}
                 plotType="scatter"
-                plotName="Population"
-              />
-              <Chart
-                cityNames={cityData.map((city) => city.city)}
-                plotData={cityData.map((city) => city.job_industry)}
-                plotType="bar"
                 plotName="Population"
               />
               <Chart

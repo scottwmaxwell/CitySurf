@@ -23,7 +23,7 @@ export class CitySearchService{
     citydataTyped = citydata as GeoJSON;
     
     fuseOptions = {
-        // isCaseSensitive: false,
+        isCaseSensitive: false,
         // includeScore: false,
         // shouldSort: true,
         // includeMatches: false,

@@ -1,11 +1,10 @@
 import dataSource from "../../services/dataSource";
-import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import SavedCity from "../../components/SavedCity/SavedCity";
 import { useNavigate } from "react-router-dom";
 
 // This component displays all of the useres saved cities
-function SavedCities({ modalOpen }: any) {
+function SavedCities({ modalOpen, setCities }: any) {
   const navigate = useNavigate();
   const [savedCities, setSavedCities] = useState<any[]>([]);
 
@@ -19,7 +18,7 @@ function SavedCities({ modalOpen }: any) {
     try {
       let result = await dataSource.get("/savedCities", {
         headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       cityIds = result.data[0].cities;
@@ -60,12 +59,14 @@ function SavedCities({ modalOpen }: any) {
   const handleViewClick = async (e: any) => {
     let id = e.currentTarget.id;
     let cityName;
-    console.log(savedCities);
     for (let city of savedCities) {
       if (city._id == id) {
         cityName = `${city.name}, ${city.state}`;
       }
     }
+
+    // set city
+    setCities([cityName]);
 
     // Navigate to cityView page
     navigate("/city");
@@ -79,7 +80,7 @@ function SavedCities({ modalOpen }: any) {
         console.log(e.currentTarget.id);
         let deleted = await dataSource.delete("/deleteCity?id=" + id, {
           headers: {
-            Authorization: `Bearer ${Cookies.get("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         if (deleted.data === "City Removed") {
