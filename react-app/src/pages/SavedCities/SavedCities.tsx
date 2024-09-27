@@ -60,7 +60,7 @@ function SavedCities({ modalOpen, setCities }: any) {
     let id = e.currentTarget.id;
     let cityName;
     for (let city of savedCities) {
-      if (city._id == id) {
+      if (city._id === id) {
         cityName = `${city.name}, ${city.state}`;
       }
     }
@@ -86,7 +86,7 @@ function SavedCities({ modalOpen, setCities }: any) {
         if (deleted.data === "City Removed") {
           console.log(savedCities);
           console.log(id);
-          const newCities = savedCities.filter((city) => city._id != id);
+          const newCities = savedCities.filter((city) => city._id !== id);
           setSavedCities(newCities);
         }
       } catch (e) {

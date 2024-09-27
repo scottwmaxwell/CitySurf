@@ -33,7 +33,7 @@ function Login({
       let result = await dataSource.post("/authenticateUser", payload);
       console.log(result.data);
       console.log(result.data.message);
-      if (result.data.message == "Success") {
+      if (result.data.message === "Success") {
         localStorage.setItem('token', result.data.token);
         setLoggedIn(true);
         setToastShow(true);
@@ -100,14 +100,14 @@ function Login({
         </div>
 
         <div className="form-group d-flex justify-content-left">
-          <a className="sign-up" href="#" onClick={handleSignUp}>
+          <button className="sign-up btn btn-link" onClick={handleSignUp}>
             Sign Up
-          </a>
+          </button>
         </div>
         <div className="form-group d-flex justify-content-left">
-          <a className="sign-up" href="#" onClick={handlePassReset}>
+          <button className="sign-up btn btn-link" onClick={handlePassReset}>
             Forgot Password?
-          </a>
+          </button>
         </div>
       </form>
     </div>
