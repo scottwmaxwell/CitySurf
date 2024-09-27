@@ -4,9 +4,11 @@
   "description": "Backend for CitySurf",
   "main": "./src/app.ts",
   "scripts": {
-    "start:watch": "nodemon ./src/app.ts",
-    "start": "npx ts-node ./src/app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "serve": "node build/app.js",
+    "start": "npm run build && node build/app.js",
+    "watch": "nodemon ./src/app.ts"
   },
   "author": "",
   "license": "ISC",
@@ -25,10 +27,10 @@
     "@types/nodemailer": "^6.4.16",
     "@types/winston-loggly-bulk": "^3.0.6",
     "bcrypt": "^5.1.1",
-    "cors": "file:../../../../../opt/homebrew/lib/node_modules/cors",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "express-session": "^1.18.0",
     "fuse.js": "^7.0.0",
     "helmet": "^7.1.0",

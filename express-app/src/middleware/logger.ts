@@ -5,7 +5,7 @@ dotenv.config();
 
 // Get environment variables
 const logglyToken = process.env.LOGGLY ?? "default_token";
-const subdomain = process.env.LOGGLY ?? "default_domain";
+const subdomain = process.env.DOMAIN ?? "default_domain";
 
 // Loggly configuration
 const loggly = {
