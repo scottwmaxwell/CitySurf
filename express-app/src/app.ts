@@ -2,6 +2,8 @@ import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
+import morgan from "morgan";
+import {stream} from "./middleware/logger";
 
 // Routers
 import usersRouter from "./users/users.routes";
@@ -17,6 +19,7 @@ app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-Encoded bodies
 app.use(cors()); // allows cross-origin
 app.use(helmet()); // Protects server
+app.use(morgan("combined", {stream: stream})); // Loggly stream
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");

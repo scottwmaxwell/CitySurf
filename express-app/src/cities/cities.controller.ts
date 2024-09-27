@@ -2,17 +2,20 @@ import { Request, RequestHandler, Response } from "express";
 import executeMongoDBOperation from "../services/mongodb.connector";
 import { ObjectId } from "mongodb";
 import City from "../models/models.city";
-import {CitySearchService} from "../services/CitySearchService";
+import { CitySearchService } from "../services/CitySearchService";
 import citydata from "../assets/citydata.json";
+import { logger } from "../middleware/logger";
 
 // Returns a single city by Id or by state and name
 export const getCity: RequestHandler = async (req: Request, res: Response) => {
+  logger.info("getCity");
+
+  // Get query items
   const cityId: any = req.query.id;
   const cityName: any = req.query.cityname;
   const cityState: any = req.query.citystate;
 
-  console.log("cityState: " + cityState);
-
+  // get city by cityId
   if (cityId) {
     try {
       const results = await executeMongoDBOperation("cities", "find", {
@@ -31,39 +34,49 @@ export const getCity: RequestHandler = async (req: Request, res: Response) => {
             state: cityResult.state,
             description: cityResult.description,
           };
+          logger.info(`retrieved city ${cityId}`);
           res.status(200).json(city);
         } else {
+          logger.error("Invalid Request Sent");
           res.status(400).send("Invalid Request");
         }
       }
     } catch (e) {
       console.log(e);
+      logger.error(`Server Error: ${e}`);
       res.status(500).send("Server Error");
     }
+
+    // Get city by cityState and cityName
   } else if (cityState && cityName) {
     const city = await executeMongoDBOperation("cities", "findone", {
       city: cityName,
       state: cityState,
     });
     if (city) {
+      logger.info(`retrieved city ${cityId}`);
       res.status(200).json(city);
     }
   } else {
+    logger.error("Invalid Request");
     res.status(400).send("Invalid Request");
   }
 };
 
-// Returns the city document correlated to
-// the latidue and logitude values passed
+// Returns the city document correlated to the latidue and logitude values passed
 export const getCityByGeoloc: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
+  logger.info("getCityByGeoloc");
+
+  // Get query items
   const cityLat: any = req.query.lat;
   const cityLon: any = req.query.lon;
 
   if (cityLat && cityLon) {
     try {
+      // Create query with bounding box requirement
       const query = {
         boundingbox: {
           $geoIntersects: {
@@ -75,14 +88,11 @@ export const getCityByGeoloc: RequestHandler = async (
         },
       };
 
-      console.log(query);
       const result = await executeMongoDBOperation("cities", "findone", query);
-      console.log("getCityByGeoloc");
-      console.log(result);
-
+      logger.info("Retrieved city based on latitude and longitude");
       res.status(200).json(result);
     } catch (e) {
-      console.log(e);
+      logger.error(`An error occurred: ${e}`);
     }
   } else {
     res.status(400).send("Invalid Request");
@@ -90,34 +100,42 @@ export const getCityByGeoloc: RequestHandler = async (
 };
 
 // Returns cities based on sent string
-export const getSuggestions: RequestHandler = async (req: Request, res: Response) => {
+// No logging as this end point will be called many times
+export const getSuggestions: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  // get search from query
   const search = req.query.search as string;
-  if(search){
+  if (search) {
+    // Create new searchService (fuse.js)
     const searchService = new CitySearchService();
+    // Get results
     const results = searchService.findCity(search);
     return res.status(200).json(results);
-  }else{
+  } else {
     return res.status(400).send("Invalid Request");
   }
-}
+};
 
 // Returns GeoJSON object used for MapBox
-export const getGeoJSON: RequestHandler = async (req: Request, res: Response) => {
+export const getGeoJSON: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  logger.info("getGeoJSON");
   return res.status(200).json(citydata);
-}
+};
 
 // Allows submission of ratings for a city
 // Requires user authentication
 export const rateCity: RequestHandler = async (req: Request, res: Response) => {
-  console.log("RateCity");
-
+  logger.info("rateCity");
   const cleanliness = req.body.cleanliness;
   const safety = req.body.safety;
   const landmarks = req.body.landmarks;
   const education = req.body.education;
   const cityId = req.body.cityId;
-
-  console.log("cleanliness: " + cleanliness);
 
   const metrics = {
     [`community_metrics.cleanliness.${parseInt(cleanliness)}`]: 1,
@@ -133,9 +151,10 @@ export const rateCity: RequestHandler = async (req: Request, res: Response) => {
       { $inc: metrics },
       new ObjectId(cityId)
     );
+    logger.info(`Metrics submitted for ${cityId}`);
     res.status(200).send("Success");
   } catch (e) {
-    console.log(e);
+    logger.error(`An error occurred: ${e}`);
     res.status(400).send("Invalid Request");
   }
 };

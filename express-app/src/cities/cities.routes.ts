@@ -10,5 +10,4 @@ router.route("/citySuggestions").get(CitiesController.getSuggestions);
 router.route("/cityGeoJson").get(CitiesController.getGeoJSON);
 router.route("/ratecity").put(authMiddleware, CitiesController.rateCity);
 
-
 export default router;

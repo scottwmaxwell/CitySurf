@@ -4,16 +4,29 @@ import { authMiddleware } from "../middleware/valid.jwt";
 
 const router = Router();
 
-// Router for making
-
 router
   .route("/savedCities")
   .get(authMiddleware, UsersController.getSavedCities);
-router.route("/createUser").post(UsersController.createUser);
-router.route("/updateUser").post(authMiddleware, UsersController.updateUser);
-router.route("/authenticateUser").post(UsersController.authenticateUser);
-router.route("/user/:id").delete(authMiddleware, UsersController.deleteUser);
-router.route("/deleteCity").delete(authMiddleware, UsersController.deleteCity);
-router.route("/saveCity").put(authMiddleware, UsersController.saveCity);
+router
+  .route("/createUser")
+  .post(UsersController.createUser);
+router
+  .route("/authenticateUser")
+  .post(UsersController.authenticateUser);
+router
+  .route("/requestReset")
+  .get(UsersController.requestReset);
+router
+  .route("/resetAuthorize")
+  .get(UsersController.resetAuthorize);
+router
+  .route("/passwordReset")
+  .put(authMiddleware, UsersController.passwordReset);
+router
+  .route("/deleteCity")
+  .delete(authMiddleware, UsersController.deleteCity);
+router
+  .route("/saveCity")
+  .put(authMiddleware, UsersController.saveCity);
 
 export default router;
