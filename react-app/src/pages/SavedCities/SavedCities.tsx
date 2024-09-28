@@ -13,20 +13,23 @@ function SavedCities({ modalOpen, setCities }: any) {
   }, []);
 
   // Get saved cities from database
+  // Makes API calls to get the city Ids user has saved 
+  // and more calls to obtain data for each city
   const getSavedCities = async () => {
     let cityIds;
     try {
+      // make request to API to obtain saved cities of user
       let result = await dataSource.get("/savedCities", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      cityIds = result.data[0].cities;
+      cityIds = result.data[0].cities; // saved result in cityIds
     } catch (e) {
       console.log(e);
-      console.log("bad auth");
     }
 
+    // For each saved city, get the data
     if (cityIds) {
       const fetchedCities = await Promise.all(
         cityIds.map(async (cityId: string) => {
@@ -34,12 +37,11 @@ function SavedCities({ modalOpen, setCities }: any) {
           return result.data;
         }),
       );
-
-      console.log(fetchedCities);
       setSavedCities(fetchedCities);
     }
   };
 
+  // Maps city data (description, name, etc.) to SavedCity component
   const renderSavedcities = () => {
     if (savedCities) {
       return savedCities.map((city: any, index: number) => {
@@ -56,36 +58,42 @@ function SavedCities({ modalOpen, setCities }: any) {
     }
   };
 
+  // User clicked to view a saved city
   const handleViewClick = async (e: any) => {
     let id = e.currentTarget.id;
     let cityName;
+
+    // loop over savedCities to obtain city name, and state of clicked city
     for (let city of savedCities) {
       if (city._id === id) {
         cityName = `${city.name}, ${city.state}`;
       }
     }
 
-    // set city
+    // reset cities so that navigation to to /city will display it
     setCities([cityName]);
 
-    // Navigate to cityView page
+    // Navigate to cityView component
     navigate("/city");
   };
 
+  // Used clicked to remove a city
   const handleRemove = async (e: any) => {
+    // prompt user with confirmation
     let result = window.confirm("Are you sure you want to remove this city?");
     let id = e.currentTarget.id;
     if (result) {
       try {
-        console.log(e.currentTarget.id);
+
+        // Make API call to delete the city
         let deleted = await dataSource.delete("/deleteCity?id=" + id, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+
+        // If city was deleted remove it from page
         if (deleted.data === "City Removed") {
-          console.log(savedCities);
-          console.log(id);
           const newCities = savedCities.filter((city) => city._id !== id);
           setSavedCities(newCities);
         }

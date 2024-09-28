@@ -34,7 +34,8 @@ function Summary({
         });
 
         if (result.data === "City Added") {
-          setSaved(true);
+          setSaved(true); // Change icon indicator
+          // Display Toast
           setToastShow(true);
           setToastTitle("Message");
           setToastMessage("Saved City");
@@ -52,14 +53,15 @@ function Summary({
     let result = window.confirm("Are you sure you want to remove this city?");
     if (result) {
       try {
-        console.log("Removing city with id of:" + id);
+        // Make API call to remove city
         let deleted = await dataSource.delete("/deleteCity?id=" + id, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         if (deleted.data === "City Removed") {
-          setSaved(false);
+          setSaved(false); // Change icon indicator
+          // Display Toast
           setToastShow(true);
           setToastTitle("Message");
           setToastMessage("Removed City");

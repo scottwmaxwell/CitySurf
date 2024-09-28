@@ -13,10 +13,9 @@ function Metrics({
   setShowToast,
   setToastTitle,
 }: any) {
-  const stars = [1, 2, 3, 4, 5];
+  const stars = [1, 2, 3, 4, 5]; // Used as ids for star icon elements
   const [starsSelected, setStarsSelected] = useState([0, 0, 0, 0]);
   const [locationPermission, setLocationPermission] = useState(0); // 0 = not set, 1 = permission denied, 2 = success
-  const [location, setLocation] = useState();
   const [cityId, setCityId] = useState("");
 
   const locationIcon = (
@@ -49,18 +48,16 @@ function Metrics({
     }
   };
 
-  const locationError = (error: any) => {
-    setLocationPermission(1);
-  };
-
-  // Called when the user navigates to this component
+  // get location when the user navigates to this component
   const getLocation = () => {
-    navigator.geolocation.getCurrentPosition(locationResult, locationError);
+    navigator.geolocation.getCurrentPosition(locationResult, (error: any)=>{
+      setLocationPermission(1); // User denied permission (changes message)
+    });
   };
 
+  // User clicks continue button after metrics or location perm deny
   const handleContinue = async () => {
     if (cityId) {
-      console.log(starsSelected);
       let payload = {
         cleanliness: starsSelected[0],
         safety: starsSelected[1],
@@ -68,26 +65,27 @@ function Metrics({
         education: starsSelected[3],
         cityId: cityId,
       };
+      // Make API call to send rating
       let result = await dataSource.put("/ratecity", payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      setModalOpen(false);
-    } else {
-      setModalOpen(false);
     }
+    setModalOpen(false); // Remove modal
   };
 
+  // User clicks a star
   const handleStarClick = (e: any) => {
+
     let className = e.currentTarget.className;
     let selectedStars = [...starsSelected];
     let id = Number(e.currentTarget.id);
 
+    // Determine which metric category was selected
     if (className.includes("metric-1")) {
       selectedStars[0] = id;
     }
-
     if (className.includes("metric-2")) {
       selectedStars[1] = id;
     }
@@ -97,8 +95,7 @@ function Metrics({
     if (className.includes("metric-4")) {
       selectedStars[3] = id;
     }
-
-    setStarsSelected(selectedStars);
+    setStarsSelected(selectedStars); // Save the rating locally
   };
 
   return (
@@ -206,8 +203,6 @@ function Metrics({
           </div>
         </div>
       ) : (
-        // ELSE
-
         <div className="input-box">
           <div className="d-flex justify-content-left">
             {locationPermission === 0 ? (

@@ -17,6 +17,8 @@ function Nav({
   setToastMessage,
   setToastTitle,
 }: any) {
+
+  // 
   const detectSmallScreen = () => {
     if (window.innerWidth < 800) {
       return true;
@@ -24,9 +26,11 @@ function Nav({
     return false;
   };
 
+  // Used to change Navbar according to window/screen size
   const [smallScreen, setSmallScreen] = useState(detectSmallScreen());
 
   useEffect(() => {
+    // Listen to window resize
     window.addEventListener("resize", () => {
       setSmallScreen(detectSmallScreen());
     });
@@ -40,9 +44,11 @@ function Nav({
     setModalOpen(true);
   };
 
+  // Used clicked logout button
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setLoggedIn(!!localStorage.getItem("token"));
+    localStorage.removeItem("token"); // Remove session token from storage
+    setLoggedIn(!!localStorage.getItem("token")); // Alert app to login state change
+    // Display Toast
     setToastMessage("You have been logged out.");
     setToastTitle("Message");
     setToastShow(true);

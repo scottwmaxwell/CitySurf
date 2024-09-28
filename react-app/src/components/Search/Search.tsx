@@ -13,8 +13,8 @@ function Search({ cities, setCities, getSelectedCities }: any) {
   const [suggestions, setSuggestions] = useState([""]);
   const navigate = useNavigate();
   const location = useLocation();
-  const debounceTimeout = useRef<NodeJS.Timeout | null>(null); // Store timeout ID in a ref
 
+  // Interface used to verify search suggestion result type
   interface SearchResult {
     item: {
       type: string;
@@ -30,11 +30,7 @@ function Search({ cities, setCities, getSelectedCities }: any) {
     refIndex: number;
   }
 
-  useEffect(()=>{
-    getSuggestions.cancel();
-  }, []);
-  
-
+  // Update cities as user types
   const handleChange = (event: any) => {
     let citiesTemp = [...cities];
     const index: number = Number(event.target.id);
@@ -43,20 +39,31 @@ function Search({ cities, setCities, getSelectedCities }: any) {
     getSuggestions(event.target.value);
   };
 
+  // Debounce used to wait for user to stop typing before making call
   const getSuggestions = debounce(async (searchValue:string)=>{
     if(searchValue != ""){
-      const results = await dataSource(`/citySuggestions?search=${searchValue}`);
-      const newSuggesetions = results.data.map((result: SearchResult)=> result.item.properties.name )
-      setSuggestions(newSuggesetions);
+      try{
+        // Make API call for search suggestions
+        const results = await dataSource(`/citySuggestions?search=${searchValue}`);
+        const newSuggesetions = results.data.map((result: SearchResult)=> result.item.properties.name )
+        setSuggestions(newSuggesetions);
+      }catch(e){
+        console.log(e);
+      }
     }
   }, 500);
 
+  // navigates to the view city page 
+  // or re-calls the getSelectedCities if already on cityView
   const handleGo = (e: any) => {
     console.log("Go/Add Pressed");
+
+    // already on city page?
     if (location.pathname === "/city") {
-      getSelectedCities();
+      getSelectedCities(); // Call the API to get city data
     } else {
-      navigate("/city");
+      // Go to the city page where the data call will occur automatically
+      navigate("/city"); 
     }
   };
 
@@ -64,15 +71,15 @@ function Search({ cities, setCities, getSelectedCities }: any) {
     if (cities.length < 3) setCities([...cities, ""]);
   };
 
+  // User removes searech field
   const handleRemove = (event: any) => {
-    console.log("handleRemove");
     let citiesTemp = [...cities];
     const index: number = Number(event.target.id);
-    console.log("Which index to remove? " + index);
-    citiesTemp.splice(index, 1);
-    setCities(citiesTemp);
+    citiesTemp.splice(index, 1); // remove city 
+    setCities(citiesTemp); // re-save the new list of cities
   };
 
+  // Creates number of search fields user has added/removed (will always display at least one)
   const renderCityInputs = () => {
     return cities.map((city: string, index: number) => (
       <div key={index.toString()} className="input-container">
@@ -106,7 +113,7 @@ function Search({ cities, setCities, getSelectedCities }: any) {
     ));
   };
 
-  // const locationIcon = <FontAwesomeIcon className="discover-icon" icon={faMapLocationDot} color="#E2B714"/>
+  // Icon used for saving cities
   const addCityIcon = (
     <FontAwesomeIcon className="add-city-icon" icon={faPlus} color="#E2B714" />
   );

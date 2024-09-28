@@ -20,9 +20,10 @@ function Modal({
   const [signup, setSignup] = useState(false);
   const [metrics, setMetrics] = useState(false);
 
+  // User clicked to close modal
   const handleClose = (e: any) => {
     e.preventDefault();
-    setModalOpen(false);
+    setModalOpen(false); // Remove modal component
   };
 
   return (

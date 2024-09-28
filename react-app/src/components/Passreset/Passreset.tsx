@@ -13,16 +13,20 @@ function Passreset({ setPassReset, setLogin, setModalOpen, setToastShow, setToas
   const [resetToken, setResetToken] = useState("");
   const [passValidMessage, setPassValidMessage] = useState("");
 
+  // Update email as user types
   const updateEmail = (e: any) =>{
     setEmail(e.target.value);
   }
 
+  // Update password as user types
   const updatePasswordOne = (e: any) => {
     passwordOneSet(e.target.value);
-    checkPass(e.target.value);
+    checkPass(e.target.value); // check password strength
   };
 
+  // Update password as user types
   const updatePasswordTwo = (e: any) => {
+    // If first password is strong, allow user to type in second password field
     if (checkPass(passwordOne)) {
       passwordTwoSet(e.target.value);
       if (passwordOne !== e.target.value && passwordOne !== "") {
@@ -33,25 +37,28 @@ function Passreset({ setPassReset, setLogin, setModalOpen, setToastShow, setToas
     }
   };
 
+  // Checks the strength of password
   const checkPass = (password: string) => {
     const passwordStength = passwordCheck.checkPasswordStrength(password);
     if (passwordStength === 0) {
-      setPassValidMessage("Password too short");
+      setPassValidMessage("Password too short"); // set real-time message
       return false;
     } else if (passwordStength === 1) {
-      setPassValidMessage("Password too common");
+      setPassValidMessage("Password too common"); // set real-time message
       return false;
     } else if (passwordStength === 2) {
-      setPassValidMessage("Password too weak");
+      setPassValidMessage("Password too weak"); // set real-time message
       return false;
     } else {
-      setPassValidMessage("");
+      setPassValidMessage(""); // remove real-time message
       return true;
     }
   };
 
+  // Initialize passwordCheck service
   const passwordCheck = new PasswordCheckService();
 
+  // User submits password reset
   const handleChangePassword = async (e: any) => {
     e.preventDefault();
     const passwordStength = passwordCheck.checkPasswordStrength(passwordOne);
@@ -64,10 +71,12 @@ function Passreset({ setPassReset, setLogin, setModalOpen, setToastShow, setToas
           }
         });
         if(result.data.message === "Success"){
-          setResetToken("");
+          setResetToken(""); // Make resetToken empty
+          // Display Toast
           setToastTitle("Message");
           setToastMessage("Password has been reset");
           setToastShow(true);
+          // Remove password reset component and display login
           setPassReset(false);
           setLogin(true);
         }
@@ -85,30 +94,35 @@ function Passreset({ setPassReset, setLogin, setModalOpen, setToastShow, setToas
     }
   };
 
+  // User requests to reset password
   const handlePassReset = async (e: any) => {
     e.preventDefault();
-    console.log("Password reset started");
+
+    // Send password reset code to email (if Valid)
     const result = await dataSource(`/requestReset?email=${email}`);
     if(result){
-      setToastMessage(result.data.message)
+      // Display Toast
+      setToastMessage(result.data.message);
       setToastTitle("Check your email");
       setToastShow(true);
       setEmailSubmitted(true);
     }
   };
 
+  // User submits reset code
   const handleCode = async (e: any) => {
     e.preventDefault();
-    console.log("Code set");
     const code = e.target[0].value;
     try{
+      // Verify code is valid
       const result = await dataSource(`/resetAuthorize?email=${email}&resetCode=${code}`);
       if(result){
         console.log(result.data.token)
         setResetToken(result.data.token);
-        setCodeSubmitted(true);
+        setCodeSubmitted(true); // Display password fields for reset
       }
     }catch(e){
+      // Display toast
       setToastMessage("Incorrect Code. Try Again.");
       setToastTitle("Error");
       setToastShow(true);
@@ -117,8 +131,8 @@ function Passreset({ setPassReset, setLogin, setModalOpen, setToastShow, setToas
 
   const handleLogin = (e: any) => {
     e.preventDefault();
-    setPassReset(false);
-    setLogin(true);
+    setPassReset(false); // Remove password component
+    setLogin(true); // Show login component
   };
 
   //d-flex justify-content-center

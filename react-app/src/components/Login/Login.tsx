@@ -16,43 +16,49 @@ function Login({
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  // User clicks sign up link
   const handleSignUp = () => {
-    setSignup(true);
-    setLogin(false);
+    setSignup(true); // Display Signup component
+    setLogin(false); // Remove login component
   };
 
+  // User clicks password reset link
   const handlePassReset = () => {
-    setLogin(false);
-    setPassReset(true);
+    setLogin(false); // Remove login copmonent
+    setPassReset(true); // Display password reset component
   };
 
+  // User submit login
   const handleLogin = async (e: any) => {
     e.preventDefault();
     let payload = { email: email, password: password };
     try {
+      // Authenticate user via API call
       let result = await dataSource.post("/authenticateUser", payload);
-      console.log(result.data);
-      console.log(result.data.message);
       if (result.data.message === "Success") {
-        localStorage.setItem('token', result.data.token);
-        setLoggedIn(true);
-        setToastShow(true);
+        localStorage.setItem('token', result.data.token); // Save session in local storage
+        setLoggedIn(true); // Alert app to login status
+        // Diplay Toast
+        setToastShow(true); 
         setToastTitle("Message");
         setToastMessage("You have been logged in");
-        setModalOpen(false);
+        setModalOpen(false); // Remove modal component
       }
     } catch {
-      console.log("Cannot login: ", e);
+      console.log(e);
+      // Display Toast
       setToastShow(true);
       setToastTitle("Error: Cannot Login");
       setToastMessage("Email or Password incorrect.");
     }
   };
 
+  // Update email as user types
   const updateEmail = (e: any) => {
     setEmail(e.currentTarget.value);
   };
 
+  // Update password as user types
   const updatePassword = (e: any) => {
     setPassword(e.currentTarget.value);
   };

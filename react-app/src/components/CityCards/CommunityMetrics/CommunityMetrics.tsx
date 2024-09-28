@@ -12,7 +12,8 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 // This component displays a community metrics card
 export function CommunityMetrics({ cityData, header }: any) {
   const calculateAverage = (ratings: number[]) => {
-    const sum = ratings.reduce((acc, num) => acc + num, 0);
+    const sum = ratings.reduce((acc, num) => acc + num, 0); // Get sum for each rating
+    // Calculate weighted sum
     const weightedSum = ratings.reduce(
       (acc, _, index) => acc + (index + 1) * ratings[index],
       0,
@@ -28,6 +29,7 @@ export function CommunityMetrics({ cityData, header }: any) {
           const ratings: number[] = Object.values(
             city.community_metrics[`${header.toLowerCase()}`],
           );
+          // Only display rating if sum is greater than 0
           if (
             ratings.reduce(
               (partialSum: number, a: number) => partialSum + a,

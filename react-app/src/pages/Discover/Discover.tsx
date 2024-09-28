@@ -3,7 +3,7 @@ import "./Discover.css";
 import Search from "../../components/Search/Search";
 import { useState } from "react";
 
-// This component displays the interactive map
+// Displays the interactive mapbox map
 function Discover({ modalOpen, cities, setCities }: any) {
   return (
     <div className={"container main-content " + modalOpen}>

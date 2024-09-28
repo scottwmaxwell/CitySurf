@@ -15,45 +15,51 @@ function Signup({
   setToastMessage,
   setToastTitle,
 }: any) {
-  const [passwordOne, passwordOneSet] = useState("");
-  const [passwordTwo, passwordTwoSet] = useState("");
+  const [passwordOne, passwordOneSet] = useState(""); 
+  const [passwordTwo, passwordTwoSet] = useState(""); // Used to verify password was typed correctly
   const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [email, emailSet] = useState("");
   const [passValidMessage, setPassValidMessage] = useState("");
 
-  const altchaURL = process.env.REACT_APP_ALTCHA as string; // Challenge URL
+  // Challenge URL from environment vars
+  const altchaURL = process.env.REACT_APP_ALTCHA as string; 
 
   useEffect(() => {
-    setPasswordsMatch(passwordOne === passwordTwo);
+    setPasswordsMatch(passwordOne === passwordTwo); // Checks password missmatch in real-time
   }, [passwordOne, passwordTwo]);
 
+  // Update email as user types it
   const updateEmail = (e: any) => {
     emailSet(e.target.value);
   };
 
+  // Checks the strength of password
   const checkPass = (password: string) => {
     const passwordStength = passwordCheck.checkPasswordStrength(password);
     if (passwordStength === 0) {
-      setPassValidMessage("Password too short");
+      setPassValidMessage("Password too short"); // Set real-time message
       return false;
     } else if (passwordStength === 1) {
-      setPassValidMessage("Password too common");
+      setPassValidMessage("Password too common"); // Set real-time message
       return false;
     } else if (passwordStength === 2) {
-      setPassValidMessage("Password too weak");
+      setPassValidMessage("Password too weak"); // Set real-time message
       return false;
     } else {
-      setPassValidMessage("");
+      setPassValidMessage(""); // Remove real-time message
       return true;
     }
   };
 
+  // Update password as user types it
   const updatePasswordOne = (e: any) => {
     passwordOneSet(e.target.value);
-    checkPass(e.target.value);
+    checkPass(e.target.value); // Check password strength
   };
 
+  // Update the 'verify' password as user types it
   const updatePasswordTwo = (e: any) => {
+    // If first password is strong, allow user to type in second password field
     if (checkPass(passwordOne)) {
       passwordTwoSet(e.target.value);
       if (passwordOne !== e.target.value && passwordOne !== "") {
@@ -65,11 +71,13 @@ function Signup({
     }
   };
 
+  // Switch to login component
   const handleLogin = () => {
-    setSignup(false);
-    setLogin(true);
+    setSignup(false); // Remove signup component
+    setLogin(true); // display login component
   };
 
+  // Initialize passwordCheck Service
   const passwordCheck = new PasswordCheckService();
 
   const handleSignup = async (e: any) => {
@@ -92,7 +100,7 @@ function Signup({
         result = await dataSource.post("/createUser", payload);
         console.log(result);
         if (result.data.message === "Success") {
-          console.log("here in success");
+          // Display Toast
           setToastTitle("Message");
           setToastMessage("Account has been registered");
           setToastShow(true);
@@ -104,28 +112,27 @@ function Signup({
           if (authenticate.data.message == "Success") {
             localStorage.setItem("token", authenticate.data.token);
             console.log("Set cookie");
-            setLoggedIn(true);
-            setMetrics(true);
-            setSignup(false);
+            setLoggedIn(true); // tell app the user is signed up
+            setMetrics(true); // Display metrics component
+            setSignup(false); // Remove sign up component
           }
         } else {
         }
       } catch (e) {
         console.log(e);
-        console.log(result);
+        // Display toast
         setToastTitle("Error");
         setToastMessage("Failed to create user");
         setToastShow(true);
       }
     } else {
-      console.log("passwords don't match");
+      // Display toast
       setToastMessage("Passwords don't match");
       setToastTitle("Error");
       setToastShow(true);
     }
   };
 
-  //d-flex justify-content-center
   return (
     <div>
       <form className="form" onSubmit={handleSignup}>

@@ -25,6 +25,8 @@ function CityView({
   const initialRender = useRef(true);
 
   useEffect(() => {
+
+    // Limits calls to backend
     if (initialRender.current) {
       getSelectedCities();
       initialRender.current = false; // Set it to false after the first run
@@ -34,11 +36,16 @@ function CityView({
   // Get cities from Database based on search fields
   const getSelectedCities = async () => {
     try {
+
+      // Only get saved cities if user is logged in
       if (loggedIn) {
         await getSavedCities();
       }
-      let selectedCities = cities;
-      setCityData([]);
+
+      const selectedCities = cities; // get cities from search field
+      setCityData([]); // reset city data to avoid duplicates
+
+      // Loop over user selected cities and retrieved them from the backend
       for (let selectCity of selectedCities) {
         if (selectCity !== "") {
           let [city, state] = selectCity.split(",");
@@ -47,8 +54,6 @@ function CityView({
             `/city?cityname=${city}&citystate=${state}`
           );
           setCityData((prevCityData) => [...prevCityData, result.data]);
-          console.log("Retrieved data for: " + result.data.city);
-          console.log(cityData);
         }
       }
     } catch (e) {
@@ -60,18 +65,18 @@ function CityView({
   const getSavedCities = async () => {
     let cityIds;
     try {
+      // make request to API
       let result = await dataSource.get("/savedCities", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      cityIds = result.data[0].cities;
+      cityIds = result.data[0].cities; // save response
       if (cityIds) {
-        setSavedCities(cityIds);
+        setSavedCities(cityIds); // save into state variable
       }
     } catch (e) {
       console.log(e);
-      console.log("bad auth");
     }
   };
 
