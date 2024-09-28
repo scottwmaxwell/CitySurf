@@ -1,9 +1,6 @@
 // Imports
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Cookies from "js-cookie";
 
 // Pages
 import Home from "./pages/Home/Home";
@@ -25,10 +22,14 @@ import { useState } from "react";
 
 // Main component for displaying all other components
 function App() {
-  // State variables
-  const [modalOpen, setModalOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(!!Cookies.get("token"));
 
+  // Modal used for login, signup, metrics contrib (post signup), and password reset
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // Used to 
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token"));
+
+  // Toast component used throughout app for messaging
   const [toastMessage, setToastMessage] = useState("");
   const [toastTitle, setToastTitle] = useState("");
   const [toastShow, setToastShow] = useState(false);

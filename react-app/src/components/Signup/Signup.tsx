@@ -2,7 +2,7 @@ import dataSource from "../../services/dataSource";
 import "../Login/Login.css";
 import { useState, useEffect, useRef } from "react";
 import { PasswordCheckService } from "../../services/passwordCheckService";
-import 'altcha';
+import "altcha";
 
 // This component is used within the modal to register the user
 function Signup({
@@ -74,6 +74,8 @@ function Signup({
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
+
+    console.log(e.target[4].value);
 
     const passwordStength = passwordCheck.checkPasswordStrength(passwordOne);
 
