@@ -7,6 +7,7 @@ interface CustomJwtPayload extends JwtPayload {
   email: string;
 }
 
+// Declare user type for JwtPayLoad
 declare global {
   namespace Express {
     interface Request {

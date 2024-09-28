@@ -20,6 +20,7 @@ const client = new MongoClient(uri, {
   },
 });
 
+// Used for all database executions and queries
 const executeMongoDBOperation = async (
   collectionName: string,
   operation: string,
@@ -45,15 +46,15 @@ const executeMongoDBOperation = async (
           return await collection.find(data).toArray();
         }
       case "findone":
-        return await collection.findOne(data);
+        return await collection.findOne(data); // Performs findOne query on database
       case "insert":
-        await collection.insertOne(data);
+        await collection.insertOne(data); // Performs insertOne execution on database
         return "Insert successful";
       case "update":
-        await collection.updateOne({ _id: id }, data);
+        await collection.updateOne({ _id: id }, data); // Performs an update on database
         return "Update successful";
       case "delete":
-        await collection.deleteOne(data);
+        await collection.deleteOne(data); // Performs a deletion of one document in the database
         return "Delete successful";
       default:
         console.log(operation);

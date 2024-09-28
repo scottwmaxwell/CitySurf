@@ -13,11 +13,14 @@ interface GeoJSONFeature {
         coordinates: [number, number];
     };
 }
+// Define structure of GeoJson 
 interface GeoJSON {
     type: string;
     features: GeoJSONFeature[];
 }
 
+// Uses fuse.js to index cities based on 
+// Uses hard coded .json file to avoid slow database calls
 export class CitySearchService{
 
     citydataTyped = citydata as GeoJSON;
@@ -41,8 +44,10 @@ export class CitySearchService{
         ]
     };
 
+    // Create a fuse object
     fuse = new Fuse(this.citydataTyped.features, this.fuseOptions);
 
+    // Perform a search and produce suggestions
     findCity = (searchPattern: string) => {
         return this.fuse.search(searchPattern).slice(0, 5);
     } 

@@ -19,3 +19,5 @@ mongoDB Upload.ipynb
 
 # Python environments
 *.venv
+
+*/build

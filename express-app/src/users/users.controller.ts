@@ -2,10 +2,7 @@ import { ObjectId } from "mongodb";
 import executeMongoDBOperation from "../services/mongodb.connector";
 import { Request, RequestHandler, Response } from "express";
 import bcrypt from "bcrypt";
-import jwt, { TokenExpiredError } from "jsonwebtoken";
-import { generateToken, verifyToken } from "../services/auth";
-import { CustomJwtPayload } from "../types/expresss";
-import User from "../models/models.user";
+import { generateToken } from "../services/auth";
 import { PasswordCheckService } from "../services/PasswordCheckService";
 import { sendMail } from "../services/mailService";
 import {logger} from '../middleware/logger';
@@ -21,6 +18,7 @@ export const getSavedCities: RequestHandler = async (
     let cities;
     if (userId) {
       try {
+        // Find savedcities from database based on userId
         cities = await executeMongoDBOperation(
           "users",
           "find",
@@ -33,7 +31,6 @@ export const getSavedCities: RequestHandler = async (
         res.status(400).send("Invalid Request");
       }
     }
-
     res.status(200).json(cities);
   } catch (e) {
     res.status(500).send("Server Error");
@@ -47,7 +44,7 @@ export const createUser: RequestHandler = async (
   res: Response
 ) => {
   logger.info('createUser');
-  const passwordService = new PasswordCheckService();
+  const passwordService = new PasswordCheckService(); // Initialize passwordService
 
   const password:string = req.body.password;
   const email:string = req.body.email;
@@ -63,9 +60,11 @@ export const createUser: RequestHandler = async (
     // Generates salt and creates password
     const hashedPassword = await bcrypt.hash(password, 10);
     if (
+      // ensure email does not already exist in database
       (await executeMongoDBOperation("users", "findone", { email: email })) ==
       null
     ) {
+      // Insert user into database
       await executeMongoDBOperation("users", "insert", {
         email: email,
         password: hashedPassword,
@@ -98,14 +97,16 @@ export const authenticateUser: RequestHandler = async (
       email: req.body.email,
     });
 
+    // If user does not exist return
     if (!user) {
       logger.info('User does not exist');
       return res.status(400).send("Cannot find user");
     }
 
+    // If user exists and password matches hash
     if (await bcrypt.compare(req.body.password, user.password)) {
       logger.info(`Authenticating user ${user.email}`);
-      // Generate session
+      // Generate session and return
       const token = generateToken({ userId: user._id, email: user.email });
       res.status(200).send({ message: "Success", token });
     } else {
@@ -129,8 +130,11 @@ export const deleteCity: RequestHandler = async (
   let userId = getUserIdFromRequest(req);
   let cityId = String(req.query.id);
   const cityIdToRemove = new ObjectId(cityId);
+
+  // If userId exists in sessions
   if (userId) {
     try {
+      // execute on database to delete city for user
       let result = await executeMongoDBOperation(
         "users",
         "update",
@@ -145,7 +149,6 @@ export const deleteCity: RequestHandler = async (
     logger.error('Invalid Request');
     res.status(400).send("Invalid Request");
   }
-
   logger.info(`City ${cityId} removed for ${userId}`);
   return res.status(200).send("City Removed");
 };
@@ -289,6 +292,7 @@ export const passwordReset: RequestHandler = async (req: Request, res: Response)
   }
 
   try{
+    // If userId exists from sessions
     if(userId){
         const hashedPassword = await bcrypt.hash(password, 10);
         // update the user's document with the new password

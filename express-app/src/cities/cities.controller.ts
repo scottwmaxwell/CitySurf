@@ -23,11 +23,13 @@ export const getCity: RequestHandler = async (req: Request, res: Response) => {
       });
       if (results && results.length > 0 && Array.isArray(results)) {
         const cityResult = results[0];
+        // If there is a cityResult and is and is an object and contains an _id
         if (
           cityResult &&
           typeof cityResult === "object" &&
           "_id" in cityResult
         ) {
+          // Map returned result to city Object Model
           const city: City = {
             _id: cityResult._id,
             name: cityResult.city,
@@ -137,6 +139,7 @@ export const rateCity: RequestHandler = async (req: Request, res: Response) => {
   const education = req.body.education;
   const cityId = req.body.cityId;
 
+  // Map metrics from request to metrics object using dynamic object keys
   const metrics = {
     [`community_metrics.cleanliness.${parseInt(cleanliness)}`]: 1,
     [`community_metrics.safety.${parseInt(safety)}`]: 1,
@@ -145,6 +148,7 @@ export const rateCity: RequestHandler = async (req: Request, res: Response) => {
   };
 
   try {
+    // update rating for city
     await executeMongoDBOperation(
       "cities",
       "update",
