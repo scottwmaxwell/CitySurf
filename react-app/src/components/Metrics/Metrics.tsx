@@ -4,7 +4,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import "./Metrics.css";
 import dataSource from "../../services/dataSource";
-import Cookies from "js-cookie";
 
 // This component is used to collect data from the user regarding 
 // their opinion of their own city stats
@@ -71,7 +70,7 @@ function Metrics({
       };
       let result = await dataSource.put("/ratecity", payload, {
         headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       setModalOpen(false);

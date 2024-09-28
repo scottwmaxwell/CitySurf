@@ -77,7 +77,11 @@ function Signup({
 
     const passwordStength = passwordCheck.checkPasswordStrength(passwordOne);
 
-    if (passwordOne === passwordTwo && passwordStength > 3) {
+    console.log(passwordOne);
+    console.log(passwordTwo);
+    console.log(passwordStength);
+
+    if (passwordOne === passwordTwo && passwordStength > 2) {
       console.log("password match");
       let payload = { email: email, password: passwordTwo };
       let result;
